@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".DatPhong"
+            android:name=".LienHe"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,15 +19,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".DatPhong"
+            android:exported="true"/>
+
+        <activity
             android:name=".TrangChuBacSi"
             android:exported="false" />
         <activity
             android:name=".DangNhap"
             android:exported="true" />
-
         <activity
             android:name=".DangKy"
-            android:exported="true"/>
+            android:exported="true" />
+
         <activity
             android:name=".TrangChuBenhNhan"
             android:exported="true" />
@@ -36,9 +40,7 @@
             android:exported="true" />
         <activity
             android:name=".LoiChao"
-
             android:exported="true" />
-
 
         <meta-data
             android:name="preloaded_fonts"
