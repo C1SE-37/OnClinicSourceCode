@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A1C4FD"
+    android:orientation="vertical"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    tools:context=".QuenMatKhau">
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/edtEmailHoacSdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_edittext"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName|text"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/btnTiepTuc"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/custom_corner"
+        android:backgroundTint="#6490E4"
+        android:text="Tiếp tục"
+        android:textAllCaps="false"
+        android:textColor="#ffff"
+        app:cornerRadius="20dp" />
+
+</LinearLayout>

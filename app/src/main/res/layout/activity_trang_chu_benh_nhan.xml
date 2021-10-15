@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TrangChuBenhNhan">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#A1C4FD"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineDuoi"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_corner"
+        android:text="Trang chủ"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTren" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTren">
+
+        <ImageButton
+            android:id="@+id/ibtnThongBao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="#A1C4FD"
+            app:srcCompat="@drawable/thong_bao"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/ibtnTrangCaNhan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#A1C4FD"
+            app:srcCompat="@drawable/ho_so_ca_nhan"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/btn_booking"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:background="@drawable/roundedbutton"
+        android:layout_margin="16dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
+        app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
+        app:srcCompat="@drawable/dat_phong"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/txtbooking"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Đặt phòng"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
+        app:layout_constraintTop_toBottomOf="@+id/btn_booking"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btn_HeartRate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@+id/txtbooking"
+        app:srcCompat="@drawable/do_nhip_tim"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Đo Nhịp Tim"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@+id/btn_HeartRate"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btn_LienHe"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:srcCompat="@drawable/img_contact"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Liên Hệ Chúng Tôi"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@+id/btn_LienHe"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btn_KhamOnline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/roundedbutton"
+        app:srcCompat="@drawable/kham_onl"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/tv_khamonline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Khám Online"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintTop_toBottomOf="@+id/btn_KhamOnline"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btn_LichSuKham"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_khamonline"
+        app:srcCompat="@drawable/lich_su_kham"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Lịch Sử Khám"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_LichSuKham"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTrai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelinePhai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineDuoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineDuoi2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineGiua1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.42" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineGiua2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.58" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
