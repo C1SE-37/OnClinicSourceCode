@@ -10,8 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+<<<<<<< HEAD
             android:name=".DatPhong"
             android:exported="true" />
+=======
+            android:name=".LienHe"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+>>>>>>> 113faa600632708d3025268d980960e2c831c67e
+
+        <activity
+            android:name=".DatPhong"
+            android:exported="true"/>
 
         <activity
             android:name=".TrangChuBacSi"
@@ -19,10 +30,10 @@
         <activity
             android:name=".DangNhap"
             android:exported="true" />
-
         <activity
             android:name=".DangKy"
-            android:exported="true"/>
+            android:exported="true" />
+
         <activity
             android:name=".TrangChuBenhNhan"
             android:exported="true" >
@@ -37,9 +48,7 @@
             android:exported="true" />
         <activity
             android:name=".LoiChao"
-
             android:exported="true" />
-
 
         <meta-data
             android:name="preloaded_fonts"

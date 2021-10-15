@@ -16,12 +16,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/custom_corner"
+        android:gravity="center"
         android:text="Trang chủ"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintDimensionRatio="1:0.3"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toTopOf="@+id/guidelineTren" />
@@ -41,7 +43,7 @@
             android:layout_marginRight="10dp"
             android:background="#A1C4FD"
             app:srcCompat="@drawable/thong_bao"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/ibtnTrangCaNhan"
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:background="#A1C4FD"
             app:srcCompat="@drawable/ho_so_ca_nhan"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </LinearLayout>
 
 

@@ -9,7 +9,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="643dd749-6bab-4eac-b4d8-f2489ffaf06e" name="Default Changelist" comment="" />
+    <list default="true" id="643dd749-6bab-4eac-b4d8-f2489ffaf06e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/onclinic/LienHe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_textview_nosolid.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_doitac.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_email.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_fb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_vitri.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_lien_he.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/custom_textview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_textview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_dat_phong.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_dat_phong.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_trang_chu_benh_nhan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_trang_chu_benh_nhan.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/preloaded_fonts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/preloaded_fonts.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,12 +40,16 @@
       <state>
         <projects_view>
           <tree_state>
+<<<<<<< HEAD
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="OnClinic" type="f1a62948:ProjectNode" />
               </path>
             </expand>
+=======
+            <expand />
+>>>>>>> 113faa600632708d3025268d980960e2c831c67e
             <select />
           </tree_state>
         </projects_view>
@@ -41,11 +59,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+<<<<<<< HEAD
         <option value="layoutResourceFile" />
+=======
+>>>>>>> 113faa600632708d3025268d980960e2c831c67e
         <option value="resourceFile" />
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -57,6 +79,8 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+=======
+>>>>>>> 113faa600632708d3025268d980960e2c831c67e
   <component name="ProjectId" id="1zVFp2ygwOBLUWYJMh9fVSm83UU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -74,8 +98,16 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+<<<<<<< HEAD
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Sprint2\app\src\main\res\drawable" />
+=======
+    <key name="android.template.-333730893">
+      <recent name="com.example.onclinic" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+>>>>>>> 113faa600632708d3025268d980960e2c831c67e
     </key>
   </component>
   <component name="RunManager">
@@ -148,5 +180,16 @@
       <updated>1634225527736</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
