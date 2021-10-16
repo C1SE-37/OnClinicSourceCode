@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.onclinic">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.onclinic" >
 
     <application
         android:allowBackup="true"
@@ -8,21 +9,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
-<<<<<<< HEAD
             android:name=".DatPhong"
             android:exported="true" />
-=======
-            android:name=".LienHe"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
->>>>>>> 113faa600632708d3025268d980960e2c831c67e
-
         <activity
-            android:name=".DatPhong"
-            android:exported="true"/>
+            android:name=".LienHe"
+            android:exported="true" />
 
         <activity
             android:name=".TrangChuBacSi"
@@ -33,9 +26,11 @@
         <activity
             android:name=".DangKy"
             android:exported="true" />
-
         <activity
-            android:name=".TrangChuBenhNhan"
+            android:name=".QuenMatKhau"
+            android:exported="true" />
+        <activity
+            android:name=".LoiChao"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,11 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".QuenMatKhau"
-            android:exported="true" />
-        <activity
-            android:name=".LoiChao"
+            android:name=".TrangChuBenhNhan"
             android:exported="true" />
 
         <meta-data

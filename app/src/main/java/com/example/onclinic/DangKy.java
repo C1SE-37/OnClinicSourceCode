@@ -137,7 +137,7 @@ public class DangKy extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                xuLyDangKy();
+                clickDangKy();
             }
         });
     }
@@ -147,7 +147,9 @@ public class DangKy extends AppCompatActivity {
         {
             try
             {
-                auth.createUserWithEmailAndPassword(email,matkhau)
+                String strEmail = edtEmailHoacSdt.getText().toString().trim();
+                String strMatKhau = edtMatKhau.getText().toString().trim();
+                auth.createUserWithEmailAndPassword(strEmail,strMatKhau)
                         .addOnCompleteListener(DangKy.this,new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {

@@ -37,21 +37,6 @@
         app:layout_constraintStart_toStartOf="@id/guideline3"
         app:layout_constraintTop_toTopOf="@id/guidelineh3" />
 
-    <ImageButton
-        android:id="@+id/ibtnThongBao"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="14dp"
-        android:background="#A1C4FD"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/guideline100"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline70"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/thong_bao"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <ImageView
         android:id="@+id/backgroud"
         android:layout_width="match_parent"
@@ -251,7 +236,8 @@
             android:layout_marginTop="7dp"
             android:layout_marginRight="15dp"
             android:background="@color/white"
-            android:src="@drawable/image_pen" />
+            android:src="@drawable/image_pen"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/btn_edit2"
@@ -262,7 +248,8 @@
             android:layout_marginTop="35dp"
             android:layout_marginRight="15dp"
             android:background="@color/white"
-            android:src="@drawable/image_pen" />
+            android:src="@drawable/image_pen"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/btn_edit3"
@@ -273,7 +260,8 @@
             android:layout_marginTop="63dp"
             android:layout_marginRight="15dp"
             android:background="@color/white"
-            android:src="@drawable/image_pen" />
+            android:src="@drawable/image_pen"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/btn_edit4"
@@ -284,7 +272,8 @@
             android:layout_marginTop="91dp"
             android:layout_marginRight="15dp"
             android:background="@color/white"
-            android:src="@drawable/image_pen" />
+            android:src="@drawable/image_pen"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </RelativeLayout>
 
@@ -374,15 +363,15 @@
         android:id="@+id/btn_DangXuat"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/RalativeLayout2"
         android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="@id/guideline25"
-        app:layout_constraintEnd_toEndOf="@id/guideline75"
-        android:text="Đăng Xuất"
-        android:textSize="15dp"
-        android:textColor="#D34C4C"
         android:background="@drawable/custom_view"
-        />
+        android:text="Đăng Xuất"
+        android:textColor="#D34C4C"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline75"
+        app:layout_constraintStart_toStartOf="@id/guideline25"
+        app:layout_constraintTop_toBottomOf="@+id/RalativeLayout2"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/HovaTen"
