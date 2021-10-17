@@ -28,7 +28,7 @@
         android:fontFamily="@font/roboto_bold"
         android:gravity="center"
         android:paddingLeft="0dp"
-        android:text="Trang Cá Nhân"
+        android:text="Phòng Khám"
         android:textSize="60px"
         android:textStyle="bold"
         app:layout_constraintDimensionRatio="1:0.22"
@@ -99,18 +99,18 @@
         app:layout_constraintGuide_percent="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
+        android:id="@+id/guideline15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline75"
+        android:id="@+id/guideline85"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline100"
@@ -148,7 +148,7 @@
         app:layout_constraintGuide_percent="0.03" />
 
     <ImageView
-        android:id="@+id/Avatar"
+        android:id="@+id/Phongkham_Avatar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="0dp"
@@ -166,130 +166,33 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:background="@drawable/custom_view"
-        app:layout_constraintTop_toBottomOf="@+id/Avatar"
+        app:layout_constraintTop_toBottomOf="@+id/Phongkham_Avatar"
         tools:layout_editor_absoluteX="5dp"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintEnd_toEndOf="@id/guideline97"
+        app:layout_constraintStart_toStartOf="@id/guideline11"
+        app:layout_constraintEnd_toEndOf="@id/guideline89"
         >
 
         <TextView
-            android:id="@+id/txtProfile_ngaysinh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="7dp"
-            android:text="Ngày sinh: 04/05/2100"
-            android:textSize="17dp" />
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="13dp"
+            android:text="Đối tác tin cậy của OnClinic"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtProfile_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/icon_tick"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="35dp"
-            android:text="Số điện thoại: 0977 122 459"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/txtProfile_Mail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="63dp"
-            android:text="Thư điện tử: Không có"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/txtProfile_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="91dp"
-            android:text="Địa chỉ: 21 Hùng Vương, Hải Châu, Đà Nẵng"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/txt_DoiTac"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="122dp"
-            android:text="Bạn muốn đăng ký làm đối tác với OnClinic?"
-            android:textColor="#A04D4D"
-            android:textSize="17dp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/txt_DoiMK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="153dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Bạn muốn thay đổi mật khẩu?"
-            android:textColor="#A04D4D"
-            android:textSize="17dp"
-            android:textStyle="italic" />
-
-        <ImageButton
-            android:id="@+id/btn_edit1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_edit2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="35dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_edit3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="63dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_edit4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="91dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            />
 
     </RelativeLayout>
 
@@ -307,9 +210,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thông tin thanh toán"
+        android:text="Thông tin liên hệ"
         app:layout_constraintTop_toBottomOf="@+id/line1"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="12dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guideline3"
         android:layout_marginLeft="15dp"
@@ -320,7 +223,7 @@
         android:id="@+id/RalativeLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="65dp"
         android:background="@drawable/custom_view"
         app:layout_constraintEnd_toEndOf="@id/guideline97"
         app:layout_constraintHorizontal_bias="0.0"
@@ -328,78 +231,91 @@
         app:layout_constraintTop_toBottomOf="@+id/RalativeLayout1">
 
         <TextView
-            android:id="@+id/txtThanhToan_DichVu"
+            android:id="@+id/txtTenBS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="7dp"
-            android:text="Dịch vụ: momo"
+            android:layout_marginTop="10dp"
+            android:text="Bác sĩ: Tôn Thất Tùng"
             android:textSize="17dp" />
 
         <TextView
-            android:id="@+id/txtThanhToan_DiaChi"
+            android:id="@+id/txtChuyenKhoa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="35dp"
-            android:text="Địa chỉ ví: 2154hg2n477tg"
+            android:layout_marginTop="40dp"
+            android:text="Chuyên Khoa: Tâm thần"
             android:textSize="17dp" />
 
         <TextView
-            android:id="@+id/txtThanhToan_LienKet"
+            android:id="@+id/txtPhongKham_sdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="63dp"
-            android:text="Ngân hàng liên kết: BIDV"
+            android:layout_marginTop="70dp"
+            android:text="Sô điện thoại: 0123 456 789"
             android:textSize="17dp" />
 
         <TextView
-            android:id="@+id/txtThanhToan_change"
+            android:id="@+id/txtPhongkham_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="91dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="100dp"
+            android:text="Thư điện tử: tonthattung@gmail.com"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/txtPhongkham_DiaChi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="130dp"
             android:layout_marginBottom="10dp"
-            android:text="Thay đổi thông tin thanh toán"
-            android:textColor="#A04D4D"
+            android:layout_marginRight="23dp"
+            android:text="Địa chỉ phòng khám: 21 Hùng Vương Hải Châu Đà Nẵng"
             android:textSize="17dp"
-            android:textStyle="italic" />
+            />
+
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btn_DangXuat"
+        android:id="@+id/btn_DanhGia"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/custom_view"
-        android:text="Đăng Xuất"
-        android:textColor="#D34C4C"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/custom_view_green_button"
+        android:textColor="#595959"
         android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="@id/guideline75"
-        app:layout_constraintStart_toStartOf="@id/guideline25"
+        app:layout_constraintEnd_toEndOf="@id/guideline85"
+        app:layout_constraintStart_toStartOf="@id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/RalativeLayout2"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck"
+        android:text="Đánh giá phản hồi phòng khám"
+        android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/HovaTen"
+        android:id="@+id/TenPhongKham"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Họ và Tên"
+        android:text="Tên phòng khám"
         android:textSize="22dp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/Avatar"
+        app:layout_constraintTop_toBottomOf="@+id/Phongkham_Avatar"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@id/guideline25"
-        app:layout_constraintEnd_toEndOf="@id/guideline75"
+        app:layout_constraintStart_toStartOf="@id/guideline15"
+        app:layout_constraintEnd_toEndOf="@id/guideline85"
         />
 
 
