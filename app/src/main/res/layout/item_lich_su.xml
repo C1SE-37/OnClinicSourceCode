@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DEFBFF">
+
+    <TextView
+        android:id="@+id/txtNgayKham"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Ngày khám"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTrai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelinePhai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toTopOf="@id/guidelineTren">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/txtTenPhongKham"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phòng khám A"
+                android:textColor="#304FFE"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/txtDiaChi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:text="Địa chỉ phòng khám Võ Nguyên Giáp" />
+
+            <TextView
+                android:id="@+id/txtBacSi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên bác sĩ" />
+
+            <TextView
+                android:id="@+id/txtSDT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0123456789" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="0.1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:padding="2dp"
+                android:background="#DEFBFF"
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/heart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/lbChiTiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="[Chi tiết]"
+                android:textSize="20sp"
+                android:textColor="#D50000"
+                android:textStyle="bold|italic" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/txtCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mã code" />
+
+            <TextView
+                android:id="@+id/txtHinhThuc"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hình thức khám" />
+
+            <TextView
+                android:id="@+id/txtTongTien"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tổng tiền" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,80 +4,70 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.model.NguoiDung;
+import com.example.model.TaiKhoan;
 import com.example.sqlhelper.CheckData;
+import com.example.sqlhelper.NoteFireBase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class DangKy extends AppCompatActivity {
 
-    private EditText edtEmailHoacSdt, edtTen,edtMatKhau, edtNLMatKhau,edtNgay,edtThang, edtNam;
+    private EditText edtEmailHoacSdt, edtTen,edtMatKhau, edtNLMatKhau;
     private Spinner spnQuan, spnThanhPho;
     private Button btnDangKy;
-    private TextView txtDangNhap;
-    //private ConstraintLayout conStraintDangNhap;
+    private TextView txtDangNhap,txtNgaySinh;
+    private ImageButton imgNgaySinh;
     private ProgressDialog progressDialog;
-
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     int lastSelected = -1;
-    ArrayList<Integer> dsNgay,dsThang,dsNam;
-    ArrayAdapter<Integer> adapterNgay,adapterThang,adapterNam;
     ArrayList<String>dsQuan,dsThanhPho;
     ArrayAdapter<String>adapterQuan,adapterThanhPho;
     FirebaseAuth auth;
-    private String email,matkhau;
+    DatabaseReference mDatabase;
+    private String email,matkhau,nlmatkhau;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
-
+        auth = FirebaseAuth.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://onclinic-180ee-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mDatabase = database.getReference();
         AnhXa();
         addEvents();
-    }
-
-    private void clickDangKy() {
-        String strEmail = edtEmailHoacSdt.getText().toString().trim();
-        String strMatKhau = edtMatKhau.getText().toString().trim();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        progressDialog.show();
-        auth.createUserWithEmailAndPassword(strEmail, strMatKhau)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Intent intent = new Intent(DangKy.this, DangNhap.class);
-                            startActivity(intent);
-                            finishAffinity();
-                        } else {
-
-                            Toast.makeText(DangKy.this, "Đăng ký không thành công.",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
     }
 
     private void addEvents() {
@@ -137,26 +127,33 @@ public class DangKy extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickDangKy();
+                xuLyDangKy();
+            }
+        });
+        imgNgaySinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hienThiCalendar();
             }
         });
     }
 
     private void xuLyDangKy() {
-        if (checkInput()==false)
+        if (checkInput())
         {
+            progressDialog.show();
             try
             {
-                String strEmail = edtEmailHoacSdt.getText().toString().trim();
-                String strMatKhau = edtMatKhau.getText().toString().trim();
-                auth.createUserWithEmailAndPassword(strEmail,strMatKhau)
+                auth.createUserWithEmailAndPassword(email,matkhau)
                         .addOnCompleteListener(DangKy.this,new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressDialog.dismiss();
                                 if(task.isSuccessful())
                                 {
                                     Toast.makeText(DangKy.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(DangKy.this,DangNhap.class));
+                                    duaDuLieuLenFireBase();
                                     finish();
                                 }
                                 else Toast.makeText(DangKy.this, "Lỗi đăng ký tài khoản", Toast.LENGTH_LONG).show();
@@ -174,27 +171,58 @@ public class DangKy extends AppCompatActivity {
 
     private boolean checkInput() {
         //kiểm tra dữ liệu nhập vào
-        CheckData.isEmpty(edtTen);
-        CheckData.isEmpty(edtEmailHoacSdt);
-        if(CheckData.isEmpty(edtMatKhau))
+        if(CheckData.isEmpty(edtTen) && CheckData.isEmpty(edtEmailHoacSdt)
+        && CheckData.isEmpty(edtMatKhau) && CheckData.isEmpty(edtNLMatKhau))
         {
             email = edtEmailHoacSdt.getText().toString().trim();
             matkhau = edtMatKhau.getText().toString().trim();
+            nlmatkhau = edtNLMatKhau.getText().toString().trim();
             if(matkhau.length()<6)
             {
                 edtMatKhau.requestFocus();
                 edtMatKhau.setError("Mật khẩu quá ngắn");
-                return true;
+                return false;
             }
-        }
-        else if(CheckData.isEmpty(edtNLMatKhau))
-        {
-            if(edtNLMatKhau.equals(edtMatKhau)==false) {
+            if(nlmatkhau.equals(matkhau)==false) {
                 edtNLMatKhau.requestFocus();
                 edtNLMatKhau.setError("Mật khẩu không giống");
+                return false;
             }
+            return true;
         }
         return false;
+    }
+
+    private void duaDuLieuLenFireBase() {
+        TaiKhoan taiKhoan = new TaiKhoan(email,matkhau);
+        mDatabase.child(NoteFireBase.TAIKHOAN).push().setValue(taiKhoan);
+        NguoiDung nguoiDung = new NguoiDung(edtTen.getText().toString().trim(),
+                email,txtNgaySinh.getText().toString(),
+                spnThanhPho.getSelectedItem().toString(),
+                spnQuan.getSelectedItem().toString());
+        mDatabase.child(NoteFireBase.BENHNHAN).push().setValue(nguoiDung);
+    }
+    private void hienThiCalendar() {
+        //bắt sự kiện khi click trên calendar
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                calendar.set(calendar.YEAR,year);
+                calendar.set(calendar.MONTH,month);
+                calendar.set(calendar.DAY_OF_MONTH,dayOfMonth);
+                txtNgaySinh.setText(sdf.format(calendar.getTime()));
+            }
+        };
+
+        DatePickerDialog dialog = new DatePickerDialog(DangKy.this,
+                android.R.style.Theme_Holo_Light_Dialog,
+                dateSetListener,
+                calendar.get(calendar.YEAR),
+                calendar.get(calendar.MONTH),
+                calendar.get(calendar.DAY_OF_MONTH));
+        //làm mờ màn hình chính sau khi hiện calendar
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 
     private void HienThiQuanHuyen(int position) {
@@ -211,11 +239,11 @@ public class DangKy extends AppCompatActivity {
         edtNLMatKhau = findViewById(R.id.edtNLMatKhau);
         btnDangKy = findViewById(R.id.btnDangKy);
         txtDangNhap = findViewById(R.id.txtDangNhap);
+        txtNgaySinh = findViewById(R.id.txtNgaySinh);
+        txtNgaySinh.setText(sdf.format(calendar.getTime()));
+        imgNgaySinh = findViewById(R.id.imgNgaySinh);
         progressDialog = new ProgressDialog(this);
 
-        edtNgay = findViewById(R.id.edtNgay);
-        edtThang = findViewById(R.id.edtThang);
-        edtNam = findViewById(R.id.edtNam);
         spnQuan = findViewById(R.id.spnQuan);
         spnThanhPho = findViewById(R.id.spnThanhPho);
         dsThanhPho = new ArrayList<>();

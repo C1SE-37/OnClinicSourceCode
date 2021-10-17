@@ -83,7 +83,7 @@
         android:background="@drawable/custom_edittext"
         android:hint="Nhập lại mật khẩu"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/txtNgaySinh"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline1"
@@ -91,7 +91,7 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
-        android:id="@+id/txtNgaySinh"
+        android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Ngày Sinh"
@@ -111,37 +111,26 @@
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/txtNgaySinh">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <EditText
-            android:id="@+id/edtNgay"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/txtNgaySinh"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/custom_edittext"
-            android:hint="Ngày"
-            android:inputType="date|datetime"
+            android:gravity="fill"
+            android:text="Chọn ngày sinh"
             tools:ignore="TouchTargetSizeCheck" />
 
-        <EditText
-            android:id="@+id/edtThang"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/imgNgaySinh"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/custom_edittext"
-            android:hint="Tháng"
-            android:inputType="date|datetime"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:layout_weight="0.15"
+            app:srcCompat="@drawable/calendar"
+            android:background="#A1C4FD"/>
 
-        <EditText
-            android:id="@+id/edtNam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/custom_edittext"
-            android:hint="Năm"
-            android:inputType="date|datetime"
-            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
     <TextView
