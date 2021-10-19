@@ -17,12 +17,13 @@
 
     <ImageButton
         android:id="@+id/imgBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#A1C4FD"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@id/guidelineTren2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/back_icon" />
+        app:srcCompat="@drawable/back_icon"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/txtCode"
@@ -83,7 +84,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:text="Địa chỉ phòng khám Võ Nguyên Giáp" />
+                android:text="Địa chỉ phòng khám Võ Nguyên Giáp"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/txtBacSi"
