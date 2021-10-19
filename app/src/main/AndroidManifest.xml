@@ -36,6 +36,10 @@
         <activity
             android:name=".QuenMatKhau"
             android:exported="true" />
+        <activity android:name=".ThongBao"
+            android:exported="true"/>
+        <activity android:name=".TrangCaNhan"
+            android:exported="true"/>
         <activity
             android:name=".LoiChao"
             android:exported="true">

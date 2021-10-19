@@ -54,13 +54,13 @@ public class TrangChuBenhNhan extends AppCompatActivity {
             }
         });
 
-        ibtnThongBao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TrangChuBenhNhan.this, ThongBao.class);
-                startActivity(intent);
-            }
-        });
+       ibtnThongBao.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intent = new Intent(TrangChuBenhNhan.this, ThongBao.class);
+               startActivity(intent);
+           }
+       });
 
         ibtnTrangCaNhan.setOnClickListener(new View.OnClickListener() {
             @Override
