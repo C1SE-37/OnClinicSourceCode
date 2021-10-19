@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class LoiChao extends AppCompatActivity {
 
     Button btnDangNhap, btnDangKy;
@@ -19,21 +22,32 @@ public class LoiChao extends AppCompatActivity {
         btnDangKy = (Button) findViewById(R.id.btnDangky);
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
 
-        btnDangNhap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentDN = new Intent(LoiChao.this,DangNhap.class );
-                startActivity(intentDN);
-            }
-        });
+        Xuly();
 
-        btnDangKy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentDK = new Intent(LoiChao.this, DangKy.class);
-                startActivity(intentDK);
-            }
-        });
+    }
+
+    private void Xuly() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser == null){
+            btnDangNhap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intentDN = new Intent(LoiChao.this,DangNhap.class );
+                    startActivity(intentDN);
+                }
+            });
+
+            btnDangKy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intentDK = new Intent(LoiChao.this, DangKy.class);
+                    startActivity(intentDK);
+                }
+            });
+        }else{
+            Intent intent = new Intent(LoiChao.this, TrangChuBenhNhan.class);
+            startActivity(intent);
+        }
     }
 
 

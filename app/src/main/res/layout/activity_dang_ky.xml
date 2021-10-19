@@ -128,8 +128,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.15"
+            android:background="#A1C4FD"
             app:srcCompat="@drawable/calendar"
-            android:background="#A1C4FD"/>
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
