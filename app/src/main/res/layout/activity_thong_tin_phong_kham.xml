@@ -302,7 +302,7 @@
         app:layout_constraintStart_toStartOf="@id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/RalativeLayout2"
         tools:ignore="TouchTargetSizeCheck"
-        android:text="Đánh giá phản hồi phòng khám"
+        android:text="xem Phản hồi của phòng khám"
         android:textStyle="bold"/>
 
     <TextView
