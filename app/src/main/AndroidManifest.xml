@@ -27,6 +27,7 @@
         <activity
             android:name=".LienHe"
             android:exported="true" />
+
         <activity
             android:name=".TrangChuBacSi"
             android:exported="false" />
@@ -39,18 +40,27 @@
         <activity
             android:name=".QuenMatKhau"
             android:exported="true" />
+        <activity android:name=".ThongBao"
+            android:exported="true"/>
+        <activity android:name=".TrangCaNhan"
+            android:exported="true"/>
         <activity
             android:name=".LoiChao"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".TrangChuBenhNhan"
             android:exported="true" />
+        <activity
+            android:name=".DanhGia"
+            android:exported="true" />
+
+
 
         <meta-data
             android:name="preloaded_fonts"

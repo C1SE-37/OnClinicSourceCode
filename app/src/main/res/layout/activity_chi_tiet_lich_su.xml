@@ -81,7 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:text="Địa chỉ phòng khám Võ Nguyên Giáp" />
+                android:text="Địa chỉ phòng khám Võ Nguyên Giáp"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/txtBacSi"

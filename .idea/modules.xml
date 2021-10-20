@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/OnClinic.iml" filepath="$PROJECT_DIR$/.idea/modules/OnClinic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OnClinic.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OnClinic.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sprint2.OnClinic.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sprint2.OnClinic.app.iml" />
     </modules>
   </component>

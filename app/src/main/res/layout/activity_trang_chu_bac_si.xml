@@ -41,7 +41,7 @@
             android:layout_marginRight="10dp"
             android:background="#A1C4FD"
             app:srcCompat="@drawable/thong_bao"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/ibtnTrangCaNhan"
@@ -49,19 +49,19 @@
             android:layout_height="wrap_content"
             android:background="#A1C4FD"
             app:srcCompat="@drawable/ho_so_ca_nhan"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </LinearLayout>
 
 
     <ImageButton
         android:id="@+id/ibtnLichKham"
-        android:layout_height="0dp"
         android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
         android:background="@drawable/roundedbutton"
-        android:layout_margin="16dp"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
         app:srcCompat="@drawable/dat_phong"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -79,10 +79,10 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/btn_HeartRate"
+        android:id="@+id/ibtnDoNhipTim"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_margin="20dp"
         android:background="@drawable/roundedbutton"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
@@ -100,14 +100,14 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/btn_HeartRate"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnDoNhipTim"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/btn_LienHe"
+        android:id="@+id/ibtnLienHe"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_margin="20dp"
         android:background="@drawable/roundedbutton"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
@@ -125,20 +125,20 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/btn_LienHe"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnLienHe"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/btn_KhamOnline"
+        android:id="@+id/ibtnKhamOnline"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="20dp"
         android:background="@drawable/roundedbutton"
-        app:srcCompat="@drawable/kham_onl"
         app:layout_constraintDimensionRatio="1:1"
-        android:layout_margin="16dp"
-        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
         app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
+        app:srcCompat="@drawable/kham_onl"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -150,14 +150,14 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintTop_toBottomOf="@+id/btn_KhamOnline"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnKhamOnline"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/btn_LichSuKham"
+        android:id="@+id/ibtnLichSuKham"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_margin="20dp"
         android:background="@drawable/roundedbutton"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
@@ -175,7 +175,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
-        app:layout_constraintTop_toBottomOf="@+id/btn_LichSuKham"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnLichSuKham"
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline
