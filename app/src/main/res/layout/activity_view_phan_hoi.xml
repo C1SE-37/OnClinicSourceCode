@@ -110,7 +110,7 @@
 
 
     <Button
-        android:id="@+id/btn_SubmitDanhGia"
+        android:id="@+id/btn_VietDanhGia"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginLeft="70dp"
