@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DEFBFF">
+    >
 
     <TextView
         android:id="@+id/txtNgayKham"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Ngày khám"
+        android:layout_marginTop="15dp"
+        android:background="#DEFBFF"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,26 +32,20 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="1" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTren"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.04" />
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#DEFBFF"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toTopOf="@id/guidelineTren">
+        app:layout_constraintTop_toBottomOf="@+id/txtNgayKham">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtTenPhongKham"
@@ -89,24 +85,24 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_weight="0.1"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
-                android:padding="2dp"
-                android:background="#DEFBFF"
                 android:id="@+id/imageView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#DEFBFF"
+                android:padding="2dp"
                 app:srcCompat="@drawable/heart" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/lbChiTiet"
@@ -114,8 +110,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="[Chi tiết]"
-                android:textSize="20sp"
                 android:textColor="#D50000"
+                android:textSize="20sp"
                 android:textStyle="bold|italic" />
 
             <View

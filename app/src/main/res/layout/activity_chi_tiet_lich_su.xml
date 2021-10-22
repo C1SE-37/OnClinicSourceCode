@@ -22,8 +22,7 @@
         android:background="#A1C4FD"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@id/guidelineTren2"
-        app:srcCompat="@drawable/back_icon"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        app:srcCompat="@drawable/back_icon" />
 
     <TextView
         android:id="@+id/txtCode"
@@ -40,22 +39,20 @@
 
     <TextView
         android:id="@+id/lbThongTin"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Thông tin phòng khám"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toStartOf="@+id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@+id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineTren" />
 
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/lbBenhSu"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/lbThongTin">
 
@@ -157,11 +154,12 @@
 
     <TextView
         android:id="@+id/lbBenhSu"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Thông tin bệnh"
+        android:layout_marginTop="30dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintEnd_toStartOf="@+id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@+id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
@@ -170,9 +168,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/lbDonThuoc"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/lbBenhSu">
 
@@ -198,11 +194,12 @@
 
     <TextView
         android:id="@+id/lbDonThuoc"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Đơn thuốc"
+        android:layout_marginTop="30dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toStartOf="@+id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@+id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
@@ -210,9 +207,7 @@
         android:id="@+id/tableLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/lbHoaDon"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/lbDonThuoc">
 
@@ -268,8 +263,8 @@
 
             <TextView
                 android:id="@+id/txtSoLuong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="94dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Số lượng" />
 
@@ -292,11 +287,12 @@
 
     <TextView
         android:id="@+id/lbHoaDon"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Hóa đơn"
+        android:layout_marginTop="30dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
+        app:layout_constraintEnd_toStartOf="@+id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
@@ -305,9 +301,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/lbHoaDon">
 

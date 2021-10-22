@@ -3,10 +3,48 @@ package com.example.model;
 import java.util.Date;
 
 public class NguoiDung {
+    private String userID;
+    private String email_sdt;
+    private String matKhau;
     private String tenNguoiDung;
-    private String email;
     private String ngaySinh;
     private String thanhpho,quan;
+
+    public NguoiDung() {
+    }
+
+    public NguoiDung(String email_sdt, String matKhau, String tenNguoiDung, String ngaySinh, String thanhpho, String quan) {
+        this.email_sdt = email_sdt;
+        this.matKhau = matKhau;
+        this.tenNguoiDung = tenNguoiDung;
+        this.ngaySinh = ngaySinh;
+        this.thanhpho = thanhpho;
+        this.quan = quan;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getEmail_sdt() {
+        return email_sdt;
+    }
+
+    public void setEmail_sdt(String email_sdt) {
+        this.email_sdt = email_sdt;
+    }
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
 
     public String getTenNguoiDung() {
         return tenNguoiDung;
@@ -14,14 +52,6 @@ public class NguoiDung {
 
     public void setTenNguoiDung(String tenNguoiDung) {
         this.tenNguoiDung = tenNguoiDung;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getNgaySinh() {
@@ -32,14 +62,6 @@ public class NguoiDung {
         this.ngaySinh = ngaySinh;
     }
 
-    public String getQuan() {
-        return quan;
-    }
-
-    public void setQuan(String quan) {
-        this.quan = quan;
-    }
-
     public String getThanhpho() {
         return thanhpho;
     }
@@ -48,15 +70,11 @@ public class NguoiDung {
         this.thanhpho = thanhpho;
     }
 
-    public NguoiDung(String tenNguoiDung, String email, String ngaySinh, String thanhpho, String quan) {
-        this.tenNguoiDung = tenNguoiDung;
-        this.email = email;
-        this.ngaySinh = ngaySinh;
+    public String getQuan() {
+        return quan;
+    }
+
+    public void setQuan(String quan) {
         this.quan = quan;
-        this.thanhpho = thanhpho;
     }
-
-    public NguoiDung() {
-    }
-
 }

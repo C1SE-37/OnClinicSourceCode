@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 
 import com.example.model.NguoiDung;
-import com.example.model.TaiKhoan;
 import com.example.sqlhelper.CheckData;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -194,13 +193,15 @@ public class DangKy extends AppCompatActivity {
     }
 
     private void duaDuLieuLenFireBase() {
-        TaiKhoan taiKhoan = new TaiKhoan(email,matkhau);
-        mDatabase.child(NoteFireBase.TAIKHOAN).push().setValue(taiKhoan);
-        NguoiDung nguoiDung = new NguoiDung(edtTen.getText().toString().trim(),
-                email,txtNgaySinh.getText().toString(),
+        //lấy ra key từ firebase (giống primary key)
+        String keyID = mDatabase.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).push().getKey();
+        NguoiDung nguoiDung = new NguoiDung(email, matkhau,
+                edtTen.getText().toString().trim(),
+                txtNgaySinh.getText().toString(),
                 spnThanhPho.getSelectedItem().toString(),
                 spnQuan.getSelectedItem().toString());
-        mDatabase.child(NoteFireBase.BENHNHAN).push().setValue(nguoiDung);
+        nguoiDung.setUserID(keyID);
+        mDatabase.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(keyID).setValue(nguoiDung);
     }
     private void hienThiCalendar() {
         //bắt sự kiện khi click trên calendar
