@@ -72,7 +72,6 @@ public class DanhGia extends AppCompatActivity {
 //                        rating_bar.setEnabled(false);
 //
 //                    }
-
             }
         });
     }
