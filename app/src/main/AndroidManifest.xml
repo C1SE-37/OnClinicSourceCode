@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".DatPhong2"
+            android:exported="false" />
+        <activity
             android:name=".TaoPhongKham"
             android:exported="true" >
             <intent-filter>
@@ -32,7 +35,6 @@
         <activity
             android:name=".LienHe"
             android:exported="true" />
-
         <activity
             android:name=".TrangChuBacSi"
             android:exported="false" />
@@ -45,23 +47,33 @@
         <activity
             android:name=".QuenMatKhau"
             android:exported="true" />
-        <activity android:name=".ThongBao"
-            android:exported="true"/>
-        <activity android:name=".TrangCaNhan"
-            android:exported="true"/>
+        <activity
+            android:name=".ThongBao"
+            android:exported="true" />
+        <activity
+            android:name=".TrangCaNhan"
+            android:exported="true" />
         <activity
             android:name=".LoiChao"
+<<<<<<< HEAD
             android:exported="true"/>
 
 
+=======
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+>>>>>>> fcd14ffb3244aa316b65b4330bbe283635435ea9
         <activity
             android:name=".TrangChuBenhNhan"
             android:exported="true" />
         <activity
             android:name=".DanhGia"
             android:exported="true" />
-
-
 
         <meta-data
             android:name="preloaded_fonts"
