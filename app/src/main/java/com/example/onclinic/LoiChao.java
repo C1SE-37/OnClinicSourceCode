@@ -26,7 +26,7 @@ public class LoiChao extends AppCompatActivity {
 
     }
 
-    private void Xuly() {
+    /*private void Xuly() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if(firebaseUser == null){
             btnDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +48,24 @@ public class LoiChao extends AppCompatActivity {
             Intent intent = new Intent(LoiChao.this, TrangChuBenhNhan.class);
             startActivity(intent);
         }
+    }*/
+
+    private void Xuly()
+    {
+        btnDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentDN = new Intent(LoiChao.this,DangNhap.class );
+                startActivity(intentDN);
+            }
+        });
+
+        btnDangKy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentDK = new Intent(LoiChao.this, DangKy.class);
+                startActivity(intentDK);
+            }
+        });
     }
-
-
 }

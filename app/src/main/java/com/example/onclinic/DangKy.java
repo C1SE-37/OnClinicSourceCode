@@ -55,7 +55,7 @@ public class DangKy extends AppCompatActivity {
     ArrayList<String>dsQuan,dsThanhPho;
     ArrayAdapter<String>adapterQuan,adapterThanhPho;
     FirebaseAuth auth;
-    DatabaseReference mDatabase;
+    DatabaseReference myRef;
     private String email,matkhau,nlmatkhau;
 
     @Override
@@ -63,8 +63,8 @@ public class DangKy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
         auth = FirebaseAuth.getInstance();
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://onclinic-180ee-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        mDatabase = database.getReference();
+        FirebaseDatabase database = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource);
+        myRef = database.getReference();
         AnhXa();
         addEvents();
     }
@@ -153,7 +153,7 @@ public class DangKy extends AppCompatActivity {
                                     Toast.makeText(DangKy.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(DangKy.this,DangNhap.class));
                                     duaDuLieuLenFireBase();
-                                    finish();
+                                    finishAffinity();
                                 }
                                 else Toast.makeText(DangKy.this, "Lỗi đăng ký tài khoản", Toast.LENGTH_LONG).show();
                             }
@@ -194,14 +194,14 @@ public class DangKy extends AppCompatActivity {
 
     private void duaDuLieuLenFireBase() {
         //lấy ra key từ firebase (giống primary key)
-        String keyID = mDatabase.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).push().getKey();
+        String keyID = myRef.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).push().getKey();
         NguoiDung nguoiDung = new NguoiDung(email, matkhau,
                 edtTen.getText().toString().trim(),
                 txtNgaySinh.getText().toString(),
                 spnThanhPho.getSelectedItem().toString(),
                 spnQuan.getSelectedItem().toString());
         nguoiDung.setUserID(keyID);
-        mDatabase.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(keyID).setValue(nguoiDung);
+        myRef.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(keyID).setValue(nguoiDung);
     }
     private void hienThiCalendar() {
         //bắt sự kiện khi click trên calendar

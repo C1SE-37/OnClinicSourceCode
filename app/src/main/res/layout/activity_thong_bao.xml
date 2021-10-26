@@ -21,15 +21,12 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_edittext"
-        android:fontFamily="@font/roboto_bold"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_corner"
         android:gravity="center"
-        android:paddingLeft="0dp"
         android:text="Thông báo"
-        android:textSize="60px"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintDimensionRatio="1:0.3"
         app:layout_constraintEnd_toEndOf="@id/guideline40"
         app:layout_constraintStart_toStartOf="@id/guideline5"
         app:layout_constraintTop_toTopOf="@id/guidelineh3" />
@@ -64,13 +61,12 @@
         app:layout_constraintGuide_percent="1" />
 
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineh3"

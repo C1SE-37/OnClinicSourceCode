@@ -8,7 +8,6 @@ public class PhongKham {
     private String chuyenKhoa;
     private String diaChi;
     private String moTa;
-    private boolean tinhTrang;
     private String hinhAnh;
     private String hinhThucKham;
 
@@ -53,14 +52,6 @@ public class PhongKham {
 
     public void setMoTa(String moTa) {
         this.moTa = moTa;
-    }
-
-    public boolean isTinhTrang() {
-        return tinhTrang;
-    }
-
-    public void setTinhTrang(boolean tinhTrang) {
-        this.tinhTrang = tinhTrang;
     }
 
     public String getHinhAnh() {
