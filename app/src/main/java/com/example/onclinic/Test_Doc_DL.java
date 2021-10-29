@@ -39,8 +39,8 @@ public class Test_Doc_DL extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     PhongKham pk = dataSnapshot.getValue(PhongKham.class);
-                    pk.setMaPhongKham(dataSnapshot.getKey());
-                    txtMa.setText(pk.getMaPhongKham());
+                    pk.setIdPhongKham(dataSnapshot.getKey());
+                    txtMa.setText(pk.getIdPhongKham());
                     if(pk.getHinhAnh()!=null) {
                         byte[] decodedString = Base64.decode(pk.getHinhAnh(), Base64.DEFAULT);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

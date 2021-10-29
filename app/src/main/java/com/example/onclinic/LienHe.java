@@ -3,6 +3,7 @@ package com.example.onclinic;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 
 public class LienHe extends AppCompatActivity {
 
-    TextView txtLoiPhatSinh, txtPhatHienViPham, txtViTri, txtEmail, txtFb, txtLoi;
+    TextView txtDoiTac,txtLoiPhatSinh, txtPhatHienViPham, txtViTri, txtEmail, txtFb, txtLoi;
 
     EditText edtFeedBack;
     Button btnGui, btnHuy;
@@ -43,6 +44,14 @@ public class LienHe extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openPhatHienViPham(Gravity.CENTER);
+            }
+        });
+        txtDoiTac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LienHe.this,TaoPhongKham.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -143,8 +152,6 @@ public class LienHe extends AppCompatActivity {
         txtViTri = findViewById(R.id.txtViTri);
         txtEmail = findViewById(R.id.txtEmail);
         txtFb = findViewById(R.id.txtFb);
-
-
-
+        txtDoiTac = findViewById(R.id.txtDKLamDoiTac);
     }
 }

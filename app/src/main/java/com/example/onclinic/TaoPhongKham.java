@@ -29,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.local_data.DataLocalManager;
+import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.example.sqlhelper.CheckData;
 import com.example.sqlhelper.NoteFireBase;
@@ -48,12 +50,17 @@ public class TaoPhongKham extends AppCompatActivity {
     ImageView imgAnh;
     Bitmap selectedBitmap;
     Button btnHuy, btnXacNhan;
+    String idNguoiDung;
+    NguoiDung nguoiDung;
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tao_phong_kham);
+
+        idNguoiDung = DataLocalManager.getIDNguoiDung();
+        nguoiDung = DataLocalManager.getNguoiDung();
 
         addControls();
         addEvents();
@@ -112,6 +119,7 @@ public class TaoPhongKham extends AppCompatActivity {
         if(checkInput()) {
             try
             {
+                xoaBenhNhanThemBacSi();
                 //progressDialog.show();
                 DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
                 String keyID = myRef.child(NoteFireBase.PHONGKHAM).push().getKey();
@@ -139,6 +147,7 @@ public class TaoPhongKham extends AppCompatActivity {
                         edtMoTa.getText().toString().trim(),
                         imgEncoded, hinhThuc,"");
                 phongKham.setIdPhongKham(keyID);
+                phongKham.setIdBacSi(idNguoiDung);
                 myRef.child(NoteFireBase.PHONGKHAM).child(keyID).setValue(phongKham);
                 //progressDialog.dismiss();
                 Toast.makeText(TaoPhongKham.this, "Đăng ký phòng khám thành công", Toast.LENGTH_SHORT).show();
@@ -149,6 +158,14 @@ public class TaoPhongKham extends AppCompatActivity {
             }
         }
         else Toast.makeText(TaoPhongKham.this, "Hãy hoàn thành thông tin đăng ký", Toast.LENGTH_SHORT).show();
+    }
+
+    private void xoaBenhNhanThemBacSi()
+    {
+        DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
+        myRefBN.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(idNguoiDung).removeValue();
+        DatabaseReference myRefBS = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
+        myRefBS.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI).child(idNguoiDung).setValue(nguoiDung);
     }
 
     private boolean checkInput()
@@ -178,12 +195,7 @@ public class TaoPhongKham extends AppCompatActivity {
                         finish();
                     }
                 })
-                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
+                .setNegativeButton("Không", null)
                 .show();
     }
 

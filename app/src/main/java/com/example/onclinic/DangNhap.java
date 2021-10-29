@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,8 +42,6 @@ public class DangNhap extends AppCompatActivity {
 
     ArrayList<NguoiDung> listBenhNhan = new ArrayList<>();
     ArrayList<NguoiDung> listBacSi = new ArrayList<>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +92,8 @@ public class DangNhap extends AppCompatActivity {
         {
             if(strEmail.equals(nguoiDung.getEmail_sdt()) && strMatKhau.equals(nguoiDung.getMatKhau()))
             {
+                DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
+                DataLocalManager.setNguoiDung(nguoiDung);
                 Intent intent = new Intent(DangNhap.this,TrangChuBenhNhan.class);
                 startActivity(intent);
                 finishAffinity();
@@ -102,6 +103,8 @@ public class DangNhap extends AppCompatActivity {
         {
             if(strEmail.equals(nguoiDung.getEmail_sdt()) && strMatKhau.equals(nguoiDung.getMatKhau()))
             {
+                DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());
+                DataLocalManager.setNguoiDung(nguoiDung);
                 Intent intent = new Intent(DangNhap.this,TrangChuBacSi.class);
                 startActivity(intent);
                 finishAffinity();
