@@ -3,23 +3,51 @@ package com.example.model;
 import java.util.Date;
 
 public class PhongKham {
-    private String maPhongKham;
+    private String idPhongKham;
     private String tenPhongKham;
     private String chuyenKhoa;
     private String diaChi;
     private String moTa;
     private String hinhAnh;
     private String hinhThucKham;
+    private String lichKham;
+    private String idBacSi;
 
     public PhongKham() {
     }
 
-    public String getMaPhongKham() {
-        return maPhongKham;
+    public PhongKham(String tenPhongKham, String chuyenKhoa, String diaChi, String moTa, String hinhAnh, String hinhThucKham, String lichKham) {
+        this.tenPhongKham = tenPhongKham;
+        this.chuyenKhoa = chuyenKhoa;
+        this.diaChi = diaChi;
+        this.moTa = moTa;
+        this.hinhAnh = hinhAnh;
+        this.hinhThucKham = hinhThucKham;
+        this.lichKham = lichKham;
     }
 
-    public void setMaPhongKham(String maPhongKham) {
-        this.maPhongKham = maPhongKham;
+    public String getLichKham() {
+        return lichKham;
+    }
+
+    public void setLichKham(String lichKham) {
+        this.lichKham = lichKham;
+    }
+
+    public String getIdPhongKham() {
+        return idPhongKham;
+    }
+
+    public void setIdPhongKham(String idPhongKham) {
+        this.idPhongKham = idPhongKham;
+    }
+
+    public String getIdBacSi() {
+        return idBacSi;
+    }
+
+    public void setIdBacSi(String idBacSi) {
+        this.idBacSi = idBacSi;
     }
 
     public String getTenPhongKham() {

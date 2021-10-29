@@ -87,7 +87,6 @@ public class DangNhap extends AppCompatActivity {
     }
 
     private void xuLyDangNhap() {
-        //layDanhSachNguoiDungTuFireBase();
         String strEmail = edtEmailHoacSdt.getText().toString().trim();
         String strMatKhau = edtMatKhau.getText().toString().trim();
         for(NguoiDung nguoiDung : listBenhNhan )
@@ -107,10 +106,8 @@ public class DangNhap extends AppCompatActivity {
                 startActivity(intent);
                 finishAffinity();
             }
-            else {
-                Toast.makeText(DangNhap.this, "Email/sdt hoặc mật khẩu đã sai.", Toast.LENGTH_SHORT).show();
-            }
         }
+        Toast.makeText(DangNhap.this, "Email/sdt hoặc mật khẩu đã sai.", Toast.LENGTH_SHORT).show();
     }
 
     private void layDanhSachNguoiDungTuFireBase()

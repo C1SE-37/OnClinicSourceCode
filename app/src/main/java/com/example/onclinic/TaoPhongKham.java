@@ -1,22 +1,43 @@
 package com.example.onclinic;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.model.PhongKham;
+import com.example.sqlhelper.CheckData;
+import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class TaoPhongKham extends AppCompatActivity {
@@ -27,6 +48,7 @@ public class TaoPhongKham extends AppCompatActivity {
     ImageView imgAnh;
     Bitmap selectedBitmap;
     Button btnHuy, btnXacNhan;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,30 +81,90 @@ public class TaoPhongKham extends AppCompatActivity {
     }
 
     private void xuLyChonAnh() {
-        Intent chonPhoto = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(chonPhoto,200);
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1,1)
+                .setMaxCropResultSize(800,800)
+                .start(TaoPhongKham.this);
     }
 
+    //xử lí hiển thị và lưu ảnh vào bitmap
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == 200)
-        {
-            try {
-                //xử lí lấy ảnh từ điện thoại
-                Uri imageUri = data.getData();
-                selectedBitmap = MediaStore.Images.Media.getBitmap(TaoPhongKham.this.getContentResolver(),imageUri);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri imageUri = result.getUri();
+                try {
+                    selectedBitmap = MediaStore.Images.Media.getBitmap(TaoPhongKham.this.getContentResolver(),imageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 imgAnh.setImageBitmap(selectedBitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
             }
-
         }
     }
 
     private void xuLyXacNhan() {
+        if(checkInput()) {
+            try
+            {
+                //progressDialog.show();
+                DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
+                String keyID = myRef.child(NoteFireBase.PHONGKHAM).push().getKey();
 
+                //đưa ảnh về kiểu chuỗi base64
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                String imgEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+                //đưa checkbox về chuỗi
+                String hinhThuc = "";
+                if (chkTrucTiep.isChecked())
+                {
+                    if(chkOnline.isChecked()) hinhThuc += "Online - Trực tiếp";
+                    else hinhThuc += "Trực tiếp";
+                }
+                else hinhThuc = "Online";
+
+                //tạo đối tượng và đưa lên firebase
+                PhongKham phongKham = new PhongKham(
+                        edtTenPhongKham.getText().toString().trim(),
+                        edtChuyenKhoa.getText().toString().trim(),
+                        edtDiaChi.getText().toString().trim(),
+                        edtMoTa.getText().toString().trim(),
+                        imgEncoded, hinhThuc,"");
+                phongKham.setIdPhongKham(keyID);
+                myRef.child(NoteFireBase.PHONGKHAM).child(keyID).setValue(phongKham);
+                //progressDialog.dismiss();
+                Toast.makeText(TaoPhongKham.this, "Đăng ký phòng khám thành công", Toast.LENGTH_SHORT).show();
+            }
+            catch (Exception ex)
+            {
+                Toast.makeText(TaoPhongKham.this, "Lỗi tạo phòng khám", Toast.LENGTH_LONG).show();
+            }
+        }
+        else Toast.makeText(TaoPhongKham.this, "Hãy hoàn thành thông tin đăng ký", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean checkInput()
+    {
+        if(CheckData.isEmpty(edtTenPhongKham) && CheckData.isEmpty(edtChuyenKhoa)
+        && CheckData.isEmpty(edtDiaChi))
+        {
+            if(!chkTrucTiep.isChecked() && !chkOnline.isChecked())
+            {
+                chkOnline.setTextColor(Color.RED);
+                chkTrucTiep.setTextColor(Color.RED);
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     private void xuLyHuy() {
