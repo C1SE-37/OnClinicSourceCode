@@ -91,7 +91,8 @@ public class TaoPhongKham extends AppCompatActivity {
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setAspectRatio(1,1)
-                .setMaxCropResultSize(800,800)
+                .setMaxCropResultSize(700,700)
+                .setMinCropResultSize(700,700)
                 .start(TaoPhongKham.this);
     }
 
@@ -120,7 +121,6 @@ public class TaoPhongKham extends AppCompatActivity {
             try
             {
                 xoaBenhNhanThemBacSi();
-                //progressDialog.show();
                 DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
                 String keyID = myRef.child(NoteFireBase.PHONGKHAM).push().getKey();
 
@@ -145,12 +145,11 @@ public class TaoPhongKham extends AppCompatActivity {
                         edtChuyenKhoa.getText().toString().trim(),
                         edtDiaChi.getText().toString().trim(),
                         edtMoTa.getText().toString().trim(),
-                        imgEncoded, hinhThuc,"");
+                        imgEncoded, hinhThuc);
                 phongKham.setIdPhongKham(keyID);
                 phongKham.setIdBacSi(idNguoiDung);
                 myRef.child(NoteFireBase.PHONGKHAM).child(keyID).setValue(phongKham);
-                //progressDialog.dismiss();
-                Toast.makeText(TaoPhongKham.this, "Đăng ký phòng khám thành công", Toast.LENGTH_SHORT).show();
+                troVeTrangChu();
             }
             catch (Exception ex)
             {
@@ -158,6 +157,14 @@ public class TaoPhongKham extends AppCompatActivity {
             }
         }
         else Toast.makeText(TaoPhongKham.this, "Hãy hoàn thành thông tin đăng ký", Toast.LENGTH_SHORT).show();
+    }
+
+    private void troVeTrangChu()
+    {
+        Toast.makeText(TaoPhongKham.this, "Quản lí phòng khám của bạn tại chức năng [Quản Lí Phòng Khám]", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(TaoPhongKham.this,TrangChuBacSi.class);
+        startActivity(intent);
+        finish();
     }
 
     private void xoaBenhNhanThemBacSi()
@@ -207,7 +214,7 @@ public class TaoPhongKham extends AppCompatActivity {
         chkOnline = findViewById(R.id.chkOnline);
         chkTrucTiep = findViewById(R.id.chkTrucTiep);
         btnChonAnh = findViewById(R.id.btnChonAnh);
-        imgAnh = findViewById(R.id.imgPhongKham);
+        imgAnh = findViewById(R.id.imgTaoPhongKham);
         btnHuy = findViewById(R.id.btnHuyPK);
         btnXacNhan = findViewById(R.id.btnXacNhan);
     }

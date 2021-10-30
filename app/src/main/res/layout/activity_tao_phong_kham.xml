@@ -162,7 +162,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/imgPhongKham"
+        app:layout_constraintBottom_toTopOf="@+id/imgTaoPhongKham"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
@@ -190,7 +190,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imgPhongKham"
+        android:id="@+id/imgTaoPhongKham"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
@@ -210,7 +210,7 @@
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/imgPhongKham">
+        app:layout_constraintTop_toBottomOf="@+id/imgTaoPhongKham">
 
         <TextView
             android:id="@+id/lbMoTa"

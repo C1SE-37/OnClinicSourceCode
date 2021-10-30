@@ -1,5 +1,7 @@
 package com.example.model;
 
+import com.example.sqlhelper.NoteFireBase;
+
 import java.util.Date;
 
 public class PhongKham {
@@ -10,28 +12,18 @@ public class PhongKham {
     private String moTa;
     private String hinhAnh;
     private String hinhThucKham;
-    private String lichKham;
     private String idBacSi;
 
     public PhongKham() {
     }
 
-    public PhongKham(String tenPhongKham, String chuyenKhoa, String diaChi, String moTa, String hinhAnh, String hinhThucKham, String lichKham) {
+    public PhongKham(String tenPhongKham, String chuyenKhoa, String diaChi, String moTa, String hinhAnh, String hinhThucKham) {
         this.tenPhongKham = tenPhongKham;
         this.chuyenKhoa = chuyenKhoa;
         this.diaChi = diaChi;
         this.moTa = moTa;
         this.hinhAnh = hinhAnh;
         this.hinhThucKham = hinhThucKham;
-        this.lichKham = lichKham;
-    }
-
-    public String getLichKham() {
-        return lichKham;
-    }
-
-    public void setLichKham(String lichKham) {
-        this.lichKham = lichKham;
     }
 
     public String getIdPhongKham() {

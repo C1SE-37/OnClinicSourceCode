@@ -57,8 +57,8 @@ public class DangNhap extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //clickDangNhap();
-                xuLyDangNhap();
+                if(xuLyDangNhap()==-1)
+                    Toast.makeText(DangNhap.this, "Email/sdt hoặc mật khẩu đã sai.", Toast.LENGTH_SHORT).show();
             }
         });
         txtDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +78,7 @@ public class DangNhap extends AppCompatActivity {
     private void xuLyDangKy() {
         Intent intent = new Intent(DangNhap.this, DangKy.class);
         startActivity(intent);
+        finish();
     }
 
     private void xuLyQuenMatKhau() {
@@ -85,7 +86,7 @@ public class DangNhap extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void xuLyDangNhap() {
+    private int xuLyDangNhap() {
         String strEmail = edtEmailHoacSdt.getText().toString().trim();
         String strMatKhau = edtMatKhau.getText().toString().trim();
         for(NguoiDung nguoiDung : listBenhNhan )
@@ -93,24 +94,26 @@ public class DangNhap extends AppCompatActivity {
             if(strEmail.equals(nguoiDung.getEmail_sdt()) && strMatKhau.equals(nguoiDung.getMatKhau()))
             {
                 DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
-                DataLocalManager.setNguoiDung(nguoiDung);
+                DataLocalManager.setNguoiDung(nguoiDung);//lưu người dùng vào dữ liệu local
                 Intent intent = new Intent(DangNhap.this,TrangChuBenhNhan.class);
                 startActivity(intent);
-                finishAffinity();
+                finish();
+                return 0;
             }
         }
         for(NguoiDung nguoiDung : listBacSi)
         {
             if(strEmail.equals(nguoiDung.getEmail_sdt()) && strMatKhau.equals(nguoiDung.getMatKhau()))
             {
-                DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());
-                DataLocalManager.setNguoiDung(nguoiDung);
+                DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
+                DataLocalManager.setNguoiDung(nguoiDung);//lưu người dùng vào dữ liệu local
                 Intent intent = new Intent(DangNhap.this,TrangChuBacSi.class);
                 startActivity(intent);
-                finishAffinity();
+                finish();
+                return 1;
             }
         }
-        Toast.makeText(DangNhap.this, "Email/sdt hoặc mật khẩu đã sai.", Toast.LENGTH_SHORT).show();
+        return -1;
     }
 
     private void layDanhSachNguoiDungTuFireBase()
@@ -151,31 +154,6 @@ public class DangNhap extends AppCompatActivity {
                 Toast.makeText(DangNhap.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void clickDangNhap() {
-        String strEmail = edtEmailHoacSdt.getText().toString().trim();
-        String strMatKhau = edtMatKhau.getText().toString().trim();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        progressDialog.show();
-        auth.signInWithEmailAndPassword(strEmail, strMatKhau)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful()) {
-
-                            Intent intent = new Intent(DangNhap.this, TrangChuBenhNhan.class);
-                            startActivity(intent);
-                            finishAffinity();
-
-                        } else {
-
-                            Toast.makeText(DangNhap.this, "Email/sdt hoặc mật khẩu đã sai.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 
     private void AnhXa() {
