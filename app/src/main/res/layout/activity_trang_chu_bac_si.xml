@@ -129,7 +129,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/ibtnKhamOnline"
+        android:id="@+id/ibtnQuanLyPhongKham"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="20dp"
@@ -138,19 +138,19 @@
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
         app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
-        app:srcCompat="@drawable/kham_onl"
+        app:srcCompat="@drawable/quanlyphongkham"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/tv_khamonline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Khám Online"
+        android:text="Quản Lí Phòng Khám"
         android:gravity="center"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnKhamOnline"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnQuanLyPhongKham"
         tools:ignore="MissingConstraints" />
 
     <ImageButton

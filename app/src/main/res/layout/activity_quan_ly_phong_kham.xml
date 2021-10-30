@@ -4,409 +4,376 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFE6E6"
-    >
+    tools:context=".QuanLyPhongKham"
+    android:background="#EFE6E6">
 
     <View
         android:id="@+id/view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#A1C4FD"
-        app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintEnd_toEndOf="@id/guideline100"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline0"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineDuoi"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_corner"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Phòng Khám"
+        android:text="Phòng khám"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toTopOf="@id/guidelineh3" />
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTren" />
 
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/LinearLayout2"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <TextView
+            android:id="@+id/lbTTPhongKham"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông Tin Phòng Khám"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_view"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgPhongKham"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    app:srcCompat="@drawable/image_profile" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:gravity="center|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtTenPhongKham"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tên Phòng Khám"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtChuyenKhoa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chuyên Khoa"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+
+                <RatingBar
+                    android:id="@+id/rating_bar"
+                    style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize=".5" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/LinearLayout3"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout1">
+
+        <TextView
+            android:id="@+id/lbTaoSuatKham"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tạo Một Suất Khám"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_view"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ngày khám"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtChonNgay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="Chọn ngày" />
+
+            <ImageButton
+                android:id="@+id/imgDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.2"
+                android:background="#FFF"
+                app:srcCompat="@drawable/calendar"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btnTaoSuatKham"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout2">
+
+        <TextView
+            android:id="@+id/lbNhapKhungGio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nhập khung giờ"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_view"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/viewGoiYTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nên tạo các suất khám cách nhau tối thiểu 30 phút và tối đa 1 tiếng"
+                android:textColor="#A04D4D"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbChonGio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Giờ khám "
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtChonGio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="Chọn giờ" />
+
+                <ImageButton
+                    android:id="@+id/imgClock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2"
+                    android:background="#FFF"
+                    app:srcCompat="@drawable/clock"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+            app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+            app:layout_constraintTop_toBottomOf="@id/LinearLayout3">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Các suất khám đã tạo của bạn sẽ được bệnh nhân chọn và đặt."
+                android:textColor="#A04D4D"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Khi khám online, nếu thời gian chờ quá 15 phút, suất khám sẽ bị hủy. "
+                android:textColor="#A04D4D"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnTaoSuatKham"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/custom_view_green_button"
+        android:text="Tạo suất khám"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/line2"
+        app:layout_constraintDimensionRatio="1:0.15"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua88"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua12"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout3"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/line2"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#B5B2B2"
+        app:layout_constraintBottom_toTopOf="@+id/btnSuatKhamDaTao"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua88"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua12"
+        app:layout_constraintTop_toBottomOf="@+id/btnTaoSuatKham" />
+
+    <Button
+        android:id="@+id/btnSuatKhamDaTao"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/custom_edittext"
+        android:text="Suất Khám Đã Tạo"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnLichKhamSapToi"
+        app:layout_constraintDimensionRatio="1:0.15"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua88"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua12"
+        app:layout_constraintTop_toBottomOf="@+id/line2"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btnLichKhamSapToi"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/custom_edittext"
+        android:text="Lịch Khám Sắp Tới"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.15"
+        app:layout_constraintEnd_toEndOf="@id/guidelineGiua88"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua12"
+        app:layout_constraintTop_toBottomOf="@+id/btnSuatKhamDaTao"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
+        android:id="@+id/guidelineTrai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.27" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline95"
+        android:id="@+id/guidelinePhai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline100"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.08" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline60"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineh3"
+        android:id="@+id/guidelineTren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.03" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineh82"
+        android:id="@+id/guidelineDuoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.092059836" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineDuoi98"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineGiua60"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline88"
+        android:id="@+id/guidelineGiua40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.88" />
+        app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline35"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.32" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline12"
+        android:id="@+id/guidelineGiua12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.12" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline20"
+        android:id="@+id/guidelineGiua88"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.20" />
-
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:text="Thông Tin Phòng Khám"
-        android:textSize="18dp"
-        android:textColor="#000000"
-        app:layout_constraintDimensionRatio="1:0.1"
-        app:layout_constraintEnd_toEndOf="@id/guideline60"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-
-    <View
-        android:id="@+id/ThongTinPhongKham"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintDimensionRatio="1:0.25"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/custom_view"
-        />
-
-    <RatingBar
-        android:id="@+id/rating_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp"
-        android:numStars="5"
-        android:stepSize=".5"
-        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
-        app:layout_constraintEnd_toEndOf="@id/guideline60"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline35"
-        app:layout_constraintTop_toTopOf="@+id/ThongTinPhongKham" />
-
-    <ImageView
-        android:id="@+id/line1"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        app:layout_constraintTop_toBottomOf="@+id/ThongTinPhongKham"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/image_grey_line"
-        app:layout_constraintStart_toStartOf="@id/guideline12"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        />
-
-    <TextView
-        android:id="@+id/tv2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:text="Tạo Một Suất Khám"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintDimensionRatio="1:0.1"
-        app:layout_constraintEnd_toEndOf="@id/guideline60"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/line1" />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/image_prifile"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/guideline25"
-        app:layout_constraintStart_toStartOf="@id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/ThongTinPhongKham"
-        />
-
-    <TextView
-        android:id="@+id/txt_TenPhongKham"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:text="Tên Phòng Khám"
-        android:textSize="18dp"
-        android:textColor="#000000"
-        app:layout_constraintDimensionRatio="1:0.15"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline35"
-        app:layout_constraintTop_toTopOf="@+id/ThongTinPhongKham" />
-
-    <TextView
-        android:id="@+id/txt_ChiTietPhongKham"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="34dp"
-        android:text="Chuyên Khoa ..."
-        android:textSize="15dp"
-        android:textColor="#000000"
-        app:layout_constraintDimensionRatio="1:0.15"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline35"
-        app:layout_constraintTop_toTopOf="@+id/ThongTinPhongKham" />
-
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv2"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintDimensionRatio="1:0.15"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/custom_view"
-        />
-
-    <EditText
-        android:id="@+id/viewDate_picker"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        app:layout_constraintStart_toStartOf="@id/guideline40"
-        app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintTop_toTopOf="@id/view3"
-        android:layout_marginTop="10dp"
-        android:hint="Chọn ngày..."
-        />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_view"
-        app:layout_constraintDimensionRatio="1:0.3"
-        app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="6dp"
-        android:text="Nhập Khung Giờ"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        app:layout_constraintDimensionRatio="1:0.12"
-        app:layout_constraintEnd_toEndOf="@id/guideline60"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline10"
-        app:layout_constraintTop_toTopOf="@id/view4" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Nên tạo các suất khám cách nhau tối thiểu 30 phút và tối đa 1 tiếng"
-        android:textColor="#A04D4D"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintStart_toStartOf="@id/guideline10"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
-        app:layout_constraintDimensionRatio="1:0.05"
-        />
-
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:timePickerMode="spinner"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        app:layout_constraintStart_toStartOf="@id/guideline12"
-        app:layout_constraintTop_toTopOf="@+id/view4"
-        android:layout_marginTop="29dp"
-        style="@style/ShapeAppearance.MaterialComponents.MediumComponent"
-        />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="13dp"
-        android:text="Chọn Ngày"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        app:layout_constraintDimensionRatio="1:0.3"
-        app:layout_constraintEnd_toEndOf="@id/guideline35"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline10"
-        app:layout_constraintTop_toTopOf="@id/view3" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Các suất khám đã tạo của bạn sẽ được bệnh nhân chọn và đặt."
-        android:textColor="#A04D4D"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/view4"
-        android:layout_marginTop="10dp"
-        app:layout_constraintDimensionRatio="1:0.05"
-        />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Khi khám online, nếu thời gian chờ quá 15 phút, suất khám sẽ bị hủy. "
-        android:textColor="#A04D4D"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/textView9"
-        android:layout_marginTop="5dp"
-        app:layout_constraintDimensionRatio="1:0.05"
-        />
-
-    <Button
-        android:id="@+id/bnt_TaoSuatKham"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/custom_view_green_button"
-        android:text="Tạo suất khám"
-        android:textStyle="bold"
-        app:layout_constraintDimensionRatio="1:0.15"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        app:layout_constraintStart_toStartOf="@id/guideline12"
-        app:layout_constraintTop_toBottomOf="@id/textView10"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <ImageView
-        android:id="@+id/line2"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        app:layout_constraintTop_toBottomOf="@+id/bnt_TaoSuatKham"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/image_grey_line"
-        app:layout_constraintStart_toStartOf="@id/guideline12"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        />
-
-    <Button
-        android:id="@+id/SuatKhamDaTao"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/custom_edittext"
-        android:text="Suất Khám Đã Tạo"
-        android:textStyle="bold"
-        app:layout_constraintDimensionRatio="1:0.15"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        app:layout_constraintStart_toStartOf="@id/guideline12"
-        app:layout_constraintTop_toBottomOf="@+id/line2"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/LichKhamSapToi"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/custom_edittext"
-        android:text="Lịch Khám Sắp Tới"
-        android:textStyle="bold"
-        app:layout_constraintDimensionRatio="1:0.15"
-        app:layout_constraintEnd_toEndOf="@id/guideline88"
-        app:layout_constraintStart_toStartOf="@id/guideline12"
-        app:layout_constraintTop_toBottomOf="@+id/SuatKhamDaTao"
-        tools:ignore="TouchTargetSizeCheck" />
-
-
-
+        app:layout_constraintGuide_percent="0.88" />
 </androidx.constraintlayout.widget.ConstraintLayout>

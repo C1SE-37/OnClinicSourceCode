@@ -55,7 +55,6 @@ public class DangKy extends AppCompatActivity {
     ArrayList<String>dsQuan,dsThanhPho;
     ArrayAdapter<String>adapterQuan,adapterThanhPho;
     FirebaseAuth auth;
-    DatabaseReference myRef;
     private String email,matkhau,nlmatkhau;
 
     @Override
@@ -63,8 +62,6 @@ public class DangKy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
         auth = FirebaseAuth.getInstance();
-        FirebaseDatabase database = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource);
-        myRef = database.getReference();
         AnhXa();
         addEvents();
     }
@@ -121,6 +118,7 @@ public class DangKy extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(DangKy.this, DangNhap.class);
                 startActivity(intent);
+                finish();
             }
         });
         btnDangKy.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +151,7 @@ public class DangKy extends AppCompatActivity {
                                     Toast.makeText(DangKy.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(DangKy.this,DangNhap.class));
                                     duaDuLieuLenFireBase();
-                                    finishAffinity();
+                                    finish();
                                 }
                                 else Toast.makeText(DangKy.this, "Lỗi đăng ký tài khoản", Toast.LENGTH_LONG).show();
                             }
@@ -193,6 +191,7 @@ public class DangKy extends AppCompatActivity {
     }
 
     private void duaDuLieuLenFireBase() {
+        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
         //lấy ra key từ firebase (giống primary key)
         String keyID = myRef.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).push().getKey();
         NguoiDung nguoiDung = new NguoiDung(email, matkhau,

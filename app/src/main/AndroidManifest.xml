@@ -23,7 +23,7 @@
             android:exported="false" />
         <activity
             android:name=".TaoPhongKham"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ChiTietLichSu"
             android:exported="true" />
@@ -69,6 +69,9 @@
         <activity
             android:name=".DanhGia"
             android:exported="true" />
+        <activity
+            android:name=".QuanLyPhongKham"
+            android:exported="true"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
