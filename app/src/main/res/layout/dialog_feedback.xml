@@ -35,11 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/custom_corner"
-            android:backgroundTint="#E2EF5D"
+            android:background="@drawable/custom_view_green_button"
             android:text="Gửi"
             android:textAllCaps="false"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnHuy"
@@ -47,11 +46,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/custom_corner"
-            android:backgroundTint="#959292"
-            android:text="Huỷ"
+            android:background="@drawable/custom_view_green_button"
+            android:text="Hủy"
+            android:textColor="#A04D4D"
+            android:backgroundTint="@color/white"
             android:textAllCaps="false"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>

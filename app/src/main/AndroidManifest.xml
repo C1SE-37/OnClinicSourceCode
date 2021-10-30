@@ -16,9 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".Test_Doc_DL"
-            android:exported="true" />
-        <activity
             android:name=".DatPhong2"
             android:exported="false" />
         <activity
