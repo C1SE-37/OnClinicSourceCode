@@ -35,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/custom_corner"
-            android:backgroundTint="#E2EF5D"
+            android:background="@drawable/custom_view_green_button"
             android:text="Gửi"
             android:textAllCaps="false"
             android:textSize="18sp" />
@@ -48,8 +47,9 @@
             android:layout_margin="20dp"
             android:layout_weight="1"
             android:background="@drawable/custom_corner"
-            android:backgroundTint="#959292"
+            android:backgroundTint="#fff"
             android:text="Huỷ"
+            android:textColor="#D34C4C"
             android:textAllCaps="false"
             android:textSize="18sp" />
     </LinearLayout>
