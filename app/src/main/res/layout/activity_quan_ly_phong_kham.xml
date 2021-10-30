@@ -12,23 +12,28 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#A1C4FD"
-        app:layout_constraintDimensionRatio="1:0.2"
         app:layout_constraintEnd_toEndOf="@id/guideline100"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline0"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineh12"
+        />
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@drawable/custom_corner"
         android:fontFamily="@font/roboto_bold"
         android:text="Phòng Khám"
         android:textSize="20sp"
+        android:gravity="center"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toTopOf="@id/guidelineh3" />
+        app:layout_constraintEnd_toEndOf="@id/guideline48"
+        app:layout_constraintTop_toTopOf="@id/guidelineh3"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineh6"/>
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -64,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="1" />
+        app:layout_constraintGuide_begin="1024dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
@@ -95,6 +100,20 @@
         app:layout_constraintGuide_percent="0.03" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineh6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineh12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.105" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineh82"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,7 +132,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.32" />
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.48" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
@@ -301,13 +327,13 @@
 
     <TimePicker
         android:id="@+id/timePicker"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="100dp"
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="@id/guideline88"
         app:layout_constraintStart_toStartOf="@id/guideline12"
-        app:layout_constraintTop_toTopOf="@+id/view4"
-        android:layout_marginTop="29dp"
+        app:layout_constraintTop_toTopOf="@+id/textView13"
+        android:layout_marginTop="0dp"
         style="@style/ShapeAppearance.MaterialComponents.MediumComponent"
         />
 
