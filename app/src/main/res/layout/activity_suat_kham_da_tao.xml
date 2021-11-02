@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFE6E6"
->
+    tools:context=".SuatKhamDaTao">
 
     <View
         android:id="@+id/view"
@@ -17,14 +17,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="@drawable/custom_corner"
         android:gravity="center"
         android:text="Suất khám"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toTopOf="@+id/guidelineTren"
         app:layout_constraintBottom_toBottomOf="@+id/guidelineh8"
@@ -58,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="22dp" />
+        app:layout_constraintGuide_percent="0.03009576" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineDuoi"
@@ -74,7 +73,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.42" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lvSuatKham"
         android:layout_width="0dp"
         android:layout_height="0dp"

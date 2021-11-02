@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.onclinic.taikhoan.DangKy;
+import com.example.onclinic.taikhoan.DangNhap;
 
 public class LoiChao extends AppCompatActivity {
 
@@ -55,7 +55,7 @@ public class LoiChao extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentDN = new Intent(LoiChao.this,DangNhap.class );
+                Intent intentDN = new Intent(LoiChao.this, DangNhap.class );
                 startActivity(intentDN);
             }
         });

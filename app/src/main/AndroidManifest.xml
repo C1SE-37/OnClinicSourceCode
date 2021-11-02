@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".CapNhatSuatKham"
+            android:exported="true" />
+        <activity
+            android:name=".LichKhamBacSi"
+            android:exported="true" />
+        <activity
             android:name=".DatPhong2"
             android:exported="false" />
         <activity
@@ -37,13 +43,13 @@
             android:name=".TrangChuBacSi"
             android:exported="false" />
         <activity
-            android:name=".DangNhap"
+            android:name=".taikhoan.DangNhap"
             android:exported="true" />
         <activity
-            android:name=".DangKy"
+            android:name=".taikhoan.DangKy"
             android:exported="true" />
         <activity
-            android:name=".QuenMatKhau"
+            android:name=".taikhoan.QuenMatKhau"
             android:exported="true" />
         <activity
             android:name=".ThongBao"
@@ -53,7 +59,7 @@
             android:exported="true" />
         <activity
             android:name=".LoiChao"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,7 +74,10 @@
             android:exported="true" />
         <activity
             android:name=".QuanLyPhongKham"
-            android:exported="true"/>
+            android:exported="true" />
+        <activity
+            android:name=".SuatKhamDaTao"
+            android:exported="true" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

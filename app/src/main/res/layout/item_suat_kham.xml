@@ -2,45 +2,31 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_suatkham"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTrai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelinePhai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
-
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/layout_suatkham"
-        android:layout_width="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_dialog"
-        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        tools:ignore="MissingConstraints"
         android:orientation="vertical"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:orientation="vertical">
 
@@ -49,92 +35,69 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:padding="11dp"
+                    android:padding="10dp"
                     android:text="Thời gian: "
-                    android:textSize="22dp" />
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/txtHinhThuc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:padding="11dp"
+                    android:padding="10dp"
                     android:text="Hình thức: "
-                    android:textSize="22dp" />
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/txtTrangThai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:padding="11dp"
+                    android:padding="10dp"
                     android:text="Trạng thái: "
-                    android:textSize="22dp" />
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtThoigian_sub"
+                    android:id="@+id/txtThoigianSK"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="11dp"
+                    android:padding="10dp"
                     android:text="giờ... "
-                    android:textSize="22dp" />
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/txtHinhThuc_sub"
+                    android:id="@+id/txtHinhThucSK"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="11dp"
+                    android:padding="10dp"
                     android:text="hình thức... "
-                    android:textSize="22dp" />
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/txtTrangThai_sub"
+                    android:id="@+id/txtTrangThaiSK"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="11dp"
+                    android:padding="10dp"
                     android:text="Trạng thái... "
-                    android:textSize="22dp" />
+                    android:textColor="#000"
+                    android:textSize="15sp" />
             </LinearLayout>
 
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/btnCapNhat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="0"
-            android:background="@drawable/custom_view_green_button"
-            android:text="Chỉnh sửa"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-        <Button
-            android:id="@+id/btnHuy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="0"
-            android:background="@drawable/custom_view_green_button"
-            android:backgroundTint="#D34C4C"
-            android:text="Xóa"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="20sp" />
     </LinearLayout>
-</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

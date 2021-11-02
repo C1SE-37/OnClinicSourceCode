@@ -2,6 +2,7 @@ package com.example.onclinic;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -22,7 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
-import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
@@ -46,13 +46,13 @@ public class QuanLyPhongKham extends AppCompatActivity {
 
     ArrayList<PhongKham> phongKhamList = new ArrayList<>();
     String idNguoiDung;
-    NguoiDung nguoiDung;
+    LichKham lichKham;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_phong_kham);
-        idNguoiDung = DataLocalManager.getIDNguoiDung();;
-        nguoiDung = DataLocalManager.getNguoiDung();
+        idNguoiDung = DataLocalManager.getIDNguoiDung();
         docDuLieuFireBase();
         addControls();
         addEvents();
@@ -66,9 +66,9 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     PhongKham phong = dataSnapshot.getValue(PhongKham.class);
-                    DataLocalManager.setIDPhongKham(dataSnapshot.getKey());//lưu id vào data local để sử dụng về sau
                     if(idNguoiDung.equals(phong.getIdBacSi().toString().trim()))
                     {
+                        DataLocalManager.setIDPhongKham(dataSnapshot.getKey());//lưu id vào data local để sử dụng về sau
                         txtTenPhongKham.setText(phong.getTenPhongKham());
                         txtChuyenKhoa.setText(phong.getChuyenKhoa());
                         if(phong.getHinhAnh()!=null) {
@@ -82,7 +82,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(QuanLyPhongKham.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -107,16 +107,42 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 xuLyTaoSuatKham();
             }
         });
+        btnSuatKhamDaTao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xuLySuatKhamDaTao();
+            }
+        });
+        btnLichKhamSapToi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xuLyLichKhamSapToi();
+            }
+        });
+    }
+
+    private void xuLyLichKhamSapToi() {
+        Intent intent = new Intent(QuanLyPhongKham.this, LichKhamBacSi.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void xuLySuatKhamDaTao() {
+        Intent intent = new Intent(QuanLyPhongKham.this, SuatKhamDaTao.class);
+        startActivity(intent);
+        finish();
     }
 
     private void xuLyTaoSuatKham() {
         try {
             DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
-            String idPhongKham = DataLocalManager.getIDPhongKham();
+            String idPhongKham = DataLocalManager.getIDPhongKham();//đã lấy từ hàm đọc dữ liệu firebase
+            String keyLichKham = myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).push().getKey();//lưu key để chỉnh sửa lịch khám về sau
             String ngay = txtNgay.getText().toString().trim();
             String gio = txtGio.getText().toString().trim();
-            LichKham lichKham = new LichKham(ngay,gio);
-            myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(ngay).setValue(lichKham);
+            lichKham = new LichKham(ngay,gio);
+            lichKham.setIdLichKham(keyLichKham);
+            myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(keyLichKham).setValue(lichKham);
             Toast.makeText(QuanLyPhongKham.this,"Tạo 1 lịch khám thành công",Toast.LENGTH_SHORT).show();
         }
         catch (Exception ex)

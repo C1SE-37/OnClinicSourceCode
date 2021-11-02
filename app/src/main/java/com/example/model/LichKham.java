@@ -1,9 +1,13 @@
 package com.example.model;
 
-public class LichKham {
+import java.io.Serializable;
+
+public class LichKham implements Serializable {
     private String ngayKham;//note chính
     private String gioKham;
+    private String hinhThucKham;
     private String idBenhNhan;//người đã đặt lịch
+    private String idLichKham;
 
     public LichKham() {
     }
@@ -11,6 +15,28 @@ public class LichKham {
     public LichKham(String ngayKham, String gioKham) {
         this.ngayKham = ngayKham;
         this.gioKham = gioKham;
+    }
+
+    public LichKham(String ngayKham, String gioKham, String hinhThucKham) {
+        this.ngayKham = ngayKham;
+        this.gioKham = gioKham;
+        this.hinhThucKham = hinhThucKham;
+    }
+
+    public String getIdLichKham() {
+        return idLichKham;
+    }
+
+    public void setIdLichKham(String idLichKham) {
+        this.idLichKham = idLichKham;
+    }
+
+    public String getHinhThucKham() {
+        return hinhThucKham;
+    }
+
+    public void setHinhThucKham(String hinhThucKham) {
+        this.hinhThucKham = hinhThucKham;
     }
 
     public String getNgayKham() {
