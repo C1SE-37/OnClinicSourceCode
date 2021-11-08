@@ -185,36 +185,6 @@
             android:text="Ngày sinh: "
             android:textSize="17dp" />
 
-        <TextView
-            android:id="@+id/txtProfile_ngaysinh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="7dp"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/txt_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="35dp"
-            android:text="Số điện thoại: "
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/txtProfile_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="35dp"
-            android:textSize="17dp" />
 
         <TextView
             android:id="@+id/txt_Mail"
@@ -222,54 +192,37 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="13dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="63dp"
+            android:layout_marginTop="36dp"
             android:text="Thư điện tử: "
             android:textSize="17dp" />
 
-        <TextView
-            android:id="@+id/txtProfile_Mail"
+        <ImageButton
+            android:id="@+id/btn_edit3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="107dp"
-            android:layout_marginTop="63dp"
-            android:textSize="17dp" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:src="@drawable/image_pen"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-        <TextView
-            android:id="@+id/txt_address"
+        <ImageButton
+            android:id="@+id/btn_edit4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="91dp"
-            android:text="Địa chỉ: "
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/txtProfile_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="91dp"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/txt_DoiTac"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="122dp"
-            android:text="Bạn muốn đăng ký làm đối tác với OnClinic?"
-            android:textColor="#A04D4D"
-            android:textSize="17dp"
-            android:textStyle="italic" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:src="@drawable/image_pen"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/txt_DoiMK"
@@ -277,13 +230,26 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="13dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="153dp"
+            android:layout_marginTop="102dp"
             android:layout_marginBottom="10dp"
             android:text="Bạn muốn thay đổi mật khẩu?"
             android:textColor="#A04D4D"
             android:textSize="17dp"
             android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/txt_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="64dp"
+            android:text="Địa chỉ: "
+            android:textSize="17dp" />
 
         <ImageButton
             android:id="@+id/btn_edit1"
@@ -296,42 +262,6 @@
             android:background="@color/white"
             android:src="@drawable/image_pen"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_edit2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="35dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_edit3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="63dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_edit4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="91dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </RelativeLayout>
 

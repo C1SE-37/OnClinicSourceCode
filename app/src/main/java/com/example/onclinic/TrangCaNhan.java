@@ -4,28 +4,35 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
+import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,63 +43,26 @@ import android.app.AlertDialog;
 
 public class TrangCaNhan extends AppCompatActivity {
 
-    private FirebaseUser user;
-    private DatabaseReference reference;
-    private String userid;
 
     private Button btn_DangXuat;
     private ImageButton edit_birth, edit_mail, edit_address;
-    private TextView txt_DoiTac, txt_DoiMK;
+    private TextView txt_DoiMK, txtThuDienTu, txtDiaChi, txtNgaySinh;
+    private String idNguoiDung;
+    private EditText edtTDNS, edtTDEmail,edtTDDC;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_ca_nhan);
-        userid = DataLocalManager.getIDNguoiDung();
-
-        getData();
+        idNguoiDung = DataLocalManager.getIDNguoiDung();;
+        AnhXa();
+        getDataUser();
         btnDangxuat();
         btnS();
     }
 
-    //do du lieu len profile
-    private void getData() {
-        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG);
-        DatabaseReference refNguoiDung = myRef.child(userid).child(NoteFireBase.NGUOIDUNG);
 
-        final TextView hovaTen = (TextView) findViewById(R.id.HovaTen);
-        final TextView txtProfile_ngaysinh = (TextView) findViewById(R.id.txtProfile_ngaysinh);
-        final TextView txtProfile_phone = (TextView) findViewById(R.id.txtProfile_phone);
-        final TextView txtProfile_Mail = (TextView) findViewById(R.id.txtProfile_Mail);
-        final TextView txtProfile_address = (TextView) findViewById(R.id.txtProfile_address);
-
-        refNguoiDung.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                NguoiDung user = snapshot.getValue(NguoiDung.class);
-
-                if (user != null) {
-                    String tenNguoiDung = user.tenNguoiDung;
-                    String ngaysinh = user.ngaySinh;
-                    String mail = user.email_sdt;
-                    String address1 = user.quan;
-                    String address2 = user.thanhpho;
-
-                    hovaTen.setText(tenNguoiDung);
-                    txtProfile_ngaysinh.setText(ngaysinh);
-                    txtProfile_Mail.setText(mail);
-                    txtProfile_address.setText(address1 + ", " + address2);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(TrangCaNhan.this, "Lỗi đọc dữ liệu", Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
 
     //button dang xuat
     private void btnDangxuat() {
@@ -125,13 +95,48 @@ public class TrangCaNhan extends AppCompatActivity {
         });
     }
 
-    private void btnS() {
+    private void AnhXa(){
+        txtThuDienTu = findViewById(R.id.txt_Mail);
+        txtDiaChi = findViewById(R.id.txt_address);
+        txtNgaySinh = findViewById(R.id.txt_ngaysinh);
 
         edit_birth = (ImageButton) findViewById(R.id.btn_edit1);
         edit_mail = (ImageButton) findViewById(R.id.btn_edit3);
         edit_address = (ImageButton) findViewById(R.id.btn_edit4);
-        txt_DoiTac = (TextView) findViewById(R.id.txt_DoiTac);
         txt_DoiMK = (TextView) findViewById(R.id.txt_DoiMK);
+        btn_DangXuat = findViewById(R.id.btn_DangXuat);
+
+        edtTDEmail = findViewById(R.id.edt_thay_doi_mail);
+
+    }
+
+    private void getDataUser(){
+        DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
+        myRefBN.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    NguoiDung nguoiDung = dataSnapshot.getValue(NguoiDung.class);
+                    if(idNguoiDung.equals(nguoiDung.getUserID().toString().trim()))
+                    {
+                        DataLocalManager.setIDNguoiDung(dataSnapshot.getKey());
+                        txtNgaySinh.setText("Ngày sinh: "+ nguoiDung.getNgaySinh());
+                        txtDiaChi.setText("Địa chỉ: "+ nguoiDung.getQuan() +", "+ nguoiDung.getThanhpho());
+                        txtThuDienTu.setText("Thư điện tử: "+nguoiDung.getEmail_sdt());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(TrangCaNhan.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void btnS() {
 
         //button edit ngaysinh
         edit_birth.setOnClickListener(new View.OnClickListener() {
@@ -157,21 +162,8 @@ public class TrangCaNhan extends AppCompatActivity {
             }
         });
 
-        //button doi mk
-        txt_DoiMK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDoiMK(Gravity.CENTER);
-            }
-        });
 
-        //button doi tac
-        txt_DoiTac.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(TrangCaNhan.this, TaoPhongKham.class));
-            }
-        });
+
     }
 
     private void openEditNgaySinh(int gravity) {
@@ -223,6 +215,19 @@ public class TrangCaNhan extends AppCompatActivity {
         }
 
         dialog.show();
+
+        Button btnCapNhat = dialog.findViewById(R.id.btnCapNhat);
+        EditText edtMail = dialog.findViewById(R.id.edt_thay_doi_mail);
+        Button btnHuy = dialog.findViewById(R.id.btnHuy);
+
+
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private void openEditDiaChi(int gravity) {
@@ -250,28 +255,5 @@ public class TrangCaNhan extends AppCompatActivity {
         dialog.show();
     }
 
-    private void openDoiMK(int gravity) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_thay_doi_mk);
 
-        Window window = dialog.getWindow();
-        if(window == null){
-            return;
-        }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = gravity;
-        window.setAttributes(windowAttributes);
-
-        if(Gravity.CENTER == gravity){
-            dialog.setCancelable(true);
-        } else{
-            dialog.setCancelable(false);
-        }
-
-        dialog.show();
-    }
 }
