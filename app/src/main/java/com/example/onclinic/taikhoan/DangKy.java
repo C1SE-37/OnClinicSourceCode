@@ -50,7 +50,7 @@ public class DangKy extends AppCompatActivity {
     private ProgressDialog progressDialog;
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    int lastSelected = -1;
+    //int lastSelected = -1;
     ArrayList<String>dsQuan,dsThanhPho;
     ArrayAdapter<String>adapterQuan,adapterThanhPho;
     FirebaseAuth auth;
@@ -103,7 +103,7 @@ public class DangKy extends AppCompatActivity {
                         break;
 
                 }
-                lastSelected = position;
+                //lastSelected = position;
                 spnQuan.setAdapter(adapterQuan);
             }
 

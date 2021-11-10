@@ -330,11 +330,10 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="130dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginRight="23dp"
+            android:layout_marginBottom="10dp"
             android:text="Địa chỉ phòng khám: 21 Hùng Vương Hải Châu Đà Nẵng"
-            android:textSize="17dp"
-            />
+            android:textSize="17dp" />
 
         <ImageButton
             android:id="@+id/btn_edit5"

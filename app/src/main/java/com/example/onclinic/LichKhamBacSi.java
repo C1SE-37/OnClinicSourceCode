@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adapter.LichKhamAdapter;
-import com.example.adapter.SuatKhamAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
 import com.example.sqlhelper.NoteFireBase;
@@ -20,8 +19,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class LichKhamBacSi extends AppCompatActivity {
@@ -38,6 +42,7 @@ public class LichKhamBacSi extends AppCompatActivity {
         setContentView(R.layout.activity_lich_kham_bac_si);
         idPhongKham = DataLocalManager.getIDPhongKham();
         layDanhSachLichKhamTuFireBase();
+
         addControls();
     }
 
@@ -52,7 +57,19 @@ public class LichKhamBacSi extends AppCompatActivity {
                 for(DataSnapshot data : snapshot.getChildren())
                 {
                     LichKham lichKham = data.getValue(LichKham.class);
-                    listLichKham.add(lichKham);
+                    try {
+                        Date date = sdf.parse(lichKham.getNgayKham());
+                        String today = sdf.format(Calendar.getInstance().getTime());
+                        Date now = sdf.parse(today);
+                        //so sánh ngày trong lịch và hiện tại để thêm vào lịch khám
+                        if(date.getTime() >= now.getTime())
+                        {
+                            listLichKham.add(lichKham);
+                            Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
                 lichKhamAdapter.notifyDataSetChanged();
             }

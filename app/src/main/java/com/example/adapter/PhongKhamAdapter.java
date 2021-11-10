@@ -1,59 +1,118 @@
 package com.example.adapter;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.model.NguoiDung;
+import com.example.local_data.DataLocalManager;
 import com.example.model.PhongKham;
+import com.example.onclinic.CapNhatSuatKham;
+import com.example.onclinic.DatPhong;
+import com.example.onclinic.DatPhong2;
 import com.example.onclinic.R;
 
 import java.util.List;
 
-public class PhongKhamAdapter extends ArrayAdapter<PhongKham> {
-    //màn hình sử dụng layout này
-    Activity activity;
-    //layout cho từng dòng muốn hiển thị (thiết kế trong item xml)
-    int resource;
-    //danh sách nguồn để đưa vào layout
-    List<PhongKham> objects;
+public class PhongKhamAdapter extends RecyclerView.Adapter<PhongKhamAdapter.PhongKhamViewHolder>{
 
-    public PhongKhamAdapter(@NonNull Activity activity, int resource, @NonNull List<PhongKham> objects) {
-        super(activity, resource, objects);
-        this.activity = activity;
-        this.resource = resource;
-        this.objects = objects;
+    private List<PhongKham> phongKhamList;
+    Context context;
+    public interfacePhongKhamAdapter onClickListener;
+    private int lastSelected = -1;
+
+    public PhongKhamAdapter(List<PhongKham> phongKhamList, Context context, interfacePhongKhamAdapter onClickListener) {
+        this.phongKhamList = phongKhamList;
+        this.context = context;
+        this.onClickListener = onClickListener;
+    }
+
+    public void release()
+    {
+        context = null;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //inflater dùng để build file xml đã vẽ thành code
-        LayoutInflater inflater = this.activity.getLayoutInflater();
-        View row = inflater.inflate(this.resource,null);
-        //gán các thuộc tính của file item lịch sử đã vẽ vào biến
-        TextView txtNgayKham = row.findViewById(R.id.txtNgayKham);
-        TextView txtPhongKham = row.findViewById(R.id.txtTenPhongKham);
-        TextView txtDiaChi = row.findViewById(R.id.txtDiaChi);
-        TextView txtBacSi = row.findViewById(R.id.txtBacSi);
-        TextView txtSDT = row.findViewById(R.id.txtSDT);
-        TextView maCode = row.findViewById(R.id.txtCode);
-        TextView txthinhThucKham = row.findViewById(R.id.txtHinhThuc);
-        TextView tongTien = row.findViewById(R.id.txtTongTien);
-        TextView btnChiTiet = row.findViewById(R.id.lbChiTiet);
+    public PhongKhamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_phong_kham,parent,false);
+        return new PhongKhamViewHolder(view);
+    }
 
-        PhongKham phongKham = this.objects.get(position);
-        txtPhongKham.setText(phongKham.getTenPhongKham());
-        txtDiaChi.setText(phongKham.getDiaChi());
-        txthinhThucKham.setText(phongKham.getHinhThucKham());
+    @Override
+    public void onBindViewHolder(@NonNull PhongKhamViewHolder holder,final int position) {
+        PhongKham phongKham = phongKhamList.get(position);
+        if(phongKham == null) return;
+        if(phongKham.getHinhAnh()!=null) {
+            byte[] decodedString = Base64.decode(phongKham.getHinhAnh(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.imgPhongKham.setImageBitmap(decodedByte);
+        }
+        holder.txtPhongKham.setText("Phòng khám "+phongKham.getTenPhongKham());
+        holder.txtChuyenKhoa.setText("Chuyên khoa "+phongKham.getChuyenKhoa());
+        //holder.ratingBar.setRating();
+        holder.layoutPhongKham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastSelected = position;
+                onClickListener.clickPhongKham(phongKham);
+                notifyDataSetChanged();
+            }
+        });
+        if(lastSelected == position ){
+            holder.layoutPhongKham.setBackgroundColor(Color.GRAY);
+            holder.txtChuyenKhoa.setTextColor(Color.WHITE);
+            holder.txtPhongKham.setTextColor(Color.WHITE);
+        }
+        else{
+            holder.layoutPhongKham.setBackgroundColor(Color.WHITE);
+            holder.txtChuyenKhoa.setTextColor(Color.BLACK);
+            holder.txtPhongKham.setTextColor(Color.BLACK);
+        }
 
-        return row;
+    }
+
+    @Override
+    public int getItemCount() {
+        if(phongKhamList!=null)
+            return phongKhamList.size();
+        return 0;
+    }
+
+    public interface interfacePhongKhamAdapter
+    {
+        void clickPhongKham(PhongKham phongKham);
+    }
+
+    public class PhongKhamViewHolder extends RecyclerView.ViewHolder{
+
+        ImageView imgPhongKham;
+        TextView txtPhongKham, txtChuyenKhoa;
+        RatingBar ratingBar;
+        ConstraintLayout layoutPhongKham;
+
+        public PhongKhamViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imgPhongKham = itemView.findViewById(R.id.imgItemPhongKham);
+            txtPhongKham = itemView.findViewById(R.id.txtItemPhongKham);
+            txtChuyenKhoa = itemView.findViewById(R.id.txtItemChuyenKhoa);
+            ratingBar = itemView.findViewById(R.id.item_rating_bar);
+            layoutPhongKham = itemView.findViewById(R.id.layout_phongkham);
+        }
     }
 }

@@ -12,8 +12,8 @@ public class DataLocalManager {
     private static final String ID_NGUOI_DUNG = "ID_NGUOI_DUNG";
     private static final String OBJECT_NGUOI_DUNG = "OBJECT_NGUOI_DUNG";
     private static final String ID_PHONG_KHAM = "ID_PHONG_KHAM";
+    private static final String OBJECT_PHONG_KHAM = "OBJECT_PHONG_KHAM";
     private static final String ID_LICH_KHAM = "ID_LICH_KHAM";
-    private static final String OBJECT_LICH_KHAM = "OBJECT_LICH_KHAM";
     private static DataLocalManager instance;
     private MySharedPreferences mySharedPreferences;
 
@@ -59,7 +59,19 @@ public class DataLocalManager {
     {
         return DataLocalManager.getInstance().mySharedPreferences.getStringValue(ID_PHONG_KHAM);
     }
-
+    public static void setPhongKham(PhongKham phongKham)
+    {
+        Gson gson = new Gson();//gson để chuyển object sang json
+        String strPhongKham = gson.toJson(phongKham);
+        DataLocalManager.getInstance().mySharedPreferences.putStringValue(OBJECT_PHONG_KHAM,strPhongKham);
+    }
+    public static PhongKham getPhongKham()
+    {
+        String jsonPhongKham = DataLocalManager.getInstance().mySharedPreferences.getStringValue(OBJECT_PHONG_KHAM);
+        Gson gson = new Gson();
+        PhongKham phongKham = gson.fromJson(jsonPhongKham,PhongKham.class);
+        return phongKham;
+    }
     public static void setIDLichKham(String idLichKham)
     {
         DataLocalManager.getInstance().mySharedPreferences.putStringValue(ID_LICH_KHAM,idLichKham);
@@ -67,20 +79,6 @@ public class DataLocalManager {
     public static String getIDLichKham()
     {
         return DataLocalManager.getInstance().mySharedPreferences.getStringValue(ID_LICH_KHAM);
-    }
-
-    public static void setLichKham(LichKham lichKham)
-    {
-        Gson gson = new Gson();
-        String strLichKham = gson.toJson(lichKham);
-        DataLocalManager.getInstance().mySharedPreferences.putStringValue(OBJECT_LICH_KHAM,strLichKham);
-    }
-    public static LichKham getLichKham()
-    {
-        String jsonLichKham = DataLocalManager.getInstance().mySharedPreferences.getStringValue(OBJECT_LICH_KHAM);
-        Gson gson = new Gson();
-        LichKham lichKham = gson.fromJson(jsonLichKham,LichKham.class);
-        return lichKham;
     }
 }
 

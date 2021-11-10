@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 public class TrangChuBacSi extends AppCompatActivity {
 
     ImageButton btnQuanly;
+    ImageButton btnLichKham;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +28,17 @@ public class TrangChuBacSi extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnLichKham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TrangChuBacSi.this,LichKhamBacSi.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void addControls() {
         btnQuanly = findViewById(R.id.ibtnQuanLyPhongKham);
+        btnLichKham = findViewById(R.id.ibtnLichKham);
     }
 }
