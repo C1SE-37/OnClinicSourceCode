@@ -2,9 +2,10 @@ package com.example.model;
 
 import com.example.sqlhelper.NoteFireBase;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PhongKham {
+public class PhongKham implements Serializable {
     private String idPhongKham;
     private String tenPhongKham;
     private String chuyenKhoa;

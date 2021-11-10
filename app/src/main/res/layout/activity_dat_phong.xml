@@ -14,115 +14,121 @@
         android:layout_height="0dp"
         android:background="#A1C4FD"
         app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintEnd_toEndOf="@id/guideline100"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_corner"
         android:fontFamily="@font/roboto_bold"
         android:gravity="center"
-        android:paddingLeft="0dp"
         android:text="Đặt Phòng"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintDimensionRatio="1:0.3"
-        app:layout_constraintEnd_toEndOf="@id/guideline40"
         app:layout_constraintStart_toStartOf="@id/guideline5"
         app:layout_constraintTop_toTopOf="@id/guidelineh3" />
 
-
-
-
-    <EditText
-        android:id="@+id/edtTrieuChung"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="@id/guideline95"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <TextView
+            android:id="@+id/lbTrieuChung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Triệu chứng"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtTrieuChung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edittext"
+            android:ems="10"
+            android:hint="Nhập triệu chứng ..."
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            app:layout_constraintEnd_toEndOf="@id/guideline95"
+            app:layout_constraintStart_toStartOf="@id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/custom_edittext"
-        android:ems="10"
-        android:hint="Nhập triệu chứng ..."
-        android:inputType="textPersonName"
-        app:layout_constraintDimensionRatio="1:0.1"
-        app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:padding="10dp"
         android:background="@drawable/custom_view"
-        app:layout_constraintDimensionRatio="1:0.2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/edtTrieuChung" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Kết quả tìm kiếm"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kết quả tìm kiếm"
+            android:textColor="#000"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Dưới đây là những kết quả phù hợp về từ  khóa của bạn"
-        app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintHorizontal_bias="0.551"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dưới đây là những kết quả phù hợp về từ  khóa của bạn"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+    </LinearLayout>
 
-    <View
-        android:id="@+id/view4"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/custom_view"
-        app:layout_constraintDimensionRatio="1:0.3"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/gvBenh"
         app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Bệnh"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintHorizontal_bias="0.085"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/view4" />
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bệnh"
+            android:textColor="#000"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <GridView
+        android:id="@+id/gvBenh"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintEnd_toEndOf="@id/view4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/view4"
-        app:layout_constraintTop_toTopOf="@id/view4"
+        android:background="@drawable/custom_view"
         android:numColumns="3"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/guidelineDuoi50"
+        app:layout_constraintDimensionRatio="1:0.2"
+        app:layout_constraintEnd_toEndOf="@id/guideline95"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -137,21 +143,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline100"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="1" />
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline60"
@@ -172,61 +163,78 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_begin="22dp" />
 
     <TextView
         android:id="@+id/txtphongkham"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="12dp"
+        android:gravity="center"
         android:text="Các phòng khám phù hợp với bạn nhất"
-        android:textSize="17dp"
+        android:textColor="#000"
+        android:textSize="17sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/dsphongkham"
         app:layout_constraintDimensionRatio="1:0.07"
         app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/view4" />
+        app:layout_constraintTop_toBottomOf="@+id/guidelineDuoi50" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dsphongkham"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:0.7"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineDuoi90"
         app:layout_constraintEnd_toEndOf="@id/guideline95"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/txtphongkham" />
+        app:layout_constraintTop_toBottomOf="@+id/txtphongkham" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnDongY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:background="@drawable/custom_corner"
-        android:backgroundTint="#22DFDF"
+        android:background="@drawable/custom_view_green_button"
         android:text="Đồng ý "
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline40"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dsphongkham"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineDuoi98"
+        app:layout_constraintStart_toStartOf="@id/guideline60"
         app:layout_constraintVertical_bias="0.52" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnHuy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:background="@drawable/custom_corner"
-        android:backgroundTint="#22DFDF"
+        android:background="@drawable/custom_view_green_button"
+        android:textColor="#A04D4D"
+        android:backgroundTint="@color/white"
         android:text="Huỷ"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline100"
-        app:layout_constraintStart_toStartOf="@+id/guideline60"
-        app:layout_constraintTop_toBottomOf="@id/dsphongkham"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineDuoi98"
+        app:layout_constraintEnd_toEndOf="@+id/guideline40"
         app:layout_constraintVertical_bias="0.52" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineDuoi50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineDuoi90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineDuoi98"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.98" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

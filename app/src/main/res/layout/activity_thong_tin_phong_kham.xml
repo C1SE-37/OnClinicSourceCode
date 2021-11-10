@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#EFE6E6"
     android:orientation="vertical"
-    >
+    tools:context=".ThongTinPhongKham">
 
     <View
         android:id="@+id/view"

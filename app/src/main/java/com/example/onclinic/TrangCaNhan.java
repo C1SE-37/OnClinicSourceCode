@@ -54,8 +54,6 @@ public class TrangCaNhan extends AppCompatActivity {
         btnS();
     }
 
-
-
     //button dang xuat
     private void btnDangxuat() {
         btn_DangXuat = (Button) findViewById(R.id.btn_DangXuat);
@@ -65,14 +63,14 @@ public class TrangCaNhan extends AppCompatActivity {
             public void onClick(View view) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TrangCaNhan.this);
                     alertDialogBuilder.setMessage("Bạn muốn đăng xuất?");
-                            alertDialogBuilder.setPositiveButton("Xác nhận",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface arg0, int arg1) {
-                                            FirebaseAuth.getInstance().signOut();
-                                            startActivity(new Intent(TrangCaNhan.this, LoiChao.class));
-                                        }
-                                    });
+                    alertDialogBuilder.setPositiveButton("Xác nhận",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    FirebaseAuth.getInstance().signOut();
+                                    startActivity(new Intent(TrangCaNhan.this, LoiChao.class));
+                                }
+                            });
 
                     alertDialogBuilder.setNegativeButton("Hủy",new DialogInterface.OnClickListener() {
                         @Override

@@ -14,9 +14,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.model.LichKham;
+import com.example.model.NguoiDung;
 import com.example.onclinic.CapNhatSuatKham;
 import com.example.onclinic.QuanLyPhongKham;
 import com.example.onclinic.R;
+import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -43,23 +50,27 @@ public class LichKhamAdapter extends RecyclerView.Adapter<LichKhamAdapter.LichKh
         if(lichKham == null) return;
         holder.txtThoiGian.setText(lichKham.getGioKham()+" ngày "+lichKham.getNgayKham());
         holder.txtHinhThuc.setText(lichKham.getHinhThucKham());
-        if(lichKham.getIdBenhNhan() == null)
+        if(lichKham.getIdBenhNhan() == null) {
             holder.txtTrangThai.setText("Chưa được đặt lịch");
-        else holder.txtTrangThai.setText("Đã được đặt lịch");
-        holder.layoutLichKham.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                xuLyClickItemSuatKham(lichKham);
-            }
-        });
-    }
+        }
+        else
+        {
+            DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().
+                    child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(lichKham.getIdBenhNhan()).child("tenNguoiDung");
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String value = snapshot.getValue(String.class);
+                    holder.txtTenBN.setText(value);
+                }
 
-    private void xuLyClickItemSuatKham(LichKham lichKham) {
-        Intent intent = new Intent(context, CapNhatSuatKham.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("OBJECT_LICH_KHAM",lichKham);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            holder.txtTrangThai.setText("Đã được đặt lịch");
+        }
     }
 
     public void release()

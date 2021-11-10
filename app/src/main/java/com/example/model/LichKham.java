@@ -1,6 +1,12 @@
 package com.example.model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Timer;
 
 public class LichKham implements Serializable {
     private String ngayKham;//note chính
@@ -8,6 +14,8 @@ public class LichKham implements Serializable {
     private String hinhThucKham;
     private String idBenhNhan;//người đã đặt lịch
     private String idLichKham;
+    private static SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+    private static SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
     public LichKham() {
     }
@@ -17,11 +25,54 @@ public class LichKham implements Serializable {
         this.gioKham = gioKham;
     }
 
-    public LichKham(String ngayKham, String gioKham, String hinhThucKham) {
-        this.ngayKham = ngayKham;
-        this.gioKham = gioKham;
-        this.hinhThucKham = hinhThucKham;
-    }
+    public static Comparator<LichKham> LichKhamDateAsendingComparator = new Comparator<LichKham>() {
+        @Override
+        public int compare(LichKham l1, LichKham l2) {
+            try {
+                Date date1 = sdf1.parse(l1.getNgayKham());
+                Date date2 = sdf1.parse(l2.getNgayKham());
+                //kiểm tra ngày trong lịch có lớn hơn ngày hiện tại ko
+                if(date1.compareTo(date2) == 0)//nếu 2 lịch cùng ngày thì so sánh giờ
+                {
+                    try {
+                        Date time1 = sdf2.parse(l1.getGioKham());
+                        Date time2 = sdf2.parse(l2.getGioKham());
+                        return time1.compareTo(time2);
+                    }
+                    catch (ParseException parseException) {
+                        parseException.printStackTrace();
+                    }
+                }
+                return date1.compareTo(date2);
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+                return 1;
+            }
+        }
+    };
+
+    public static Comparator<String> StringDateAsendingComparator = new Comparator<String>() {
+        @Override
+        public int compare(String s1, String s2) {
+            try {
+                Date date1 = sdf1.parse(s1);
+                Date date2 = sdf1.parse(s2);
+                return date1.compareTo(date2);
+            }
+             catch (ParseException e) {
+                e.printStackTrace();
+                return 1;
+            }
+        }
+    };
+
+    public static Comparator<Date> TimeAsendingComparator = new Comparator<Date>() {
+        @Override
+        public int compare(Date d1, Date d2) {
+            return d1.compareTo(d2);
+        }
+    };
 
     public String getIdLichKham() {
         return idLichKham;

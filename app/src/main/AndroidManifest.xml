@@ -57,8 +57,6 @@
         <activity
             android:name=".TrangCaNhan"
             android:exported="true" />
-
-
         <activity
             android:name=".LoiChao"
             android:exported="true">
@@ -69,13 +67,15 @@
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".TrangChuBenhNhan"
             android:exported="true" />
         <activity
             android:name=".DanhGia"
             android:exported="true" />
+        <activity
+            android:name=".ThongTinPhongKham"
+            android:exported="true"/>
         <activity
             android:name=".QuanLyPhongKham"
             android:exported="true" />
