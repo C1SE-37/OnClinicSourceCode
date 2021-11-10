@@ -175,7 +175,7 @@
                 android:id="@+id/viewGoiYTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nên tạo các suất khám cách nhau tối thiểu 30 phút và tối đa 1 tiếng"
+                android:text="Nên tạo các suất khám cách nhau tối thiểu 15 phút và tối đa 1 tiếng"
                 android:textColor="#A04D4D"
                 android:textSize="12sp" />
 

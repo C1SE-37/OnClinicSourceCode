@@ -175,7 +175,7 @@ public class CapNhatSuatKham extends AppCompatActivity {
             txtTrangThai.setText("Chưa được đặt lịch");
         }
         else {
-            btnXoa.setEnabled(false);
+            btnXoa.setVisibility(View.INVISIBLE);
             txtTrangThai.setText("Đã được đặt lịch");
         }
     }

@@ -80,7 +80,7 @@ public class LienHe extends AppCompatActivity {
 
         edtFeedBack =dialog.findViewById(R.id.edtFeedBack);
         btnGui = dialog.findViewById(R.id.btnGui);
-        btnHuy = dialog.findViewById(R.id.btnXoa);
+        btnHuy = dialog.findViewById(R.id.btnHuy);
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +124,7 @@ public class LienHe extends AppCompatActivity {
 
         edtFeedBack =dialog.findViewById(R.id.edtFeedBack);
         btnGui = dialog.findViewById(R.id.btnGui);
-        btnHuy = dialog.findViewById(R.id.btnXoa);
+        btnHuy = dialog.findViewById(R.id.btnHuy);
         txtLoi = dialog.findViewById(R.id.txtLoi);
 
         txtLoi.setText("Phát hiên vi phạm");

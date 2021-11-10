@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.adapter.LichKhamAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
+import com.example.sqlhelper.NgayGio;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,7 +36,6 @@ public class LichKhamBacSi extends AppCompatActivity {
     private List<LichKham> listLichKham;
 
     String idPhongKham;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +58,11 @@ public class LichKhamBacSi extends AppCompatActivity {
                 {
                     LichKham lichKham = data.getValue(LichKham.class);
                     try {
-                        Date date = sdf.parse(lichKham.getNgayKham());
-                        String today = sdf.format(Calendar.getInstance().getTime());
-                        Date now = sdf.parse(today);
+                        Date ngayFirebase = NgayGio.ConvertStringToDate(lichKham.getNgayKham());
+                        //String today = sdf.format(Calendar.getInstance().getTime());
+                        Date ngayHienTai = NgayGio.GetDateCurrent();
                         //so sánh ngày trong lịch và hiện tại để thêm vào lịch khám
-                        if(date.getTime() >= now.getTime())
+                        if(ngayFirebase.getTime() >= ngayHienTai.getTime())
                         {
                             listLichKham.add(lichKham);
                             Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần

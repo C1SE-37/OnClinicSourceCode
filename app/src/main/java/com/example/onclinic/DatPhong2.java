@@ -29,6 +29,7 @@ import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
 import com.example.model.PhongKham;
 import com.example.sqlhelper.CheckData;
+import com.example.sqlhelper.NgayGio;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,8 +60,6 @@ public class DatPhong2 extends AppCompatActivity {
     ArrayList<Date> dsGioKham;
     GioKhamAdapter adapterGioKham;
 
-    SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
     Button btnDatPhong,btnHuy;
 
     PhongKham phongKham;
@@ -92,11 +91,10 @@ public class DatPhong2 extends AppCompatActivity {
                     {
                         LichKham lichKham = data.getValue(LichKham.class);
                         try {
-                            Date date = sdf1.parse(lichKham.getNgayKham());
-                            String today = sdf1.format(Calendar.getInstance().getTime());
-                            Date now = sdf1.parse(today);
+                            Date ngayFirebase = NgayGio.ConvertStringToDate(lichKham.getNgayKham());
+                            Date ngayHienTai = NgayGio.GetDateCurrent();
                             //nếu ds chưa chứa ngày đó, id bệnh nhân chưa có và ngày trong lịch đặt phải lớn hơn hoặc = hiện tại thì thêm vào
-                            if(!dsNgayKham.contains(lichKham.getNgayKham()) && lichKham.getIdBenhNhan()==null && date.getTime()>=now.getTime())
+                            if(!dsNgayKham.contains(lichKham.getNgayKham()) && lichKham.getIdBenhNhan()==null && ngayFirebase.getTime()>=ngayHienTai.getTime())
                             {
                                 dsNgayKham.add(lichKham.getNgayKham());
                                 Collections.sort(dsNgayKham, LichKham.StringDateAsendingComparator);//sắp xếp ngày tăng dần
@@ -132,7 +130,7 @@ public class DatPhong2 extends AppCompatActivity {
         spnNgayKham.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String ngayDangChon = dsNgayKham.get(position);//chọn ở spinner
+                String ngaySpinner = dsNgayKham.get(position);//chọn ở spinner
                 try {
                     DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
                     DatabaseReference refLichKham = myRef.child(phongKham.getIdPhongKham()).child(NoteFireBase.LICHKHAM);
@@ -144,17 +142,34 @@ public class DatPhong2 extends AppCompatActivity {
                             for (DataSnapshot data : snapshot.getChildren())
                             {
                                 try{
-                                    Date dateDangChon = sdf1.parse(ngayDangChon);
+                                    Date ngayDangChon = NgayGio.ConvertStringToDate(ngaySpinner);
                                     LichKham lichKham = data.getValue(LichKham.class);
-                                    Date dateFirebase = sdf1.parse(lichKham.getNgayKham());
-                                    if (dateDangChon.equals(dateFirebase)) {
-                                        try{
-                                            Date hour = sdf2.parse(lichKham.getGioKham());
-                                            dsGioKham.add(hour);
-                                            Collections.sort(dsGioKham, LichKham.TimeAsendingComparator);//sắp xếp giờ tăng dần
+                                    Date dateFirebase = NgayGio.ConvertStringToDate(lichKham.getNgayKham());
+                                    Date ngayHienTai = NgayGio.GetDateCurrent();
+                                    if (ngayDangChon.equals(dateFirebase)) {
+                                        if(ngayDangChon.equals(ngayHienTai))
+                                        {
+                                            try{
+                                                Date gioFirebase = NgayGio.ConvertStringToTime(lichKham.getGioKham());
+                                                Date gioHienTai = NgayGio.GetTimeCurrent();
+                                                if(gioFirebase.getTime()>=gioHienTai.getTime()) {
+                                                    dsGioKham.add(gioFirebase);
+                                                    Collections.sort(dsGioKham, LichKham.TimeAsendingComparator);//sắp xếp giờ tăng dần
+                                                }
+                                            }
+                                            catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
-                                        catch (ParseException e) {
-                                            e.printStackTrace();
+                                        else{
+                                            try{
+                                                Date hour = NgayGio.ConvertStringToTime(lichKham.getGioKham());
+                                                dsGioKham.add(hour);
+                                                Collections.sort(dsGioKham, LichKham.TimeAsendingComparator);//sắp xếp giờ tăng dần
+                                            }
+                                            catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
                                     }
                                 }
@@ -193,7 +208,7 @@ public class DatPhong2 extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Object gio = gvGioKham.getItemAtPosition(position);
-                        String gioHT = sdf2.format(gio);
+                        String gioHT = new SimpleDateFormat("HH:mm").format(gio);
                         for(DataSnapshot data : snapshot.getChildren())
                         {
                             LichKham lk= data.getValue(LichKham.class);
@@ -203,7 +218,6 @@ public class DatPhong2 extends AppCompatActivity {
                                 idLichKham = data.getKey();
                                 Toast.makeText(DatPhong2.this, " Ngày: "+lk.getNgayKham()+" vào lúc: "+gioHT, Toast.LENGTH_SHORT).show();
                             }
-
                         }
                     }
 
@@ -266,6 +280,15 @@ public class DatPhong2 extends AppCompatActivity {
         {
             rdoOffline.setTextColor(Color.RED);
             rdoOnline.setTextColor(Color.RED);
+            return false;
+        }
+        if(spnNgayKham.getSelectedItem() == null) {
+            Toast.makeText(DatPhong2.this,"Không có ngày khám để đặt",Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(gvGioKham.getSelectedItem() == null)
+        {
+            Toast.makeText(DatPhong2.this,"Chưa chọn giờ khám",Toast.LENGTH_LONG).show();
             return false;
         }
         return true;

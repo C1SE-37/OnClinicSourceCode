@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
 import com.example.model.PhongKham;
+import com.example.onclinic.taikhoan.DangNhap;
+import com.example.sqlhelper.NgayGio;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,9 +33,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class QuanLyPhongKham extends AppCompatActivity {
 
@@ -48,6 +53,9 @@ public class QuanLyPhongKham extends AppCompatActivity {
     String idNguoiDung;
     LichKham lichKham;
 
+    ArrayList<Date> dsNgay = new ArrayList<>();
+    ArrayList<Date> dsGio = new ArrayList<>();
+    ArrayList<LichKham> dsLich = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +94,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
             }
         });
     }
-
 
     private void addEvents() {
         imgNgay.setOnClickListener(new View.OnClickListener() {
@@ -134,21 +141,113 @@ public class QuanLyPhongKham extends AppCompatActivity {
     }
 
     private void xuLyTaoSuatKham() {
-        try {
-            DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
-            String idPhongKham = DataLocalManager.getIDPhongKham();//đã lấy từ hàm đọc dữ liệu firebase
-            String keyLichKham = myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).push().getKey();//lưu key để chỉnh sửa lịch khám về sau
+        if(kiemTraNgayGio()) {
+            try {
+                DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
+                String idPhongKham = DataLocalManager.getIDPhongKham();//đã lấy từ hàm đọc dữ liệu firebase
+                String keyLichKham = myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).push().getKey();//lưu key để chỉnh sửa lịch khám về sau
+                String ngay = txtNgay.getText().toString().trim();
+                String gio = txtGio.getText().toString().trim();
+                lichKham = new LichKham(ngay, gio);
+                lichKham.setIdLichKham(keyLichKham);
+                myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(keyLichKham).setValue(lichKham);
+                Toast.makeText(QuanLyPhongKham.this, "Tạo 1 lịch khám thành công", Toast.LENGTH_SHORT).show();
+            } catch (Exception ex) {
+                Toast.makeText(QuanLyPhongKham.this, "Lỗi tạo lịch khám", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void layDanhSachNgayGio()
+    {
+        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
+        String idPhongKham = DataLocalManager.getIDPhongKham();//đã lấy từ hàm đọc dữ liệu firebase
+        DatabaseReference ref = myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM);
+        //thêm ngày giờ trên firebase vào danh sách để kiểm tra
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dsNgay.clear();dsGio.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    String gio = data.child("gioKham").getValue(String.class);
+                    String ngay = data.child("ngayKham").getValue(String.class);
+                    try {
+                        Date ngayFB = NgayGio.ConvertStringToDate(ngay);
+                        dsNgay.add(ngayFB);
+                        Date gioFB = NgayGio.ConvertStringToTime(gio);
+                        dsGio.add(gioFB);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(QuanLyPhongKham.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private boolean kiemTraNgayGio()
+    {
+        layDanhSachNgayGio();
+        try{
             String ngay = txtNgay.getText().toString().trim();
+            Date ngayDangChon = NgayGio.ConvertStringToDate(ngay);
+            Date ngayHienTai = NgayGio.GetDateCurrent();
+
             String gio = txtGio.getText().toString().trim();
-            lichKham = new LichKham(ngay,gio);
-            lichKham.setIdLichKham(keyLichKham);
-            myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(keyLichKham).setValue(lichKham);
-            Toast.makeText(QuanLyPhongKham.this,"Tạo 1 lịch khám thành công",Toast.LENGTH_SHORT).show();
+            Date gioDangChon = NgayGio.ConvertStringToTime(gio);
+            Date gioHienTai = NgayGio.GetTimeCurrent();
+
+            long hieu2Gio = Math.abs(gioDangChon.getTime()-gioHienTai.getTime());//tính theo milisecond (1 giây = 1000 mili giây)
+            if(ngayDangChon.getTime()>=ngayHienTai.getTime()) {
+                if (ngayDangChon.getTime() == ngayHienTai.getTime()) {
+                    if (hieu2Gio >= 300000)//300000ms = 300s = 5p
+                    {
+                        for(Date gioFB : dsGio)
+                        {
+                            //nếu time giữa giờ đã đặt và hiện tại < 15p
+                            if(Math.abs(gioFB.getTime()-gioHienTai.getTime())<900000) {
+                                Toast.makeText(QuanLyPhongKham.this,"Có suất khám khác gần thời điểm này",Toast.LENGTH_LONG).show();
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                    else{
+                        Toast.makeText(QuanLyPhongKham.this, "Nên tạo suất sau " + NgayGio.ConvertDateToString(ngayHienTai) + " " + NgayGio.ConvertTimeToString(gioHienTai)+" 5 phút"  , Toast.LENGTH_LONG).show();
+                        return false;
+                    }
+                }
+                else if(ngayDangChon.getTime()>ngayHienTai.getTime())
+                {
+                    for(Date ngayFB : dsNgay)
+                    {
+                        if(ngayFB.getTime() == ngayDangChon.getTime())
+                        {
+                            for(Date gioFB : dsGio)
+                            {
+                                //nếu time giữa giờ đã đặt và hiện tại < 15p
+                                if(Math.abs(gioFB.getTime()-gioHienTai.getTime())<900000) {
+                                    Toast.makeText(QuanLyPhongKham.this,"Có suất khám khác gần thời điểm này",Toast.LENGTH_LONG).show();
+                                    return false;
+                                }
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+            else{
+                Toast.makeText(QuanLyPhongKham.this, "Không thể tạo suất khám trước ngày hiện tại", Toast.LENGTH_LONG).show();
+                return false;
+            }
         }
-        catch (Exception ex)
-        {
-            Toast.makeText(QuanLyPhongKham.this, "Lỗi tạo lịch khám", Toast.LENGTH_LONG).show();
+        catch (ParseException e) {
+            e.printStackTrace();
         }
+        return true;
     }
 
     private void hienThiClock() {
@@ -200,9 +299,9 @@ public class QuanLyPhongKham extends AppCompatActivity {
         txtTenPhongKham = findViewById(R.id.txtTenPhongKham);
         txtChuyenKhoa = findViewById(R.id.txtChuyenKhoa);
         txtNgay = findViewById(R.id.edtChonNgay);
-        txtNgay.setText(sdf1.format(calendar.getTime()));
+        txtNgay.setText(NgayGio.GetDateCurrentString());
         txtGio = findViewById(R.id.edtChonGio);
-        txtGio.setText(sdf2.format(calendar.getTime()));
+        txtGio.setText(NgayGio.GetTimeCurrentString());
         btnTaoSuatKham = findViewById(R.id.btnTaoSuatKham);
         btnSuatKhamDaTao = findViewById(R.id.btnSuatKhamDaTao);
         btnLichKhamSapToi = findViewById(R.id.btnLichKhamSapToi);
