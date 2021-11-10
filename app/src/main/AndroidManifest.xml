@@ -58,6 +58,7 @@
             android:name=".TrangCaNhan"
             android:exported="true" />
 
+
         <activity
             android:name=".LoiChao"
             android:exported="true">
@@ -67,6 +68,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <activity
             android:name=".TrangChuBenhNhan"
