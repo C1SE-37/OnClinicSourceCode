@@ -3,12 +3,12 @@ package com.example.model;
 import java.util.Date;
 
 public class NguoiDung {
-    public String userID;
-    public String email_sdt;
-    public String matKhau;
-    public String tenNguoiDung;
-    public String ngaySinh;
-    public String thanhpho,quan;
+    private String userID;
+    private String email_sdt;
+    private String matKhau;
+    private String tenNguoiDung;
+    private String ngaySinh;
+    private String thanhpho,quan;
 
     public NguoiDung() {
     }
