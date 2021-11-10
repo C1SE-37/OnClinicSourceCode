@@ -35,10 +35,9 @@ public class TrangCaNhan extends AppCompatActivity {
 
 
     private Button btn_DangXuat;
-    private ImageButton edit_birth, edit_mail, edit_address;
-    private TextView txt_DoiMK, txtThuDienTu, txtDiaChi, txtNgaySinh, txt_ten, txt_Doi_ttcn;
+    private TextView txtThuDienTu, txtDiaChi, txtNgaySinh, txt_ten;
     private String idNguoiDung;
-    private EditText edtTDNS, edtTDEmail,edtTDDC;
+    private TextView txt_DoiMK, txt_Doi_ttcn;
 
 
     @Override
@@ -92,14 +91,10 @@ public class TrangCaNhan extends AppCompatActivity {
         txtNgaySinh = findViewById(R.id.txt_ngaysinh);
         txt_Doi_ttcn = findViewById(R.id.txt_Doi_ttcn);
 
-        edit_birth = (ImageButton) findViewById(R.id.btn_edit1);
-        edit_mail = (ImageButton) findViewById(R.id.btn_edit3);
-        edit_address = (ImageButton) findViewById(R.id.btn_edit4);
         txt_DoiMK = (TextView) findViewById(R.id.txt_DoiMK);
+        txt_Doi_ttcn = findViewById(R.id.txt_Doi_ttcn);
+
         btn_DangXuat = findViewById(R.id.btn_DangXuat);
-
-        edtTDEmail = findViewById(R.id.edt_thay_doi_mail);
-
     }
 
     private void getDataUser(){
@@ -131,64 +126,28 @@ public class TrangCaNhan extends AppCompatActivity {
 
     private void btnS() {
 
-        //button edit ngaysinh
-        edit_birth.setOnClickListener(new View.OnClickListener() {
+        //button edit thông tin cá nhân
+        txt_Doi_ttcn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openEditNgaySinh(Gravity.CENTER);
+                openEditThongTinCaNhan(Gravity.CENTER);
             }
         });
 
-        //button edit email
-        edit_mail.setOnClickListener(new View.OnClickListener() {
+        //button edit mật khẩu
+        txt_DoiMK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openEditMail(Gravity.CENTER);
+                openEditMatKhau(Gravity.CENTER);
             }
         });
-
-        //button edit dia chi
-        edit_address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openEditDiaChi(Gravity.CENTER);
-            }
-        });
-
-
 
     }
 
-    private void openEditNgaySinh(int gravity) {
+    private void openEditMatKhau(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_thay_doi_ngay_sinh);
-
-        Window window = dialog.getWindow();
-        if(window == null){
-            return;
-        }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = gravity;
-        window.setAttributes(windowAttributes);
-
-        if(Gravity.CENTER == gravity){
-            dialog.setCancelable(true);
-        } else{
-            dialog.setCancelable(false);
-        }
-
-        dialog.show();
-
-    }
-
-    private void openEditMail(int gravity) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_thay_doi_mail);
+        dialog.setContentView(R.layout.dialog_thaydoi_matkhau);
 
         Window window = dialog.getWindow();
         if(window == null){
@@ -210,9 +169,7 @@ public class TrangCaNhan extends AppCompatActivity {
         dialog.show();
 
         Button btnCapNhat = dialog.findViewById(R.id.btnCapNhat);
-        EditText edtMail = dialog.findViewById(R.id.edt_thay_doi_mail);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
-
 
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -221,9 +178,10 @@ public class TrangCaNhan extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
     }
 
-    private void openEditDiaChi(int gravity) {
+    private void openEditThongTinCaNhan(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_thaydoi_thongtin_canhan);
@@ -246,7 +204,17 @@ public class TrangCaNhan extends AppCompatActivity {
         }
 
         dialog.show();
-    }
 
+        Button btnCapNhat = dialog.findViewById(R.id.btnCapNhat);
+        Button btnHuy = dialog.findViewById(R.id.btnHuy);
+
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+    }
 
 }

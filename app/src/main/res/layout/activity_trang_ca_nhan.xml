@@ -161,16 +161,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/guidelineHori34"
         app:layout_constraintDimensionRatio="1:1"
         >
-        <ImageButton
-            android:id="@+id/btn_edit1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/image_pen"
-            />
     </ImageView>
-
-
-
 
     <RelativeLayout
         android:id="@+id/RalativeLayout1"
