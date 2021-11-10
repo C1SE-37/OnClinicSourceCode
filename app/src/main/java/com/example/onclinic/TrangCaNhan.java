@@ -1,16 +1,11 @@
 package com.example.onclinic;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -18,21 +13,16 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
-import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +36,7 @@ public class TrangCaNhan extends AppCompatActivity {
 
     private Button btn_DangXuat;
     private ImageButton edit_birth, edit_mail, edit_address;
-    private TextView txt_DoiMK, txtThuDienTu, txtDiaChi, txtNgaySinh;
+    private TextView txt_DoiMK, txtThuDienTu, txtDiaChi, txtNgaySinh, txt_ten, txt_Doi_ttcn;
     private String idNguoiDung;
     private EditText edtTDNS, edtTDEmail,edtTDDC;
 
@@ -96,9 +86,11 @@ public class TrangCaNhan extends AppCompatActivity {
     }
 
     private void AnhXa(){
+        txt_ten = (TextView) findViewById(R.id.txt_ten);
         txtThuDienTu = findViewById(R.id.txt_Mail);
         txtDiaChi = findViewById(R.id.txt_address);
         txtNgaySinh = findViewById(R.id.txt_ngaysinh);
+        txt_Doi_ttcn = findViewById(R.id.txt_Doi_ttcn);
 
         edit_birth = (ImageButton) findViewById(R.id.btn_edit1);
         edit_mail = (ImageButton) findViewById(R.id.btn_edit3);
@@ -121,6 +113,7 @@ public class TrangCaNhan extends AppCompatActivity {
                     if(idNguoiDung.equals(nguoiDung.getUserID().toString().trim()))
                     {
                         DataLocalManager.setIDNguoiDung(dataSnapshot.getKey());
+                        txt_ten.setText(nguoiDung.getTenNguoiDung());
                         txtNgaySinh.setText("Ngày sinh: "+ nguoiDung.getNgaySinh());
                         txtDiaChi.setText("Địa chỉ: "+ nguoiDung.getQuan() +", "+ nguoiDung.getThanhpho());
                         txtThuDienTu.setText("Thư điện tử: "+nguoiDung.getEmail_sdt());
@@ -233,7 +226,7 @@ public class TrangCaNhan extends AppCompatActivity {
     private void openEditDiaChi(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_thay_doi_dia_chi);
+        dialog.setContentView(R.layout.dialog_thaydoi_thongtin_canhan);
 
         Window window = dialog.getWindow();
         if(window == null){

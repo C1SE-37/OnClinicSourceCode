@@ -159,7 +159,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline0"
         app:layout_constraintTop_toTopOf="@+id/guidelineHori17"
         app:layout_constraintBottom_toBottomOf="@+id/guidelineHori34"
-        />
+        app:layout_constraintDimensionRatio="1:1"
+        >
+        <ImageButton
+            android:id="@+id/btn_edit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_pen"
+            />
+    </ImageView>
+
+
 
 
     <RelativeLayout
@@ -180,6 +190,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="13dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="7dp"
             android:text="Ngày sinh: "
@@ -198,32 +209,6 @@
             android:text="Thư điện tử: "
             android:textSize="17dp" />
 
-        <ImageButton
-            android:id="@+id/btn_edit3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_edit4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
         <TextView
             android:id="@+id/txt_DoiMK"
             android:layout_width="wrap_content"
@@ -234,7 +219,22 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="102dp"
             android:layout_marginBottom="10dp"
-            android:text="Bạn muốn thay đổi mật khẩu?"
+            android:text="Thay đổi mật khẩu"
+            android:textColor="#A04D4D"
+            android:textSize="17dp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/txt_Doi_ttcn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="135dp"
+            android:layout_marginBottom="10dp"
+            android:text="Thay đổi thông tin cá nhân"
             android:textColor="#A04D4D"
             android:textSize="17dp"
             android:textStyle="italic" />
@@ -250,18 +250,6 @@
             android:layout_marginTop="64dp"
             android:text="Địa chỉ: "
             android:textSize="17dp" />
-
-        <ImageButton
-            android:id="@+id/btn_edit1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/white"
-            android:src="@drawable/image_pen"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
     </RelativeLayout>
 
@@ -362,11 +350,12 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
-        android:id="@+id/HovaTen"
+        android:id="@+id/txt_ten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="22dp"
         android:textStyle="bold"
+        android:text="Tên"
         app:layout_constraintTop_toBottomOf="@+id/Avatar"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/guideline25"
