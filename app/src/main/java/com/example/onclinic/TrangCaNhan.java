@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -26,6 +27,7 @@ import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import android.app.AlertDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TrangCaNhan extends AppCompatActivity {
@@ -45,14 +48,13 @@ public class TrangCaNhan extends AppCompatActivity {
     private TextView txtThuDienTu, txtDiaChi, txtNgaySinh, txt_ten;
     private String idNguoiDung;
     private TextView txt_DoiMK, txt_Doi_ttcn;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_ca_nhan);
-        idNguoiDung = DataLocalManager.getIDNguoiDung();;
+        idNguoiDung = DataLocalManager.getIDNguoiDung();
         AnhXa();
         getDataUser();
         btnDangxuat();
@@ -182,9 +184,51 @@ public class TrangCaNhan extends AppCompatActivity {
         EditText mk2 = dialog.findViewById(R.id.edt_thay_doi_mk2);
         EditText mk3 = dialog.findViewById(R.id.edt_thay_doi_mk3);
 
-        TextView alert = dialog.findViewById(R.id.textView_alert);
 
-        //
+
+        DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
+        btnCapNhat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(mk1.getText().toString())
+                        || TextUtils.isEmpty(mk2.getText().toString())
+                        || TextUtils.isEmpty(mk3.getText().toString()))
+                {
+                    Toast.makeText(TrangCaNhan.this, "Không được để trống!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    if (mk2.getText().toString().equals(mk3.getText().toString()))
+                    {
+                        NguoiDung nguoiDung = new NguoiDung();
+                        if (mk1.getText().toString().trim().equals(nguoiDung.getMatKhau()))
+                        {
+                            String mk_2 = mk2.getText().toString();
+                            HashMap hashMap1 = new HashMap();
+                            hashMap1.put("matKhau", mk_2);
+
+                            myRefBN.child(idNguoiDung).updateChildren(hashMap1).addOnSuccessListener(new OnSuccessListener() {
+                                @Override
+                                public void onSuccess(Object o) {
+                                    Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                    FirebaseAuth.getInstance().signOut();
+                                    startActivity(new Intent(TrangCaNhan.this, LoiChao.class));
+                                }
+                            });
+                        }
+                        else
+                        {
+                            Toast.makeText(TrangCaNhan.this,"Mật khẩu cũ không đúng!",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(TrangCaNhan.this, "Nhập lại mật khẩu mới!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
 
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -256,28 +300,34 @@ public class TrangCaNhan extends AppCompatActivity {
                 }
             });
             // cap nhat thong tin
-            String _name = null;
             btnCapNhat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String name = ten.getText().toString();
-                    String district = quan_huyen.getText().toString();
-                    String city = tinh_tp.getText().toString();
-                    String email = mail.getText().toString();
-                    String birthday = ngaysinh.toString();
-                    HashMap hashMap = new HashMap();
-                    hashMap.put("tenNguoiDung", name);
-                    hashMap.put("email_sdt", email);
-                    hashMap.put("quan", district);
-                    hashMap.put("thanhpho", city);
-                    hashMap.put("ngaySinh", birthday);
+                    if (TextUtils.isEmpty(ten.getText().toString())
+                            || TextUtils.isEmpty(quan_huyen.getText().toString())
+                            || TextUtils.isEmpty(tinh_tp.getText().toString())
+                            || TextUtils.isEmpty(mail.getText().toString())
+                    ) {
+                        Toast.makeText(TrangCaNhan.this, "Không được để trống!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String name = ten.getText().toString();
+                        String district = quan_huyen.getText().toString();
+                        String city = tinh_tp.getText().toString();
+                        String email = mail.getText().toString();
+                        HashMap hashMap = new HashMap();
+                        hashMap.put("tenNguoiDung", name);
+                        hashMap.put("email_sdt", email);
+                        hashMap.put("quan", district);
+                        hashMap.put("thanhpho", city);
 
-                    myRefBN.child(idNguoiDung).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
-                        @Override
-                        public void onSuccess(Object o) {
-                            Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        myRefBN.child(idNguoiDung).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        });
+                    }
                 }
             });
 
