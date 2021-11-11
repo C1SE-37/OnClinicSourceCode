@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
 import com.example.sqlhelper.NoteFireBase;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import android.app.AlertDialog;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+
 public class TrangCaNhan extends AppCompatActivity {
 
 
@@ -41,6 +45,7 @@ public class TrangCaNhan extends AppCompatActivity {
     private TextView txtThuDienTu, txtDiaChi, txtNgaySinh, txt_ten;
     private String idNguoiDung;
     private TextView txt_DoiMK, txt_Doi_ttcn;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 
     @Override
@@ -169,8 +174,17 @@ public class TrangCaNhan extends AppCompatActivity {
 
         dialog.show();
 
+        //anh xa
         Button btnCapNhat = dialog.findViewById(R.id.btnCapNhat);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
+
+        EditText mk1 = dialog.findViewById(R.id.edt_thay_doi_mk1);
+        EditText mk2 = dialog.findViewById(R.id.edt_thay_doi_mk2);
+        EditText mk3 = dialog.findViewById(R.id.edt_thay_doi_mk3);
+
+        TextView alert = dialog.findViewById(R.id.textView_alert);
+
+        //
 
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -217,6 +231,7 @@ public class TrangCaNhan extends AppCompatActivity {
         //        EditText sdt = dialog.findViewById(R.id.edt_update_sdt);
         DatePicker ngaysinh = dialog.findViewById(R.id.update_ngaysinh);
 
+
             //hien thi thong tin
             DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
             myRefBN.addValueEventListener(new ValueEventListener() {
@@ -235,14 +250,36 @@ public class TrangCaNhan extends AppCompatActivity {
                         }
                     }
                 }
-
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Toast.makeText(TrangCaNhan.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
                 }
             });
+            // cap nhat thong tin
+            String _name = null;
+            btnCapNhat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String name = ten.getText().toString();
+                    String district = quan_huyen.getText().toString();
+                    String city = tinh_tp.getText().toString();
+                    String email = mail.getText().toString();
+                    String birthday = ngaysinh.toString();
+                    HashMap hashMap = new HashMap();
+                    hashMap.put("tenNguoiDung", name);
+                    hashMap.put("email_sdt", email);
+                    hashMap.put("quan", district);
+                    hashMap.put("thanhpho", city);
+                    hashMap.put("ngaySinh", birthday);
 
+                    myRefBN.child(idNguoiDung).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
