@@ -37,6 +37,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +54,9 @@ public class QuanLyPhongKham extends AppCompatActivity {
     String idNguoiDung;
     LichKham lichKham;
 
-    ArrayList<Date> dsNgay = new ArrayList<>();
-    ArrayList<Date> dsGio = new ArrayList<>();
-    ArrayList<LichKham> dsLich = new ArrayList<>();
+    ArrayList<String> dsNgay = new ArrayList<>();
+    ArrayList<Date> dsNgayDangDate = new ArrayList<>();
+    ArrayList<LichKham> dsLichKham = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +75,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     PhongKham phong = dataSnapshot.getValue(PhongKham.class);
-                    if(idNguoiDung.equals(phong.getIdBacSi().toString().trim()))
+                    if(idNguoiDung.equals(phong.getIdBacSi()))
                     {
                         DataLocalManager.setIDPhongKham(dataSnapshot.getKey());//lưu id vào data local để sử dụng về sau
                         txtTenPhongKham.setText(phong.getTenPhongKham());
@@ -93,6 +94,38 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 Toast.makeText(QuanLyPhongKham.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
             }
         });
+
+        String idPhongKham = DataLocalManager.getIDPhongKham();
+        DatabaseReference ref = myRef.child(idPhongKham).child(NoteFireBase.LICHKHAM);
+        //thêm ngày giờ trên firebase vào danh sách để kiểm tra
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dsNgay.clear();dsLichKham.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    LichKham lichKham = data.getValue(LichKham.class);
+                    if(!dsNgay.contains(lichKham.getNgayKham())) {
+                        dsNgay.add(lichKham.getNgayKham());
+                    }
+                    dsLichKham.add(lichKham);
+                    //dsGio.add(lichKham.getGioKham());
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(QuanLyPhongKham.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
+            }
+        });
+        for(int i = 0;i<dsNgay.size();i++)
+        {
+            try {
+                Date date = NgayGio.ConvertStringToDate(dsNgay.get(i));
+                dsNgayDangDate.add(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void addEvents() {
@@ -117,7 +150,8 @@ public class QuanLyPhongKham extends AppCompatActivity {
         btnSuatKhamDaTao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                xuLySuatKhamDaTao();
+                //xuLySuatKhamDaTao();
+                Toast.makeText(QuanLyPhongKham.this,"dsngay: "+dsNgay.size(),Toast.LENGTH_LONG).show();
             }
         });
         btnLichKhamSapToi.setOnClickListener(new View.OnClickListener() {
@@ -158,39 +192,8 @@ public class QuanLyPhongKham extends AppCompatActivity {
         }
     }
 
-    private void layDanhSachNgayGio()
-    {
-        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
-        String idPhongKham = DataLocalManager.getIDPhongKham();//đã lấy từ hàm đọc dữ liệu firebase
-        DatabaseReference ref = myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM);
-        //thêm ngày giờ trên firebase vào danh sách để kiểm tra
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dsNgay.clear();dsGio.clear();
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    String gio = data.child("gioKham").getValue(String.class);
-                    String ngay = data.child("ngayKham").getValue(String.class);
-                    try {
-                        Date ngayFB = NgayGio.ConvertStringToDate(ngay);
-                        dsNgay.add(ngayFB);
-                        Date gioFB = NgayGio.ConvertStringToTime(gio);
-                        dsGio.add(gioFB);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuanLyPhongKham.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private boolean kiemTraNgayGio()
     {
-        layDanhSachNgayGio();
         try{
             String ngay = txtNgay.getText().toString().trim();
             Date ngayDangChon = NgayGio.ConvertStringToDate(ngay);
@@ -200,15 +203,17 @@ public class QuanLyPhongKham extends AppCompatActivity {
             Date gioDangChon = NgayGio.ConvertStringToTime(gio);
             Date gioHienTai = NgayGio.GetTimeCurrent();
 
-            long hieu2Gio = Math.abs(gioDangChon.getTime()-gioHienTai.getTime());//tính theo milisecond (1 giây = 1000 mili giây)
+            long hieu2GioDCvaHT = Math.abs(gioDangChon.getTime()-gioHienTai.getTime());//tính theo milisecond (1 giây = 1000 mili giây)
             if(ngayDangChon.getTime()>=ngayHienTai.getTime()) {
                 if (ngayDangChon.getTime() == ngayHienTai.getTime()) {
-                    if (hieu2Gio >= 300000)//300000ms = 300s = 5p
+                    if (hieu2GioDCvaHT >= 300000)//300000ms = 300s = 5p
                     {
-                        for(Date gioFB : dsGio)
+                        for(LichKham lich : dsLichKham)
                         {
+                            Date gioFB = NgayGio.ConvertStringToTime(lich.getGioKham());
                             //nếu time giữa giờ đã đặt và hiện tại < 15p
-                            if(Math.abs(gioFB.getTime()-gioHienTai.getTime())<900000) {
+                            if(Math.abs(gioFB.getTime())-gioDangChon.getTime()<900000)
+                            {
                                 Toast.makeText(QuanLyPhongKham.this,"Có suất khám khác gần thời điểm này",Toast.LENGTH_LONG).show();
                                 return false;
                             }
@@ -222,21 +227,21 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 }
                 else if(ngayDangChon.getTime()>ngayHienTai.getTime())
                 {
-                    for(Date ngayFB : dsNgay)
+                    for(LichKham lich : dsLichKham)
                     {
+                        Date ngayFB = NgayGio.ConvertStringToDate(lich.getNgayKham());
                         if(ngayFB.getTime() == ngayDangChon.getTime())
                         {
-                            for(Date gioFB : dsGio)
+                            Date gioFB = NgayGio.ConvertStringToTime(lich.getGioKham());
+                            //nếu time giữa giờ đã đặt và hiện tại < 15p
+                            if(Math.abs(gioFB.getTime()-gioDangChon.getTime())<900000)
                             {
-                                //nếu time giữa giờ đã đặt và hiện tại < 15p
-                                if(Math.abs(gioFB.getTime()-gioHienTai.getTime())<900000) {
-                                    Toast.makeText(QuanLyPhongKham.this,"Có suất khám khác gần thời điểm này",Toast.LENGTH_LONG).show();
-                                    return false;
-                                }
+                                Toast.makeText(QuanLyPhongKham.this,"Có suất khám khác gần thời điểm này",Toast.LENGTH_LONG).show();
+                                return false;
                             }
-                            return true;
                         }
                     }
+                    return true;
                 }
             }
             else{

@@ -183,7 +183,7 @@ public class DatPhong2 extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Toast.makeText(DatPhong2.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -223,7 +223,7 @@ public class DatPhong2 extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(DatPhong2.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
