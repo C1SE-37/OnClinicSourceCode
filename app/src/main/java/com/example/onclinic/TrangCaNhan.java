@@ -5,23 +5,27 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
 import com.example.sqlhelper.NoteFireBase;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import android.app.AlertDialog;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+
 public class TrangCaNhan extends AppCompatActivity {
 
 
@@ -38,6 +45,7 @@ public class TrangCaNhan extends AppCompatActivity {
     private TextView txtThuDienTu, txtDiaChi, txtNgaySinh, txt_ten;
     private String idNguoiDung;
     private TextView txt_DoiMK, txt_Doi_ttcn;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 
     @Override
@@ -166,8 +174,17 @@ public class TrangCaNhan extends AppCompatActivity {
 
         dialog.show();
 
+        //anh xa
         Button btnCapNhat = dialog.findViewById(R.id.btnCapNhat);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
+
+        EditText mk1 = dialog.findViewById(R.id.edt_thay_doi_mk1);
+        EditText mk2 = dialog.findViewById(R.id.edt_thay_doi_mk2);
+        EditText mk3 = dialog.findViewById(R.id.edt_thay_doi_mk3);
+
+        TextView alert = dialog.findViewById(R.id.textView_alert);
+
+        //
 
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -203,9 +220,66 @@ public class TrangCaNhan extends AppCompatActivity {
 
         dialog.show();
 
+        //anh xa
         Button btnCapNhat = dialog.findViewById(R.id.btnCapNhat);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
 
+        EditText ten = dialog.findViewById(R.id.edt_update_ten);
+        EditText quan_huyen = dialog.findViewById(R.id.edt_update_dia_chi_quan);
+        EditText tinh_tp = dialog.findViewById(R.id.edt_update_dia_chi_tp);
+        EditText mail = dialog.findViewById(R.id.edt_update_mail);
+        //        EditText sdt = dialog.findViewById(R.id.edt_update_sdt);
+        DatePicker ngaysinh = dialog.findViewById(R.id.update_ngaysinh);
+
+
+            //hien thi thong tin
+            DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
+            myRefBN.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                    {
+                        NguoiDung nguoiDung = dataSnapshot.getValue(NguoiDung.class);
+                        if(idNguoiDung.equals(nguoiDung.getUserID().toString().trim()))
+                        {
+                            DataLocalManager.setIDNguoiDung(dataSnapshot.getKey());
+                            ten.setText(nguoiDung.getTenNguoiDung());
+                            quan_huyen.setText(nguoiDung.getQuan());
+                            tinh_tp.setText(nguoiDung.getThanhpho());
+                            mail.setText(nguoiDung.getEmail_sdt());
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(TrangCaNhan.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
+                }
+            });
+            // cap nhat thong tin
+            String _name = null;
+            btnCapNhat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String name = ten.getText().toString();
+                    String district = quan_huyen.getText().toString();
+                    String city = tinh_tp.getText().toString();
+                    String email = mail.getText().toString();
+                    String birthday = ngaysinh.toString();
+                    HashMap hashMap = new HashMap();
+                    hashMap.put("tenNguoiDung", name);
+                    hashMap.put("email_sdt", email);
+                    hashMap.put("quan", district);
+                    hashMap.put("thanhpho", city);
+                    hashMap.put("ngaySinh", birthday);
+
+                    myRefBN.child(idNguoiDung).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override

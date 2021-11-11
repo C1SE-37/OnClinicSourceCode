@@ -50,7 +50,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
     SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
-    ArrayList<PhongKham> phongKhamList = new ArrayList<>();
     String idNguoiDung;
     LichKham lichKham;
 
@@ -108,7 +107,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
                         dsNgay.add(lichKham.getNgayKham());
                     }
                     dsLichKham.add(lichKham);
-                    //dsGio.add(lichKham.getGioKham());
                 }
 
             }
@@ -150,8 +148,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
         btnSuatKhamDaTao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //xuLySuatKhamDaTao();
-                Toast.makeText(QuanLyPhongKham.this,"dsngay: "+dsNgay.size(),Toast.LENGTH_LONG).show();
+                xuLySuatKhamDaTao();
             }
         });
         btnLichKhamSapToi.setOnClickListener(new View.OnClickListener() {
@@ -205,20 +202,11 @@ public class QuanLyPhongKham extends AppCompatActivity {
 
             long hieu2GioDCvaHT = Math.abs(gioDangChon.getTime()-gioHienTai.getTime());//tính theo milisecond (1 giây = 1000 mili giây)
             if(ngayDangChon.getTime()>=ngayHienTai.getTime()) {
+
                 if (ngayDangChon.getTime() == ngayHienTai.getTime()) {
                     if (hieu2GioDCvaHT >= 300000)//300000ms = 300s = 5p
                     {
-                        for(LichKham lich : dsLichKham)
-                        {
-                            Date gioFB = NgayGio.ConvertStringToTime(lich.getGioKham());
-                            //nếu time giữa giờ đã đặt và hiện tại < 15p
-                            if(Math.abs(gioFB.getTime())-gioDangChon.getTime()<900000)
-                            {
-                                Toast.makeText(QuanLyPhongKham.this,"Có suất khám khác gần thời điểm này",Toast.LENGTH_LONG).show();
-                                return false;
-                            }
-                        }
-                        return true;
+                        return kiemTraNgayGio(ngayDangChon, gioDangChon);
                     }
                     else{
                         Toast.makeText(QuanLyPhongKham.this, "Nên tạo suất sau " + NgayGio.ConvertDateToString(ngayHienTai) + " " + NgayGio.ConvertTimeToString(gioHienTai)+" 5 phút"  , Toast.LENGTH_LONG).show();
@@ -227,21 +215,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 }
                 else if(ngayDangChon.getTime()>ngayHienTai.getTime())
                 {
-                    for(LichKham lich : dsLichKham)
-                    {
-                        Date ngayFB = NgayGio.ConvertStringToDate(lich.getNgayKham());
-                        if(ngayFB.getTime() == ngayDangChon.getTime())
-                        {
-                            Date gioFB = NgayGio.ConvertStringToTime(lich.getGioKham());
-                            //nếu time giữa giờ đã đặt và hiện tại < 15p
-                            if(Math.abs(gioFB.getTime()-gioDangChon.getTime())<900000)
-                            {
-                                Toast.makeText(QuanLyPhongKham.this,"Có suất khám khác gần thời điểm này",Toast.LENGTH_LONG).show();
-                                return false;
-                            }
-                        }
-                    }
-                    return true;
+                    return kiemTraNgayGio(ngayDangChon, gioDangChon);
                 }
             }
             else{
@@ -251,6 +225,21 @@ public class QuanLyPhongKham extends AppCompatActivity {
         }
         catch (ParseException e) {
             e.printStackTrace();
+        }
+        return true;
+    }
+
+    private boolean kiemTraNgayGio(Date ngayDangChon, Date gioDangChon) throws ParseException {
+        for (LichKham lich : dsLichKham) {
+            Date ngayFB = NgayGio.ConvertStringToDate(lich.getNgayKham());
+            if (ngayFB.getTime() == ngayDangChon.getTime()) {
+                Date gioFB = NgayGio.ConvertStringToTime(lich.getGioKham());
+                //nếu time giữa giờ đã đặt và hiện tại < 15p
+                if (Math.abs(gioFB.getTime() - gioDangChon.getTime()) < 900000) {
+                    Toast.makeText(QuanLyPhongKham.this, "Có suất khám khác gần thời điểm này", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }
         }
         return true;
     }
