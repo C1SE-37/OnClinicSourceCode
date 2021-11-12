@@ -7,34 +7,29 @@
     android:background="#EFE6E6"
     tools:context=".CapNhatSuatKham">
 
-    <View
-        android:id="@+id/view"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#A1C4FD"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineDuoi"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txtHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_corner"
-        android:gravity="center"
-        android:text="Thời gian"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTren" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarCNSK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#A1C4FD"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:titleTextColor="#FFF"
+            app:title="Thời gian"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_marginTop="15dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_dialog"
+        android:background="@drawable/custom_view"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
@@ -196,6 +191,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.09" />
+        app:layout_constraintGuide_percent="0.08" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

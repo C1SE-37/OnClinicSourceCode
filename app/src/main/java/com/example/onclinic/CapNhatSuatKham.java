@@ -4,15 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -34,7 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CapNhatSuatKham extends AppCompatActivity {
-    TextView txtNgay,txtGio,txtHinhThuc,txtTrangThai,txtHeader;
+    TextView txtNgay,txtGio,txtHinhThuc,txtTrangThai;
     Button btnCapNhat,btnXoa;
     LichKham lichKham;
     Calendar calendar = Calendar.getInstance();
@@ -164,8 +163,9 @@ public class CapNhatSuatKham extends AppCompatActivity {
         txtGio = findViewById(R.id.txtGioCN);
         txtHinhThuc = findViewById(R.id.txtHinhThucCN);
         txtTrangThai = findViewById(R.id.txtTrangThaiCN);
-        txtHeader = findViewById(R.id.txtHeader);
-        txtHeader.setText(lichKham.getGioKham()+" ngày "+lichKham.getNgayKham());
+        Toolbar toolbar = findViewById(R.id.toolbarCNSK);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(lichKham.getGioKham()+" ngày "+lichKham.getNgayKham());
         btnCapNhat = findViewById(R.id.btnCapNhatSK);
         btnXoa = findViewById(R.id.btnXoaSK);
         txtNgay.setText(sdf1.format(calendar.getTime()));

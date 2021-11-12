@@ -34,7 +34,7 @@
         android:id="@+id/imgPhongKham2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/house"
+        android:src="@drawable/ic_home"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayoutTTPK"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/guideline30"
