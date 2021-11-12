@@ -200,27 +200,44 @@ public class TrangCaNhan extends AppCompatActivity {
                 {
                     if (mk2.getText().toString().equals(mk3.getText().toString()))
                     {
-                        NguoiDung nguoiDung = new NguoiDung();
-                        if (mk1.getText().toString().trim().equals(nguoiDung.getMatKhau()))
-                        {
-                            String mk_2 = mk2.getText().toString();
-                            HashMap hashMap1 = new HashMap();
-                            hashMap1.put("matKhau", mk_2);
 
-                            myRefBN.child(idNguoiDung).updateChildren(hashMap1).addOnSuccessListener(new OnSuccessListener() {
-                                @Override
-                                public void onSuccess(Object o) {
-                                    Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
-                                    dialog.dismiss();
-                                    FirebaseAuth.getInstance().signOut();
-                                    startActivity(new Intent(TrangCaNhan.this, LoiChao.class));
+                        DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
+                        myRefBN.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                                {
+                                    NguoiDung nguoiDung = dataSnapshot.getValue(NguoiDung.class);
+                                        DataLocalManager.setIDNguoiDung(dataSnapshot.getKey());
+                                        if (mk1.getText().toString().trim().equals(nguoiDung.getMatKhau()))
+                                        {
+                                            String mk_2 = mk2.getText().toString();
+                                            HashMap hashMap1 = new HashMap();
+                                            hashMap1.put("matKhau", mk_2);
+
+                                            myRefBN.child(idNguoiDung).updateChildren(hashMap1).addOnSuccessListener(new OnSuccessListener() {
+                                                @Override
+                                                public void onSuccess(Object o) {
+                                                    Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                                                    dialog.dismiss();
+                                                    FirebaseAuth.getInstance().signOut();
+                                                    startActivity(new Intent(TrangCaNhan.this, LoiChao.class));
+                                                }
+                                            });
+                                            break;
+                                        }
+//                                        else
+//                                        {
+//                                            Toast.makeText(TrangCaNhan.this,"Mật khẩu cũ không đúng!",Toast.LENGTH_LONG).show();
+//                                        }
+
                                 }
-                            });
-                        }
-                        else
-                        {
-                            Toast.makeText(TrangCaNhan.this,"Mật khẩu cũ không đúng!",Toast.LENGTH_LONG).show();
-                        }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(TrangCaNhan.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
                     else
                     {
