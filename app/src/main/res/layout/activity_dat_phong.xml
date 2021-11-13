@@ -8,29 +8,29 @@
     android:orientation="vertical"
     tools:context=".DatPhong">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#A1C4FD"
-        app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/LinearLayoutToolBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_corner"
-        android:fontFamily="@font/roboto_bold"
-        android:gravity="center"
-        android:text="Đặt Phòng"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toTopOf="@id/guidelineh3" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#A1C4FD"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="Đặt phòng"
+                app:titleTextColor="#FFF" />
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="@id/guideline95"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayoutToolBar">
 
         <TextView
             android:id="@+id/lbTrieuChung"
@@ -157,13 +157,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineh3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="22dp" />
 
     <TextView
         android:id="@+id/txtphongkham"

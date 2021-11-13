@@ -6,52 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".TrangChuBacSi">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#A1C4FD"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineDuoi"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_corner"
-        android:text="Trang chủ"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTren" />
-
-
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:id="@+id/LinearLayoutToolBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTren">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/ibtnThongBao"
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:background="#A1C4FD"
-            app:srcCompat="@drawable/thong_bao"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <ImageButton
-            android:id="@+id/ibtnTrangCaNhan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#A1C4FD"
-            app:srcCompat="@drawable/ho_so_ca_nhan"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#A1C4FD"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="Trang chủ"
+                app:titleTextColor="#FFF" />
+        </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
-
 
     <ImageButton
         android:id="@+id/ibtnLichKham"
@@ -62,7 +39,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayoutToolBar"
         app:srcCompat="@drawable/dat_phong"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -137,7 +114,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
-        app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayoutToolBar"
         app:srcCompat="@drawable/quanlyphongkham"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -198,20 +175,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.03" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineDuoi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineDuoi2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.18" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineGiua1"

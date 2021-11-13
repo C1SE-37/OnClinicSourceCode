@@ -6,53 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".TrangChuBenhNhan">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#A1C4FD"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineDuoi"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_corner"
-        android:gravity="center"
-        android:text="Trang chủ"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTren" />
-
-
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:id="@+id/LinearLayoutToolBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTren">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/ibtnThongBao"
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:background="#A1C4FD"
-            app:srcCompat="@drawable/thong_bao"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <ImageButton
-            android:id="@+id/ibtnTrangCaNhan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#A1C4FD"
-            app:srcCompat="@drawable/ho_so_ca_nhan"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#A1C4FD"
+                app:titleTextColor="#FFF"
+                app:title="Trang chủ bệnh nhân"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
-
 
     <ImageButton
         android:id="@+id/ibtnDatPhong"
@@ -63,7 +39,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayoutToolBar"
         app:srcCompat="@drawable/dat_phong"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -80,7 +56,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/ibtnDoNhipTim"
+        android:id="@+id/ibtnDoNhipTimBN"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="20dp"
@@ -101,11 +77,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnDoNhipTim"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnDoNhipTimBN"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/ibtnLienHe"
+        android:id="@+id/ibtnLienHeBN"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="20dp"
@@ -126,11 +102,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnLienHe"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnLienHeBN"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/ibtnKhamOnline"
+        android:id="@+id/ibtnKhamOnlineBN"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/roundedbutton"
@@ -139,7 +115,7 @@
         android:layout_margin="20dp"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintTop_toTopOf="@id/guidelineDuoi2"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayoutToolBar"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -151,11 +127,11 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnKhamOnline"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnKhamOnlineBN"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/ibtnLichSuKham"
+        android:id="@+id/ibtnLichSuKhamBN"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="20dp"
@@ -176,7 +152,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnLichSuKham"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnLichSuKhamBN"
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -194,27 +170,6 @@
         app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTren"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineDuoi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.13" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineDuoi2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.18" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineGiua1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -227,7 +182,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.58" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

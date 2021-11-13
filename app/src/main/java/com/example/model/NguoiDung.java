@@ -9,6 +9,7 @@ public class NguoiDung {
     private String tenNguoiDung;
     private String ngaySinh;
     private String thanhpho,quan;
+    private String hinhAnh;
 
     public NguoiDung() {
     }
@@ -76,5 +77,13 @@ public class NguoiDung {
 
     public void setQuan(String quan) {
         this.quan = quan;
+    }
+
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 }

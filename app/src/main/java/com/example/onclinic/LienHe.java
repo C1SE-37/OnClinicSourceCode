@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,7 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LienHe extends AppCompatActivity {
+public class LienHe extends MyBaseActivity {
 
     TextView txtDoiTac,txtLoiPhatSinh, txtPhatHienViPham, txtViTri, txtEmail, txtFb, txtLoi;
 
@@ -26,7 +27,10 @@ public class LienHe extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lien_he);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.activity_lien_he,null,false);
+        mDrawerLayout.addView(view,0);
+        //setContentView(R.layout.activity_lien_he);
 
         AnhXa();
         XuLy();

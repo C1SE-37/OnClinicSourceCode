@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">OnClinic</string>
-    <string-array name="arrPhuong">
-
-    </string-array>
-    <string-array name="arrQuan">
-
-    </string-array>
+    <string name="nav_trangchu">Trang chủ</string>
+    <string name="nav_thongbao">Thông báo</string>
+    <string name="nav_hoso">Tài khoản</string>
+    <string name="nav_thongtincanhan">Thông tin cá nhân</string>
+    <string name="nav_doimatkhau">Đổi mật khẩu</string>
+    <string name="nav_dangxuat">Đăng xuất</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string-array name="arrThanhPho">
         <item>An Giang</item>
         <item>Bà rịa – Vũng tàu</item>

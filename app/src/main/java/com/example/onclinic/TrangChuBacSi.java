@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class TrangChuBacSi extends AppCompatActivity {
+public class TrangChuBacSi extends MyBaseActivity {
 
     ImageButton btnQuanly;
     ImageButton btnLichKham;
@@ -15,7 +16,10 @@ public class TrangChuBacSi extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trang_chu_bac_si);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.activity_trang_chu_bac_si,null,false);
+        mDrawerLayout.addView(view,0);
+        //setContentView(R.layout.activity_trang_chu_bac_si);
         addControls();
         addEvents();
     }

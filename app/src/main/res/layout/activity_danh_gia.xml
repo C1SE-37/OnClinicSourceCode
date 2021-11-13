@@ -7,33 +7,29 @@
     android:background="#EFE6E6"
     tools:context=".DanhGia">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#A1C4FD"
-        app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintEnd_toEndOf="@id/guideline100"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline0"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/LinearLayoutToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_edittext"
-        android:fontFamily="@font/roboto_bold"
-        android:gravity="center"
-        android:paddingLeft="0dp"
-        android:text="Đánh giá"
-        android:textSize="65px"
-        android:textStyle="bold"
-        app:layout_constraintDimensionRatio="1:0.3"
-        app:layout_constraintEnd_toEndOf="@id/guideline40"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toTopOf="@id/guidelineh3" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#A1C4FD"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="Đánh giá"
+                app:titleTextColor="#FFF" />
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -63,8 +59,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="1" />
 
-
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline85"
         android:layout_width="wrap_content"
@@ -87,13 +81,6 @@
         app:layout_constraintGuide_percent="0.33" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineh3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineh12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,8 +98,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/guideline35"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayoutToolBar" />
 
     <TextView
         android:id="@+id/textView22"

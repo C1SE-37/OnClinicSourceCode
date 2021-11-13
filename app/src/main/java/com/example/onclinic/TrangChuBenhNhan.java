@@ -1,21 +1,35 @@
 package com.example.onclinic;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class TrangChuBenhNhan extends AppCompatActivity {
+import com.google.android.material.navigation.NavigationView;
 
-    ImageButton ibtnDatPhong, ibtnDoNhipTim, ibtnLichSuKham, ibtnKhamOnline, ibtnLienHe,
-            ibtnThongBao, ibtnTrangCaNhan;
+public class TrangChuBenhNhan extends MyBaseActivity{
 
+    ImageButton ibtnDatPhong, ibtnDoNhipTim, ibtnLichSuKham, ibtnKhamOnline, ibtnLienHe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trang_chu_benh_nhan);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.activity_trang_chu_benh_nhan,null,false);
+        mDrawerLayout.addView(view,0);
+        //setContentView(R.layout.activity_trang_chu_benh_nhan);
 
         AnhXa();
         XyLy();
@@ -53,31 +67,13 @@ public class TrangChuBenhNhan extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-       ibtnThongBao.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent intent = new Intent(TrangChuBenhNhan.this, ThongBao.class);
-               startActivity(intent);
-           }
-       });
-
-        ibtnTrangCaNhan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TrangChuBenhNhan.this, TrangCaNhan.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void AnhXa() {
         ibtnDatPhong = findViewById(R.id.ibtnDatPhong);
-        ibtnDoNhipTim = findViewById(R.id.ibtnDoNhipTim);
-        ibtnLichSuKham = findViewById(R.id.ibtnLichSuKham);
-        ibtnKhamOnline = findViewById(R.id.ibtnKhamOnline);
-        ibtnLienHe = findViewById(R.id.ibtnLienHe);
-        ibtnThongBao = findViewById(R.id.ibtnThongBao);
-        ibtnTrangCaNhan = findViewById(R.id.ibtnTrangCaNhan);
+        ibtnDoNhipTim = findViewById(R.id.ibtnDoNhipTimBN);
+        ibtnLichSuKham = findViewById(R.id.ibtnLichSuKhamBN);
+        ibtnKhamOnline = findViewById(R.id.ibtnKhamOnlineBN);
+        ibtnLienHe = findViewById(R.id.ibtnLienHeBN);
     }
 }

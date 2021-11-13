@@ -91,8 +91,6 @@ public class TaoPhongKham extends AppCompatActivity {
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setAspectRatio(1,1)
-                .setMaxCropResultSize(700,700)
-                .setMinCropResultSize(700,700)
                 .start(TaoPhongKham.this);
     }
 
@@ -125,10 +123,13 @@ public class TaoPhongKham extends AppCompatActivity {
                 String keyID = myRef.child(NoteFireBase.PHONGKHAM).push().getKey();
 
                 //đưa ảnh về kiểu chuỗi base64
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                String imgEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                String imgEncoded = "";
+                if(selectedBitmap!=null) {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                    byte[] byteArray = byteArrayOutputStream.toByteArray();
+                    imgEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                }
 
                 //đưa checkbox về chuỗi
                 String hinhThuc = "";

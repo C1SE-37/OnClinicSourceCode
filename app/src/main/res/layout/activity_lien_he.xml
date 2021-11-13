@@ -7,32 +7,30 @@
     android:background="#EFE6E6"
     tools:context=".LienHe">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#A1C4FD"
-        app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintEnd_toEndOf="@id/guideline100"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline0"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_edittext"
-        android:fontFamily="@font/roboto_bold"
-        android:gravity="center"
-        android:paddingLeft="0dp"
-        android:text="Liên hệ với chúng tôi"
-        android:textSize="60px"
-        android:textStyle="bold"
-        app:layout_constraintDimensionRatio="1:0.2"
-        app:layout_constraintEnd_toEndOf="@id/guideline60"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toTopOf="@id/guidelineh3" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarTCBN"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#A1C4FD"
+                app:titleTextColor="#FFF"
+                app:title="Liên hệ chúng tôi"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -125,7 +123,7 @@
         app:layout_constraintDimensionRatio="1:0.13"
         app:layout_constraintEnd_toEndOf="@id/guideline60"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/view" />
+        app:layout_constraintTop_toBottomOf="@id/linearlayout1" />
 
     <TextView
         android:id="@+id/txtDKLamDoiTac"

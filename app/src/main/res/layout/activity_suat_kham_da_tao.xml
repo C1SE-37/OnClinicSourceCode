@@ -7,36 +7,29 @@
     android:background="#EFE6E6"
     tools:context=".SuatKhamDaTao">
 
-    <View
-        android:id="@+id/view"
+    <LinearLayout
+        android:id="@+id/LinearLayoutToolBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#A1C4FD"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineDuoi"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_corner"
-        android:gravity="center"
-        android:text="Suất khám"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTren"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineh8"
-        />
-
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineh8"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08071136" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#A1C4FD"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="Suất khám"
+                app:titleTextColor="#FFF" />
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTrai"
@@ -51,13 +44,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTren"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03009576" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineDuoi"

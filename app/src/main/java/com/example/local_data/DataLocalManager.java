@@ -2,7 +2,6 @@ package com.example.local_data;
 
 import android.content.Context;
 
-import com.example.model.LichKham;
 import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.google.gson.Gson;
@@ -14,6 +13,8 @@ public class DataLocalManager {
     private static final String ID_PHONG_KHAM = "ID_PHONG_KHAM";
     private static final String OBJECT_PHONG_KHAM = "OBJECT_PHONG_KHAM";
     private static final String ID_LICH_KHAM = "ID_LICH_KHAM";
+    private static final String ACTIVITY_NUMBER = "ACTIVITY_NUMBER";
+    private static final String ROLE_NUMBER = "ROLE_NUMBER";
     private static DataLocalManager instance;
     private MySharedPreferences mySharedPreferences;
 
@@ -79,6 +80,22 @@ public class DataLocalManager {
     public static String getIDLichKham()
     {
         return DataLocalManager.getInstance().mySharedPreferences.getStringValue(ID_LICH_KHAM);
+    }
+    public static void setActivityNumber(int activityNumber)
+    {
+        DataLocalManager.getInstance().mySharedPreferences.putIntegerValue(ACTIVITY_NUMBER,activityNumber);
+    }
+    public static Integer getActivityNumber()
+    {
+        return DataLocalManager.getInstance().mySharedPreferences.getIntegerValue(ACTIVITY_NUMBER);
+    }
+    public static void setRole(int role)
+    {
+        DataLocalManager.getInstance().mySharedPreferences.putIntegerValue(ROLE_NUMBER,role);
+    }
+    public static Integer getRole()
+    {
+        return DataLocalManager.getInstance().mySharedPreferences.getIntegerValue(ROLE_NUMBER);
     }
 }
 

@@ -7,23 +7,30 @@
     android:background="#EFE6E6"
     tools:context=".CapNhatSuatKham">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
+        android:id="@+id/linearlayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarCNSK"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#A1C4FD"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:titleTextColor="#FFF"
-            app:title="Thời gian"/>
-    </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarCNSK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#A1C4FD"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:titleTextColor="#FFF"
+                app:title="Thời gian"/>
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_marginTop="15dp"
@@ -33,7 +40,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@id/guidelineDuoi">
+        app:layout_constraintTop_toBottomOf="@id/linearlayout1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -185,12 +192,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.03" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineDuoi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

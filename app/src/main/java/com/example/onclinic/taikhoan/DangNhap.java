@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
+import com.example.onclinic.LienHe;
 import com.example.onclinic.R;
 import com.example.onclinic.TrangChuBacSi;
 import com.example.onclinic.TrangChuBenhNhan;
@@ -90,6 +91,7 @@ public class DangNhap extends AppCompatActivity {
             {
                 DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
                 DataLocalManager.setNguoiDung(nguoiDung);//lưu người dùng vào dữ liệu local
+                DataLocalManager.setRole(0);
                 Intent intent = new Intent(DangNhap.this, TrangChuBenhNhan.class);
                 startActivity(intent);
                 finish();
@@ -102,6 +104,7 @@ public class DangNhap extends AppCompatActivity {
             {
                 DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
                 DataLocalManager.setNguoiDung(nguoiDung);//lưu người dùng vào dữ liệu local
+                DataLocalManager.setRole(1);
                 Intent intent = new Intent(DangNhap.this, TrangChuBacSi.class);
                 startActivity(intent);
                 finish();
