@@ -3,11 +3,14 @@ package com.example.onclinic;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Base64;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,17 +18,19 @@ import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ThongTinPhongKham extends AppCompatActivity {
 
-    TextView txtTenPhongKham, txtTenBS, txtChuyenKhoa, txtMail, txtDiaChi, txtMoTa;
+    TextView txtTenPhongKham, txtTenBS, txtChuyenKhoa, txtDiaChi, txtMoTa;
     TextView txtEdit;
     Button bntDanhGia;
     ImageView avatar;
     String idPhongKham;
-    NguoiDung nguoiDung;
     PhongKham phongKham;
 
 
@@ -34,34 +39,51 @@ public class ThongTinPhongKham extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_phong_kham);
 
-        phongKham = DataLocalManager.getPhongKham();
+        AnhXa();
+        getDataClinic();
 
-        txtTenPhongKham = findViewById(R.id.txt_TenPhongKham);
-        txtTenPhongKham.setText(phongKham.getTenPhongKham());
+    }
 
-//        nguoiDung = DataLocalManager.getNguoiDung();
-//        AnhXa();
+    private void getDataClinic() {
+        idPhongKham = DataLocalManager.getIDPhongKham();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
+        DatabaseReference databaseReference1 = databaseReference.child(idPhongKham).child(NoteFireBase.PHONGKHAM);
+
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                phongKham = snapshot.getValue(PhongKham.class);
+
+                if(phongKham != null){
+                    String tenPK = phongKham.getTenPhongKham();
+                    String chuyenKhoa = phongKham.getChuyenKhoa();
+                    String diaChi = phongKham.getDiaChi();
+                    String moTa = phongKham.getMoTa();
+                    txtTenPhongKham.setText(tenPK);
+                    txtChuyenKhoa.setText("Chuyên khoa: "+ chuyenKhoa);
+                    txtDiaChi.setText("Địa chỉ: "+diaChi);
+                    txtMoTa.setText("Mô tả"+moTa);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ThongTinPhongKham.this, "Lỗi đọc dữ liệu", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void AnhXa(){
         txtTenBS = findViewById(R.id.txtTenBS);
-        txtTenBS.setText("Bác sĩ: "+nguoiDung.getTenNguoiDung());
-        txtMail = findViewById(R.id.txtPhongKham_mail2);
-        txtMail.setText("Thư điện tử: "+nguoiDung.getEmail_sdt());
+
         txtTenPhongKham = findViewById(R.id.txt_TenPhongKham);
-        txtTenPhongKham.setText(phongKham.getTenPhongKham());
+
         txtChuyenKhoa = findViewById(R.id.txtChuyenKhoa);
-        txtChuyenKhoa.setText("Chuyên khoa: "+phongKham.getChuyenKhoa());
         txtDiaChi = findViewById(R.id.txtPhongkham_DiaChi);
-        txtDiaChi.setText("Địa chỉ: "+phongKham.getDiaChi());
         txtMoTa = findViewById(R.id.txtPhongkham_MoTa);
-        txtMoTa.setText("Mô tả: "+phongKham.getMoTa());
+
         avatar = findViewById(R.id.Phongkham_Avatar);
-        if(phongKham.getHinhAnh()!=null) {
-            byte[] decodedString = Base64.decode(phongKham.getHinhAnh(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            avatar.setImageBitmap(decodedByte);
-        }
+
         txtEdit = findViewById(R.id.txt_Doi_ttpk);
         bntDanhGia = findViewById(R.id.btn_DanhGia);
     }

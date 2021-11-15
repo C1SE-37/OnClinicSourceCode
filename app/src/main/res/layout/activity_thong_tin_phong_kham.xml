@@ -242,13 +242,6 @@
             android:textSize="17dp" />
 
         <TextView
-            android:id="@+id/txtPhongKham_mail2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="mail"
-            android:textSize="17dp" />
-
-        <TextView
             android:id="@+id/txtPhongkham_DiaChi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
