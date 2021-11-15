@@ -55,7 +55,6 @@ public class LienHe extends MyBaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LienHe.this,TaoPhongKham.class);
                 startActivity(intent);
-                finish();
             }
         });
     }

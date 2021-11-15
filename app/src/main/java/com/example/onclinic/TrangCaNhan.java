@@ -78,12 +78,15 @@ public class TrangCaNhan extends AppCompatActivity {
     Button btnCapNhatDMK, btnHuyDMK;
     EditText mk1, mk2, mk3;
 
+    private int role;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_ca_nhan);
         idNguoiDung = DataLocalManager.getIDNguoiDung();
         nguoiDung = DataLocalManager.getNguoiDung();
+        role = DataLocalManager.getRole();
         AnhXa();
         addEvents();
     }
@@ -264,18 +267,34 @@ public class TrangCaNhan extends AppCompatActivity {
                         hashMap.put("hinhAnh",imgEncoded);
                     }
 
-                    DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
-                    myRefBN.child(nguoiDung.getUserID()).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
-                        @Override
-                        public void onSuccess(Object o) {
-                            Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            onBackPressed();
-                        }
-                    });
+                    //kiểm tra vai trò đã lưu ở đăng nhập
+                    if(role == 0)
+                    {
+                        DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
+                        myRefBN.child(nguoiDung.getUserID()).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                onBackPressed();
+                            }
+                        });
+                    }
+                    else{
+                        DatabaseReference myRefBS = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI);
+                        myRefBS.child(nguoiDung.getUserID()).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                Toast.makeText(TrangCaNhan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                onBackPressed();
+                            }
+                        });
+                    }
                 }
             }
         });
+
         btnHuyTTCN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

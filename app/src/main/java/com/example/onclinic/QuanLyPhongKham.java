@@ -51,6 +51,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
     SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
     String idNguoiDung;
+    PhongKham phongKham;
     LichKham lichKham;
 
     ArrayList<String> dsNgay = new ArrayList<>();
@@ -84,6 +85,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
                             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                             imgPhongKham.setImageBitmap(decodedByte);
                         }
+                        phongKham = phong;
                     }
                 }
             }
@@ -180,6 +182,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 String ngay = txtNgay.getText().toString().trim();
                 String gio = txtGio.getText().toString().trim();
                 lichKham = new LichKham(ngay, gio);
+                phongKham.setLichKham(lichKham);
                 lichKham.setIdLichKham(keyLichKham);
                 myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(keyLichKham).setValue(lichKham);
                 Toast.makeText(QuanLyPhongKham.this, "Tạo 1 lịch khám thành công", Toast.LENGTH_SHORT).show();

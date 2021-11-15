@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
+import com.example.sqlhelper.ActivityState;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -55,11 +55,6 @@ public class MyBaseActivity extends AppCompatActivity {
     Button btnCapNhatDMK, btnHuyDMK;
     EditText mk1, mk2, mk3;
 
-    private  static final int ACTIVITY_TRANGCHU = 0;
-    private  static final int ACTIVITY_THONGBAO = 1;
-    private  static final int ACTIVITY_THONGTINCANHAN = 2;
-    private  static final int ACTIVITY_DOIMATKHAU = 3;
-    private  static final int ACTIVITY_DANGXUAT = 4;
     private int currentActivity;
     private int role;
 
@@ -70,7 +65,6 @@ public class MyBaseActivity extends AppCompatActivity {
         nguoiDung = DataLocalManager.getNguoiDung();
         idNguoiDung = DataLocalManager.getIDNguoiDung();
 
-        DataLocalManager.setActivityNumber(ACTIVITY_TRANGCHU);
         currentActivity = DataLocalManager.getActivityNumber();
         role = DataLocalManager.getRole();
         addControls();
@@ -84,17 +78,19 @@ public class MyBaseActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if(id == R.id.nav_trangchu)
                 {
-                    if(currentActivity!=ACTIVITY_TRANGCHU)
+                    if(currentActivity!= ActivityState.ACTIVITY_TRANGCHU)
                     {
                         if(role == 0) {
-                            DataLocalManager.setActivityNumber(ACTIVITY_TRANGCHU);
+                            DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_TRANGCHU);
                             Intent intent = new Intent(MyBaseActivity.this, TrangChuBenhNhan.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }
                         else if(role == 1)
                         {
-                            DataLocalManager.setActivityNumber(ACTIVITY_TRANGCHU);
+                            DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_TRANGCHU);
                             Intent intent = new Intent(MyBaseActivity.this, TrangChuBacSi.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }
                     }
@@ -105,9 +101,9 @@ public class MyBaseActivity extends AppCompatActivity {
                 }
                 else if(id == R.id.nav_thongtincanhan)
                 {
-                    if(currentActivity!=ACTIVITY_THONGTINCANHAN)
+                    if(currentActivity!=ActivityState.ACTIVITY_THONGTINCANHAN)
                     {
-                        DataLocalManager.setActivityNumber(ACTIVITY_THONGTINCANHAN);
+                        DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_THONGTINCANHAN);
                         Intent intent = new Intent(MyBaseActivity.this,TrangCaNhan.class);
                         startActivity(intent);
                     }
@@ -141,6 +137,7 @@ public class MyBaseActivity extends AppCompatActivity {
                                             public void onSuccess(Object o) {
                                                 Toast.makeText(MyBaseActivity.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
                                                 onBackPressed();
+                                                addControls();
                                                 dialog.dismiss();
                                                 FirebaseAuth.getInstance().signOut();
                                                 startActivity(new Intent(MyBaseActivity.this, LoiChao.class));
@@ -175,9 +172,8 @@ public class MyBaseActivity extends AppCompatActivity {
                             .setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(MyBaseActivity.this,LoiChao.class);
-                                    startActivity(intent);
                                     finishAffinity();
+                                    System.exit(0);
                                 }
                             })
                             .setNegativeButton("Hủy", null)
@@ -227,7 +223,6 @@ public class MyBaseActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigation_view);
         setSupportActionBar(toolbar);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);

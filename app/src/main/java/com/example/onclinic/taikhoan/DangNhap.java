@@ -18,6 +18,7 @@ import com.example.onclinic.LienHe;
 import com.example.onclinic.R;
 import com.example.onclinic.TrangChuBacSi;
 import com.example.onclinic.TrangChuBenhNhan;
+import com.example.sqlhelper.ActivityState;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,10 +44,9 @@ public class DangNhap extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
-
+        layDanhSachNguoiDungTuFireBase();
         AnhXa();
         addEvents();
-        layDanhSachNguoiDungTuFireBase();
     }
 
     private void addEvents() {
@@ -92,9 +92,9 @@ public class DangNhap extends AppCompatActivity {
                 DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
                 DataLocalManager.setNguoiDung(nguoiDung);//lưu người dùng vào dữ liệu local
                 DataLocalManager.setRole(0);
+                //DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_TRANGCHU);
                 Intent intent = new Intent(DangNhap.this, TrangChuBenhNhan.class);
                 startActivity(intent);
-                finish();
                 return 0;
             }
         }
@@ -105,9 +105,9 @@ public class DangNhap extends AppCompatActivity {
                 DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
                 DataLocalManager.setNguoiDung(nguoiDung);//lưu người dùng vào dữ liệu local
                 DataLocalManager.setRole(1);
+                //DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_TRANGCHU);
                 Intent intent = new Intent(DangNhap.this, TrangChuBacSi.class);
                 startActivity(intent);
-                finish();
                 return 1;
             }
         }

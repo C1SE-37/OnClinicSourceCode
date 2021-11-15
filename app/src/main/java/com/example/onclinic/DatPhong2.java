@@ -3,6 +3,7 @@ package com.example.onclinic;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,7 +51,7 @@ public class DatPhong2 extends AppCompatActivity {
     TextView txtPhongKham, txtChuyenKhoa;
     RatingBar ratingBar;
     RadioButton rdoOnline,rdoOffline;
-    LinearLayout linearThongTinPhongKham;
+    ConstraintLayout linearThongTinPhongKham;
 
     Spinner spnNgayKham;
     ArrayList<String> dsNgayKham;
@@ -306,7 +307,7 @@ public class DatPhong2 extends AppCompatActivity {
         txtChuyenKhoa = findViewById(R.id.txtChuyenKhoa2);
         txtChuyenKhoa.setText("Chuyên khoa "+phongKham.getChuyenKhoa());
         ratingBar = findViewById(R.id.rating_bar2);
-        linearThongTinPhongKham = findViewById(R.id.linearLayoutTTPK);
+        linearThongTinPhongKham = findViewById(R.id.LayoutPhongKham);
 
         rdoOnline = findViewById(R.id.rdoOnline);
         rdoOffline = findViewById(R.id.rdoOffline);

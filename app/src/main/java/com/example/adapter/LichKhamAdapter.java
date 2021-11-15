@@ -2,12 +2,16 @@ package com.example.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -56,12 +60,17 @@ public class LichKhamAdapter extends RecyclerView.Adapter<LichKhamAdapter.LichKh
         else
         {
             DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().
-                    child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(lichKham.getIdBenhNhan()).child("tenNguoiDung");
+                    child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(lichKham.getIdBenhNhan());
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String value = snapshot.getValue(String.class);
-                    holder.txtTenBN.setText(value);
+                    NguoiDung nguoiDung = snapshot.getValue(NguoiDung.class);
+                    holder.txtTenBN.setText(nguoiDung.getTenNguoiDung());
+                    if(nguoiDung.getHinhAnh()!=null) {
+                        byte[] decodedString = Base64.decode(nguoiDung.getHinhAnh(), Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        holder.imgAnhDaiDien.setImageBitmap(decodedByte);
+                    }
                 }
 
                 @Override

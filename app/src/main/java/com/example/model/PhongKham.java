@@ -14,6 +14,15 @@ public class PhongKham implements Serializable {
     private String hinhAnh;
     private String hinhThucKham;
     private String idBacSi;
+    private LichKham lichKham;
+
+    public LichKham getLichKham() {
+        return lichKham;
+    }
+
+    public void setLichKham(LichKham lichKham) {
+        this.lichKham = lichKham;
+    }
 
     public PhongKham() {
     }

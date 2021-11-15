@@ -52,7 +52,9 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@+id/guideline65"
         app:layout_constraintStart_toStartOf="@+id/guideline35"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHori17"></ImageView>
+        app:layout_constraintTop_toTopOf="@+id/guidelineHori17">
+
+    </ImageView>
 
     <LinearLayout
         android:id="@+id/LinearLayout2"
@@ -264,6 +266,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.35" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
