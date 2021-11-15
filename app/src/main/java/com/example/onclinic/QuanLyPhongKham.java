@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import java.util.List;
 public class QuanLyPhongKham extends AppCompatActivity {
 
     ImageView imgPhongKham, imgNgay, imgGio;
+    LinearLayout lnr_PhongKham;
     TextView txtTenPhongKham, txtChuyenKhoa, txtNgay, txtGio;
     Button btnTaoSuatKham, btnSuatKhamDaTao, btnLichKhamSapToi;
     Calendar calendar = Calendar.getInstance();
@@ -51,8 +53,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
     SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
     String idNguoiDung;
-    PhongKham phongKham;
-    LichKham lichKham;
 
     ArrayList<String> dsNgay = new ArrayList<>();
     ArrayList<Date> dsNgayDangDate = new ArrayList<>();
@@ -78,6 +78,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
                     if(idNguoiDung.equals(phong.getIdBacSi()))
                     {
                         DataLocalManager.setIDPhongKham(dataSnapshot.getKey());//lưu id vào data local để sử dụng về sau
+                        DataLocalManager.setPhongKham(phong);
                         txtTenPhongKham.setText(phong.getTenPhongKham());
                         txtChuyenKhoa.setText(phong.getChuyenKhoa());
                         if(phong.getHinhAnh()!=null) {
@@ -85,7 +86,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
                             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                             imgPhongKham.setImageBitmap(decodedByte);
                         }
-                        phongKham = phong;
                     }
                 }
             }
@@ -110,7 +110,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
                     }
                     dsLichKham.add(lichKham);
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -159,18 +158,28 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 xuLyLichKhamSapToi();
             }
         });
+
+        lnr_PhongKham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                xuLyThongTinPhongKham();
+            }
+        });
+    }
+
+    private void xuLyThongTinPhongKham() {
+        Intent intent = new Intent(QuanLyPhongKham.this, ThongTinPhongKham.class);
+        startActivity(intent);
     }
 
     private void xuLyLichKhamSapToi() {
         Intent intent = new Intent(QuanLyPhongKham.this, LichKhamBacSi.class);
         startActivity(intent);
-        finish();
     }
 
     private void xuLySuatKhamDaTao() {
         Intent intent = new Intent(QuanLyPhongKham.this, SuatKhamDaTao.class);
         startActivity(intent);
-        finish();
     }
 
     private void xuLyTaoSuatKham() {
@@ -181,8 +190,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 String keyLichKham = myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).push().getKey();//lưu key để chỉnh sửa lịch khám về sau
                 String ngay = txtNgay.getText().toString().trim();
                 String gio = txtGio.getText().toString().trim();
-                lichKham = new LichKham(ngay, gio);
-                phongKham.setLichKham(lichKham);
+                LichKham lichKham = new LichKham(ngay, gio);
                 lichKham.setIdLichKham(keyLichKham);
                 myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(keyLichKham).setValue(lichKham);
                 Toast.makeText(QuanLyPhongKham.this, "Tạo 1 lịch khám thành công", Toast.LENGTH_SHORT).show();
@@ -302,5 +310,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
         btnTaoSuatKham = findViewById(R.id.btnTaoSuatKham);
         btnSuatKhamDaTao = findViewById(R.id.btnSuatKhamDaTao);
         btnLichKhamSapToi = findViewById(R.id.btnLichKhamSapToi);
+        lnr_PhongKham = findViewById(R.id.lnr_PhongKham);
     }
 }

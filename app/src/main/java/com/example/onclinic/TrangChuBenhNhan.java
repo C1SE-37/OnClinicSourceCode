@@ -34,7 +34,6 @@ public class TrangChuBenhNhan extends MyBaseActivity{
         View view = inflater.inflate(R.layout.activity_trang_chu_benh_nhan,null,false);
         mDrawerLayout.addView(view,0);
         //setContentView(R.layout.activity_trang_chu_benh_nhan);
-
         AnhXa();
         XyLy();
     }

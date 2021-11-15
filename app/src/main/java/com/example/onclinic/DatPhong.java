@@ -29,7 +29,6 @@ public class DatPhong extends AppCompatActivity {
     private RecyclerView rcvPhongKham;
     private PhongKhamAdapter phongKhamAdapter;
     private List<PhongKham> phongKhamList;
-    PhongKham phongKham;
 
     Button btnDongY;
     @Override
@@ -37,7 +36,6 @@ public class DatPhong extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dat_phong);
         layDanhSachPhongKhamTuFireBase();
-        phongKham = DataLocalManager.getPhongKham();
         addControls();
         addEvents();
     }
@@ -47,6 +45,7 @@ public class DatPhong extends AppCompatActivity {
     }
 
     private void xyLyDongY(PhongKham phongKham) {
+        DataLocalManager.setPhongKham(phongKham);
         Intent intent = new Intent(DatPhong.this, DatPhong2.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("OBJECT_PHONG_KHAM",phongKham);

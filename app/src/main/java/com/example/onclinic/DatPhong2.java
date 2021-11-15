@@ -65,6 +65,7 @@ public class DatPhong2 extends AppCompatActivity {
 
     PhongKham phongKham;
     LichKham lichKham;
+
     String idNguoiDung,idLichKham;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +125,8 @@ public class DatPhong2 extends AppCompatActivity {
         linearThongTinPhongKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(DatPhong2.this, ThongTinPhongKham.class);
+                startActivity(intent);
             }
         });
 

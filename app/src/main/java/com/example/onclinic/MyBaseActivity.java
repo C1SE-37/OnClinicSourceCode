@@ -66,6 +66,7 @@ public class MyBaseActivity extends AppCompatActivity {
         idNguoiDung = DataLocalManager.getIDNguoiDung();
 
         currentActivity = DataLocalManager.getActivityNumber();
+
         role = DataLocalManager.getRole();
         addControls();
         addEvents();
@@ -104,7 +105,7 @@ public class MyBaseActivity extends AppCompatActivity {
                     if(currentActivity!=ActivityState.ACTIVITY_THONGTINCANHAN)
                     {
                         DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_THONGTINCANHAN);
-                        Intent intent = new Intent(MyBaseActivity.this,TrangCaNhan.class);
+                        Intent intent = new Intent(getApplicationContext(),TrangCaNhan.class);
                         startActivity(intent);
                     }
                 }
@@ -131,19 +132,34 @@ public class MyBaseActivity extends AppCompatActivity {
                                         String mkmoi = mk2.getText().toString();
                                         HashMap map = new HashMap();
                                         map.put("matKhau", mkmoi);
-                                        DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
-                                        myRefBN.child(idNguoiDung).updateChildren(map).addOnSuccessListener(new OnSuccessListener() {
-                                            @Override
-                                            public void onSuccess(Object o) {
-                                                Toast.makeText(MyBaseActivity.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
-                                                onBackPressed();
-                                                addControls();
-                                                dialog.dismiss();
-                                                FirebaseAuth.getInstance().signOut();
-                                                startActivity(new Intent(MyBaseActivity.this, LoiChao.class));
-                                                finish();
-                                            }
-                                        });
+                                        if(role == 0) {
+                                            DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);
+                                            myRefBN.child(idNguoiDung).updateChildren(map).addOnSuccessListener(new OnSuccessListener() {
+                                                @Override
+                                                public void onSuccess(Object o) {
+                                                    Toast.makeText(MyBaseActivity.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                                                    onBackPressed();
+                                                    dialog.dismiss();
+                                                    FirebaseAuth.getInstance().signOut();
+                                                    startActivity(new Intent(MyBaseActivity.this, LoiChao.class));
+                                                    finish();
+                                                }
+                                            });
+                                        }
+                                        else if(role == 1){
+                                            DatabaseReference myRefBS = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI);
+                                            myRefBS.child(idNguoiDung).updateChildren(map).addOnSuccessListener(new OnSuccessListener() {
+                                                @Override
+                                                public void onSuccess(Object o) {
+                                                    Toast.makeText(MyBaseActivity.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                                                    onBackPressed();
+                                                    dialog.dismiss();
+                                                    FirebaseAuth.getInstance().signOut();
+                                                    startActivity(new Intent(MyBaseActivity.this, LoiChao.class));
+                                                    finish();
+                                                }
+                                            });
+                                        }
                                     }
                                     else
                                     {
