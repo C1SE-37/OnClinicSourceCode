@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import java.util.List;
 public class QuanLyPhongKham extends AppCompatActivity {
 
     ImageView imgPhongKham, imgNgay, imgGio;
+    LinearLayout lnr_PhongKham;
     TextView txtTenPhongKham, txtChuyenKhoa, txtNgay, txtGio;
     Button btnTaoSuatKham, btnSuatKhamDaTao, btnLichKhamSapToi;
     Calendar calendar = Calendar.getInstance();
@@ -157,6 +159,19 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 xuLyLichKhamSapToi();
             }
         });
+
+        lnr_PhongKham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                xuLyThongTinPhongKham();
+            }
+        });
+    }
+
+    private void xuLyThongTinPhongKham() {
+        Intent intent = new Intent(QuanLyPhongKham.this, ThongTinPhongKham.class);
+        startActivity(intent);
+        finish();
     }
 
     private void xuLyLichKhamSapToi() {
@@ -299,5 +314,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
         btnTaoSuatKham = findViewById(R.id.btnTaoSuatKham);
         btnSuatKhamDaTao = findViewById(R.id.btnSuatKhamDaTao);
         btnLichKhamSapToi = findViewById(R.id.btnLichKhamSapToi);
+        lnr_PhongKham = findViewById(R.id.lnr_PhongKham);
     }
 }
