@@ -31,66 +31,89 @@
         </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imgPhongKham"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_view"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintBottom_toTopOf="@+id/LinearLayout2"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua30"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@id/LinearLayoutToolBar"
-        app:srcCompat="@drawable/image_profile" />
-
-    <LinearLayout
-        android:id="@+id/LinearLayout1"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/LayoutPhongKham"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_view"
-        android:orientation="horizontal"
+        android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/LinearLayout2"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@id/guidelineGiua32"
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayoutToolBar">
+
+        <ImageView
+            android:id="@+id/imgPhongKham"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/custom_view"
+            app:layout_constraintBottom_toBottomOf="@+id/lnr_PhongKham"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/guideline30"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lnr_PhongKham"
+            app:srcCompat="@drawable/image_profile" />
 
         <LinearLayout
             android:id="@+id/lnr_PhongKham"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="3"
-            android:gravity="center|left"
-            android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_view"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/guideline32"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/txtTenPhongKham"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tên Phòng Khám"
-                android:textColor="#000"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtChuyenKhoa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Chuyên Khoa"
-                android:textColor="#000"
-                android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/txtTenPhongKham"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tên Phòng Khám"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
 
-            <RatingBar
-                android:id="@+id/rating_bar"
-                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:stepSize=".5" />
+                <TextView
+                    android:id="@+id/txtChuyenKhoa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chuyên Khoa"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+
+                <RatingBar
+                    android:id="@+id/rating_bar"
+                    style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize=".5" />
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.32" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/LinearLayout2"
@@ -101,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/LinearLayout1">
+        app:layout_constraintTop_toBottomOf="@+id/LayoutPhongKham">
 
         <TextView
             android:id="@+id/lbTaoSuatKham"
@@ -279,13 +302,13 @@
         android:background="@drawable/custom_edittext"
         android:text="Suất Khám Đã Tạo"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnLichKhamSapToi"
         app:layout_constraintDimensionRatio="1:0.15"
         app:layout_constraintEnd_toEndOf="@id/guidelineGiua88"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guidelineGiua12"
         app:layout_constraintTop_toBottomOf="@+id/line2"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck"
+        app:layout_constraintBottom_toTopOf="@+id/btnLichKhamSapToi" />
 
     <Button
         android:id="@+id/btnLichKhamSapToi"

@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".NhapDonThuoc"
+            android:exported="false" />
+        <activity
             android:name=".MyBaseActivity"
             android:exported="true" />
         <activity
@@ -64,7 +67,8 @@
             android:exported="true" />
         <activity
             android:name=".LoiChao"
-            android:exported="true" >
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,6 +85,9 @@
         <activity
             android:name=".ThongTinPhongKham"
             android:exported="true" />
+        <activity
+            android:name=".ThongTinPhongKhamViewBenhNhan"
+            android:exported="true"/>
         <activity
             android:name=".QuanLyPhongKham"
             android:exported="true" />

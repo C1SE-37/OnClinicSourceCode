@@ -7,24 +7,27 @@ import android.util.Base64;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ThongTinPhongKham extends AppCompatActivity {
 
-    TextView txtTenPhongKham, txtTenBS, txtChuyenKhoa, txtMail, txtDiaChi, txtMoTa;
+    TextView txtTenPhongKham, txtTenBS, txtEmail, txtChuyenKhoa, txtDiaChi, txtMoTa;
     TextView txtEdit;
     Button bntDanhGia;
     ImageView avatar;
-    String idPhongKham;
     NguoiDung nguoiDung;
     PhongKham phongKham;
 
@@ -35,34 +38,31 @@ public class ThongTinPhongKham extends AppCompatActivity {
         setContentView(R.layout.activity_thong_tin_phong_kham);
 
         phongKham = DataLocalManager.getPhongKham();
-
-        txtTenPhongKham = findViewById(R.id.txt_TenPhongKham);
-        txtTenPhongKham.setText(phongKham.getTenPhongKham());
-
-//        nguoiDung = DataLocalManager.getNguoiDung();
-//        AnhXa();
+        nguoiDung = DataLocalManager.getNguoiDung();
+        AnhXa();
     }
 
+
     private void AnhXa(){
-        txtTenBS = findViewById(R.id.txtTenBS);
+        txtTenBS = findViewById(R.id.txtTenBSViewBS);
         txtTenBS.setText("Bác sĩ: "+nguoiDung.getTenNguoiDung());
-        txtMail = findViewById(R.id.txtPhongKham_mail2);
-        txtMail.setText("Thư điện tử: "+nguoiDung.getEmail_sdt());
-        txtTenPhongKham = findViewById(R.id.txt_TenPhongKham);
+        txtEmail = findViewById(R.id.txtEmailViewBS);
+        txtEmail.setText("Thử điện tử: "+nguoiDung.getEmail_sdt());
+        txtTenPhongKham = findViewById(R.id.txtTenPhongKhamViewBS);
         txtTenPhongKham.setText(phongKham.getTenPhongKham());
-        txtChuyenKhoa = findViewById(R.id.txtChuyenKhoa);
+        txtChuyenKhoa = findViewById(R.id.txtChuyenKhoaViewBS);
         txtChuyenKhoa.setText("Chuyên khoa: "+phongKham.getChuyenKhoa());
-        txtDiaChi = findViewById(R.id.txtPhongkham_DiaChi);
+        txtDiaChi = findViewById(R.id.txtDiaChiViewBS);
         txtDiaChi.setText("Địa chỉ: "+phongKham.getDiaChi());
-        txtMoTa = findViewById(R.id.txtPhongkham_MoTa);
+        txtMoTa = findViewById(R.id.txtMoTaViewBS);
         txtMoTa.setText("Mô tả: "+phongKham.getMoTa());
-        avatar = findViewById(R.id.Phongkham_Avatar);
+        avatar = findViewById(R.id.PhongkhamAvatarViewBS);
         if(phongKham.getHinhAnh()!=null) {
             byte[] decodedString = Base64.decode(phongKham.getHinhAnh(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             avatar.setImageBitmap(decodedByte);
         }
-        txtEdit = findViewById(R.id.txt_Doi_ttpk);
-        bntDanhGia = findViewById(R.id.btn_DanhGia);
+        txtEdit = findViewById(R.id.txtDoiTTPK);
+        bntDanhGia = findViewById(R.id.btnDanhGiaViewBS);
     }
 }

@@ -125,7 +125,7 @@ public class DatPhong2 extends AppCompatActivity {
         linearThongTinPhongKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DatPhong2.this, ThongTinPhongKham.class);
+                Intent intent = new Intent(DatPhong2.this, ThongTinPhongKhamViewBenhNhan.class);
                 startActivity(intent);
             }
         });

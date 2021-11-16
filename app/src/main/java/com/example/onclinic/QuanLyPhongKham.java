@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
@@ -45,7 +46,7 @@ import java.util.List;
 public class QuanLyPhongKham extends AppCompatActivity {
 
     ImageView imgPhongKham, imgNgay, imgGio;
-    LinearLayout lnr_PhongKham;
+    ConstraintLayout layoutPhongKham;
     TextView txtTenPhongKham, txtChuyenKhoa, txtNgay, txtGio;
     Button btnTaoSuatKham, btnSuatKhamDaTao, btnLichKhamSapToi;
     Calendar calendar = Calendar.getInstance();
@@ -159,7 +160,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
             }
         });
 
-        lnr_PhongKham.setOnClickListener(new View.OnClickListener() {
+        layoutPhongKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 xuLyThongTinPhongKham();
@@ -310,6 +311,6 @@ public class QuanLyPhongKham extends AppCompatActivity {
         btnTaoSuatKham = findViewById(R.id.btnTaoSuatKham);
         btnSuatKhamDaTao = findViewById(R.id.btnSuatKhamDaTao);
         btnLichKhamSapToi = findViewById(R.id.btnLichKhamSapToi);
-        lnr_PhongKham = findViewById(R.id.lnr_PhongKham);
+        layoutPhongKham = findViewById(R.id.LayoutPhongKham);
     }
 }

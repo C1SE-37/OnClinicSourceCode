@@ -67,43 +67,35 @@
             tools:ignore="MissingConstraints">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txtPhongKham2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Phòng khám"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/txtPhongKham2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="Phòng khám"
-                        android:textColor="#000"
-                        android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/txtChuyenKhoa2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Chuyên khoa"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/txtChuyenKhoa2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="Chuyên khoa"
-                        android:textColor="#000"
-                        android:textSize="12sp" />
-
-                    <RatingBar
-                        android:id="@+id/rating_bar2"
-                        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:numStars="5"
-                        android:stepSize=".5" />
-
-                </LinearLayout>
+                <RatingBar
+                    android:id="@+id/rating_bar2"
+                    style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize=".5" />
 
             </LinearLayout>
 
