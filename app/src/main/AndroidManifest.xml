@@ -17,13 +17,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
             android:name=".VideoCall"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".NhapDonThuoc"
             android:exported="false" />
@@ -76,7 +70,13 @@
             android:exported="true" />
         <activity
             android:name=".LoiChao"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".TrangChuBenhNhan"
@@ -96,6 +96,9 @@
             android:exported="true" />
         <activity
             android:name=".SuatKhamDaTao"
+            android:exported="true" />
+        <activity
+            android:name=".ViewDanhGia"
             android:exported="true" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

@@ -86,7 +86,6 @@
         android:id="@+id/line1"
         android:layout_width="0dp"
         android:layout_height="3dp"
-        android:layout_marginTop="15dp"
         android:src="@drawable/image_grey_line"
         app:layout_constraintBottom_toTopOf="@+id/lbTTLH"
         app:layout_constraintEnd_toEndOf="@id/guideline89"
@@ -98,13 +97,14 @@
         android:id="@+id/lbTTLH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="20dp"
         android:text="Thông tin liên hệ"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/line1" />
+        app:layout_constraintTop_toBottomOf="@+id/line1"
+        />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -117,42 +117,53 @@
         app:layout_constraintEnd_toEndOf="@id/guideline97"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/lbTTLH">
+        app:layout_constraintTop_toBottomOf="@+id/lbTTLH"
+        >
 
         <TextView
             android:id="@+id/txtTenBSViewBS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bác sĩ: Tôn Thất Tùng"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:padding="3dp"
+            />
 
         <TextView
             android:id="@+id/txtEmailViewBS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thư điện tử: tonthattung@gmail.com"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:padding="3dp"
+            />
 
         <TextView
             android:id="@+id/txtChuyenKhoaViewBS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chuyên Khoa: Tâm thần"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:padding="3dp"
+            />
 
         <TextView
             android:id="@+id/txtDiaChiViewBS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Địa chỉ"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:padding="3dp"
+            />
 
         <TextView
             android:id="@+id/txtMoTaViewBS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mô tả"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:padding="3dp"
+            />
 
         <TextView
             android:id="@+id/txtDoiTTPK"
@@ -161,7 +172,9 @@
             android:text="Thay đổi thông tin phòng khám"
             android:textColor="#A04D4D"
             android:textSize="17sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:padding="6dp"
+            />
 
     </LinearLayout>
 
@@ -174,6 +187,7 @@
         android:textColor="#595959"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="@id/guidelineHori95"
         app:layout_constraintEnd_toEndOf="@id/guideline85"
         app:layout_constraintHorizontal_bias="0.5"
