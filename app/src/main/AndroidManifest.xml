@@ -83,7 +83,7 @@
             android:exported="true"
             android:label="Trang chủ" />
         <activity
-            android:name=".DanhGia"
+            android:name=".VietDanhGia"
             android:exported="true" />
         <activity
             android:name=".ThongTinPhongKham"

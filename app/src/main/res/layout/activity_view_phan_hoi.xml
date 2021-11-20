@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFE6E6"
-    tools:context=".DanhGia">
+    tools:context=".VietDanhGia">
 
     <View
         android:id="@+id/view"
@@ -79,34 +79,30 @@
         app:layout_constraintGuide_percent="0.03" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineh12"
+        android:id="@+id/guidelineh15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12" />
+        app:layout_constraintGuide_percent="0.13" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineh85"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.87" />
 
 
-    <ListView
-        android:id="@+id/list_DanhGia"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_DanhGia"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/view"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintEnd_toEndOf="@id/guideline95"
+        app:layout_constraintTop_toTopOf="@+id/guidelineh15"
         app:layout_constraintBottom_toBottomOf="@+id/guidelineh85"
-        >
-
-
-
-    </ListView>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/custom_view"
+        />
 
 
     <Button
@@ -114,7 +110,7 @@
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/custom_view_green_button"
         android:text="Viết đánh giá của bạn"
@@ -124,7 +120,8 @@
         app:layout_constraintEnd_toEndOf="@id/guideline95"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/list_DanhGia"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/rcv_DanhGia"
+        tools:ignore="TouchTargetSizeCheck"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
