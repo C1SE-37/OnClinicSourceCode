@@ -1,6 +1,8 @@
 package com.example.model;
 
-public class DanhGia {
+import java.io.Serializable;
+
+public class DanhGia implements Serializable {
     private String idDanhGia;
     private String nhanXet;
     private Float rating;

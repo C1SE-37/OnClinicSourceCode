@@ -53,8 +53,17 @@ public class VietDanhGia extends AppCompatActivity {
         DanhGia danhGia = new DanhGia(rating, nhanxet, tenNguoiDungDG, avatarNguoiDungDG, idNguoiDung);
         danhGia.setIdDanhGia(keyDanhGia);
         myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.DANHGIA).child(keyDanhGia).setValue(danhGia);
-        Toast.makeText(VietDanhGia.this, "Nhận xét phòng khám thành công", Toast.LENGTH_SHORT).show();
+        Toast.makeText(VietDanhGia.this, "Cảm ơn bạn đã phản hồi", Toast.LENGTH_SHORT).show();
+
+        XulyQuayLaiViewDanhGia(danhGia);
+    }
+
+    private void XulyQuayLaiViewDanhGia(DanhGia danhGia)
+    {
         Intent intent = new Intent(VietDanhGia.this, ViewDanhGia.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("OBJECT_DANH_GIA", danhGia);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

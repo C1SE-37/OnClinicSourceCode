@@ -15,6 +15,7 @@ import com.example.adapter.DanhGiaAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.DanhGia;
 import com.example.model.LichKham;
+import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,11 +33,15 @@ public class ViewDanhGia extends AppCompatActivity {
     DanhGiaAdapter mDanhGiaAdapter;
     List<DanhGia> mListDanhGia;
     String idPhongKham;
+    DanhGia danhGia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_phan_hoi);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle == null) return;
+        danhGia = (DanhGia) bundle.getSerializable("OBJECT_DANH_GIA");
         anhXa();
         addEvent();
         idPhongKham = DataLocalManager.getIDPhongKham();
@@ -55,8 +60,8 @@ public class ViewDanhGia extends AppCompatActivity {
 
     private void getListDanhGiaFromRealtimeDatabase(){
         DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
-        DatabaseReference refSuatKham = myRef.child(idPhongKham).child(NoteFireBase.DANHGIA);
-        refSuatKham.addValueEventListener(new ValueEventListener() {
+        DatabaseReference refDanhGia = myRef.child(idPhongKham).child(NoteFireBase.DANHGIA);
+        refDanhGia.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mListDanhGia.clear();

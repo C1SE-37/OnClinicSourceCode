@@ -1,8 +1,12 @@
 package com.example.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.util.Base64;
+import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +20,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.model.DanhGia;
+import com.example.model.LichKham;
 import com.example.model.NguoiDung;
+import com.example.onclinic.CapNhatSuatKham;
+import com.example.onclinic.TrangCaNhanView;
 import com.example.onclinic.VietDanhGia;
 import com.example.onclinic.R;
 import com.example.sqlhelper.NoteFireBase;
@@ -28,8 +35,10 @@ import java.util.List;
 public class DanhGiaAdapter extends RecyclerView.Adapter<DanhGiaAdapter.DanhGiaViewHolder> {
 
     private List<DanhGia> danhGiaList;
+    DanhGia danhGia;
 
-    public DanhGiaAdapter(List<DanhGia> danhGiaList) {
+    public DanhGiaAdapter(List<DanhGia> danhGiaList ) {
+
         this.danhGiaList = danhGiaList;
     }
 
