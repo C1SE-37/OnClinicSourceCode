@@ -34,6 +34,7 @@ import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.example.sqlhelper.CheckData;
 import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -149,8 +150,12 @@ public class TaoPhongKham extends AppCompatActivity {
                         imgEncoded, hinhThuc);
                 phongKham.setIdPhongKham(keyID);
                 phongKham.setIdBacSi(idNguoiDung);
-                myRef.child(NoteFireBase.PHONGKHAM).child(keyID).setValue(phongKham);
-                troVeTrangChu();
+                myRef.child(NoteFireBase.PHONGKHAM).child(keyID).setValue(phongKham, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        troVeTrangChu();
+                    }
+                });
             }
             catch (Exception ex)
             {

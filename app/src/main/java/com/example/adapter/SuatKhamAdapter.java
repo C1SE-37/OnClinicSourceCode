@@ -39,12 +39,17 @@ public class SuatKhamAdapter extends RecyclerView.Adapter<SuatKhamAdapter.SuatKh
     @Override
     public void onBindViewHolder(@NonNull SuatKhamViewHolder holder, int position) {
         LichKham lichKham = lichKhamList.get(position);
-        if(lichKham == null) return;
+        if(lichKham == null || lichKham.getTrangThai() >= LichKham.KhamXong) return;
         holder.txtThoiGian.setText(lichKham.getGioKham()+" ngày "+lichKham.getNgayKham());
         holder.txtHinhThuc.setText(lichKham.getHinhThucKham());
-        if(lichKham.getIdBenhNhan() == null)
+        if(lichKham.getIdBenhNhan() == null) {
+            lichKham.setTrangThai(LichKham.ChuaDatLich);
             holder.txtTrangThai.setText("Chưa được đặt lịch");
-        else holder.txtTrangThai.setText("Đã được đặt lịch");
+        }
+        else {
+            lichKham.setTrangThai(LichKham.DatLich);
+            holder.txtTrangThai.setText("Đã được đặt lịch");
+        }
         holder.layoutSuatKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

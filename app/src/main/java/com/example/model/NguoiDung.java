@@ -1,8 +1,9 @@
 package com.example.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class NguoiDung {
+public class NguoiDung implements Serializable{
     private String userID;
     private String email_sdt;
     private String matKhau;

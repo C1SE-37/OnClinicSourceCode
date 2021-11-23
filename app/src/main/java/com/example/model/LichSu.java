@@ -2,74 +2,96 @@ package com.example.model;
 
 import android.text.format.DateFormat;
 
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 
-public class LichSu {
-    private String ngayDatPhong;
-    private String ngayKhamBenh;
-    private String maPhongKham;
-    private String maNguoiKham;
-    private String maNguoiDat;
-    private String tongTien;
+public class LichSu implements Serializable {
+    private String idLichSu;
+    private Benh benh;
+    private PhongKham phongKham;
+    private LichKham lichKham;
+    private List<DonThuoc> donThuocList;
+
+    private static SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+    private static SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
     public LichSu() {
     }
 
-    public LichSu(String ngayDatPhong, String ngayKhamBenh, String maPhongKham, String maNguoiKham, String maNguoiDat, String tongTien) {
-        this.ngayDatPhong = ngayDatPhong;
-        this.ngayKhamBenh = ngayKhamBenh;
-        this.maPhongKham = maPhongKham;
-        this.maNguoiKham = maNguoiKham;
-        this.maNguoiDat = maNguoiDat;
-        this.tongTien = tongTien;
+    public LichSu(PhongKham phongKham, LichKham lichKham) {
+        this.phongKham = phongKham;
+        this.lichKham = lichKham;
     }
 
-    public String getNgayDatPhong() {
-        return ngayDatPhong;
+    public static Comparator<LichSu> LichSuDateDescendingComparator = new Comparator<LichSu>() {
+        @Override
+        public int compare(LichSu l1, LichSu l2) {
+            try {
+                Date date1 = sdf1.parse(l1.getLichKham().getNgayKham());
+                Date date2 = sdf1.parse(l2.getLichKham().getNgayKham());
+                //kiểm tra ngày trong lịch có lớn hơn ngày hiện tại ko
+                if(date1.compareTo(date2) == 0)//nếu 2 lịch cùng ngày thì so sánh giờ
+                {
+                    try {
+                        Date time1 = sdf2.parse(l1.getLichKham().getGioKham());
+                        Date time2 = sdf2.parse(l2.getLichKham().getGioKham());
+                        return time2.compareTo(time1);
+                    }
+                    catch (ParseException parseException) {
+                        parseException.printStackTrace();
+                    }
+                }
+                return date2.compareTo(date1);
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+                return 1;
+            }
+        }
+    };
+
+    public String getIdLichSu() {
+        return idLichSu;
     }
 
-    public void setNgayDatPhong(String ngayDatPhong) {
-        this.ngayDatPhong = ngayDatPhong;
+    public void setIdLichSu(String idLichSu) {
+        this.idLichSu = idLichSu;
     }
 
-    public String getNgayKhamBenh() {
-        return ngayKhamBenh;
+    public Benh getBenh() {
+        return benh;
     }
 
-    public void setNgayKhamBenh(String ngayKhamBenh) {
-        this.ngayKhamBenh = ngayKhamBenh;
+    public void setBenh(Benh benh) {
+        this.benh = benh;
     }
 
-    public String getMaPhongKham() {
-        return maPhongKham;
+    public PhongKham getPhongKham() {
+        return phongKham;
     }
 
-    public void setMaPhongKham(String maPhongKham) {
-        this.maPhongKham = maPhongKham;
+    public void setPhongKham(PhongKham phongKham) {
+        this.phongKham = phongKham;
     }
 
-    public String getMaNguoiKham() {
-        return maNguoiKham;
+    public LichKham getLichKham() {
+        return lichKham;
     }
 
-    public void setMaNguoiKham(String maNguoiKham) {
-        this.maNguoiKham = maNguoiKham;
+    public void setLichKham(LichKham lichKham) {
+        this.lichKham = lichKham;
     }
 
-    public String getMaNguoiDat() {
-        return maNguoiDat;
+    public List<DonThuoc> getDonThuocList() {
+        return donThuocList;
     }
 
-    public void setMaNguoiDat(String maNguoiDat) {
-        this.maNguoiDat = maNguoiDat;
-    }
-
-    public String getTongTien() {
-        return tongTien;
-    }
-
-    public void setTongTien(String tongTien) {
-        this.tongTien = tongTien;
+    public void setDonThuocList(List<DonThuoc> donThuocList) {
+        this.donThuocList = donThuocList;
     }
 }

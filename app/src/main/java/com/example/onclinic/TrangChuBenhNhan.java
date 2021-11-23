@@ -71,6 +71,13 @@ public class TrangChuBenhNhan extends MyBaseActivity{
                 startActivity(intent);
             }
         });
+        ibtnKhamOnline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TrangChuBenhNhan.this,LichKhamBenhNhan.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -80,8 +87,9 @@ public class TrangChuBenhNhan extends MyBaseActivity{
                 .setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(TrangChuBenhNhan.this,LoiChao.class);
+                        startActivity(intent);
                         finishAffinity();
-                        System.exit(0);
                     }
                 })
                 .setNegativeButton("Hủy", null)

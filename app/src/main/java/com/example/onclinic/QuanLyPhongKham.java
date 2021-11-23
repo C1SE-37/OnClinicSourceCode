@@ -193,6 +193,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 String gio = txtGio.getText().toString().trim();
                 LichKham lichKham = new LichKham(ngay, gio);
                 lichKham.setIdLichKham(keyLichKham);
+                lichKham.setTrangThai(LichKham.ChuaDatLich);
                 myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(keyLichKham).setValue(lichKham);
                 Toast.makeText(QuanLyPhongKham.this, "Tạo 1 lịch khám thành công", Toast.LENGTH_SHORT).show();
             } catch (Exception ex) {

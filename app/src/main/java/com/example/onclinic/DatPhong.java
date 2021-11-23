@@ -85,7 +85,7 @@ public class DatPhong extends AppCompatActivity {
         rcvPhongKham.setLayoutManager(layoutManager);
 
         phongKhamList = new ArrayList<>();
-        phongKhamAdapter = new PhongKhamAdapter(phongKhamList, DatPhong.this, new PhongKhamAdapter.interfacePhongKhamAdapter() {
+        phongKhamAdapter = new PhongKhamAdapter(phongKhamList, DatPhong.this, new PhongKhamAdapter.IPhongKhamAdapter() {
             @Override
             public void clickPhongKham(PhongKham phongKham) {
                 btnDongY.setOnClickListener(new View.OnClickListener() {

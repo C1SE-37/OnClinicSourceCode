@@ -16,6 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".DonThuocBacSi"
+            android:exported="true" />
+        <activity
+            android:name=".LichKhamBenhNhan"
+            android:exported="true" />
+        <activity
+            android:name=".KhamOnlineDemo"
+            android:exported="true" />
+        <activity
             android:name=".NhapDonThuoc"
             android:exported="false" />
         <activity
@@ -45,11 +54,11 @@
         <activity
             android:name=".LienHe"
             android:exported="true"
-            android:label="Liên hệ chúng tôi"/>
+            android:label="Liên hệ chúng tôi" />
         <activity
             android:name=".TrangChuBacSi"
             android:exported="true"
-            android:label="Trang chủ"/>
+            android:label="Trang chủ" />
         <activity
             android:name=".taikhoan.DangNhap"
             android:exported="true" />
@@ -68,7 +77,6 @@
         <activity
             android:name=".LoiChao"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -78,7 +86,7 @@
         <activity
             android:name=".TrangChuBenhNhan"
             android:exported="true"
-            android:label="Trang chủ"/>
+            android:label="Trang chủ" />
         <activity
             android:name=".DanhGia"
             android:exported="true" />
@@ -87,7 +95,7 @@
             android:exported="true" />
         <activity
             android:name=".ThongTinPhongKhamViewBenhNhan"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".QuanLyPhongKham"
             android:exported="true" />

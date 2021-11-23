@@ -14,6 +14,13 @@ public class LichKham implements Serializable {
     private String hinhThucKham;
     private String idBenhNhan;//người đã đặt lịch
     private String idLichKham;
+    private int trangThai;//1-đã đặt lịch, 2-đã khám xong, chưa nhập đơn thuốc, 3-đã khám xong và đã nhập đơn thuốc
+    private Benh benh;
+
+    public final static int ChuaDatLich = 0;
+    public final static int DatLich = 1;
+    public final static int KhamXong = 2;
+    public final static int NhapDonThuoc = 3;
     private static SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
     private static SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
@@ -74,22 +81,6 @@ public class LichKham implements Serializable {
         }
     };
 
-    public String getIdLichKham() {
-        return idLichKham;
-    }
-
-    public void setIdLichKham(String idLichKham) {
-        this.idLichKham = idLichKham;
-    }
-
-    public String getHinhThucKham() {
-        return hinhThucKham;
-    }
-
-    public void setHinhThucKham(String hinhThucKham) {
-        this.hinhThucKham = hinhThucKham;
-    }
-
     public String getNgayKham() {
         return ngayKham;
     }
@@ -106,11 +97,43 @@ public class LichKham implements Serializable {
         this.gioKham = gioKham;
     }
 
+    public String getHinhThucKham() {
+        return hinhThucKham;
+    }
+
+    public void setHinhThucKham(String hinhThucKham) {
+        this.hinhThucKham = hinhThucKham;
+    }
+
     public String getIdBenhNhan() {
         return idBenhNhan;
     }
 
     public void setIdBenhNhan(String idBenhNhan) {
         this.idBenhNhan = idBenhNhan;
+    }
+
+    public String getIdLichKham() {
+        return idLichKham;
+    }
+
+    public void setIdLichKham(String idLichKham) {
+        this.idLichKham = idLichKham;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public Benh getBenh() {
+        return benh;
+    }
+
+    public void setBenh(Benh benh) {
+        this.benh = benh;
     }
 }

@@ -103,9 +103,13 @@ public class CapNhatSuatKham extends AppCompatActivity {
             DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
             lichKham.setGioKham(txtGio.getText().toString());
             lichKham.setNgayKham(txtNgay.getText().toString());
-            myRef.child(DataLocalManager.getIDPhongKham()).child(NoteFireBase.LICHKHAM).child(lichKham.getIdLichKham()).setValue(lichKham);
-            Toast.makeText(CapNhatSuatKham.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
-            troVeManHinhSuatKham();
+            myRef.child(DataLocalManager.getIDPhongKham()).child(NoteFireBase.LICHKHAM).child(lichKham.getIdLichKham()).setValue(lichKham, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    Toast.makeText(CapNhatSuatKham.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
+                    troVeManHinhSuatKham();
+                }
+            });
         }
         catch (Exception ex)
         {

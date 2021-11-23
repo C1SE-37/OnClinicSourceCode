@@ -241,9 +241,10 @@
         android:text="Hủy"
         android:textColor="#D50000"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/guidelineDuoi98"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guidelineGiua40"
-        app:layout_constraintStart_toStartOf="@+id/guidelineTrai" />
+        app:layout_constraintStart_toStartOf="@+id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <Button
         android:id="@+id/btnXacNhan"
@@ -252,9 +253,10 @@
         android:background="@drawable/custom_view_green_button"
         android:text="Xác nhận"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/guidelineDuoi98"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guidelinePhai"
-        app:layout_constraintStart_toStartOf="@+id/guidelineGiua60" />
+        app:layout_constraintStart_toStartOf="@+id/guidelineGiua60"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTrai"
@@ -283,13 +285,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.09" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineDuoi98"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.98" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineGiua60"

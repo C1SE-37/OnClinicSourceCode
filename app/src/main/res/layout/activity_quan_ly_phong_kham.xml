@@ -53,7 +53,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline30"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/lnr_PhongKham"
-            app:srcCompat="@drawable/image_profile" />
+            app:srcCompat="@drawable/ic_home" />
 
         <LinearLayout
             android:id="@+id/lnr_PhongKham"

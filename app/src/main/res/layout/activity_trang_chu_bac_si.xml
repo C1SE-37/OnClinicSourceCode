@@ -155,6 +155,30 @@
         app:layout_constraintTop_toBottomOf="@+id/ibtnLichSuKham"
         tools:ignore="MissingConstraints" />
 
+    <ImageButton
+        android:id="@+id/ibtnDonThuoc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:srcCompat="@drawable/medicine"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Đơn thuốc"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
+        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnDonThuoc"
+        tools:ignore="MissingConstraints" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTrai"
         android:layout_width="wrap_content"

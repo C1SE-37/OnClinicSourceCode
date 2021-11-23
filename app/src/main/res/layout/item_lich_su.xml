@@ -3,140 +3,125 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-    <TextView
-        android:id="@+id/txtNgayKham"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Ngày khám"
-        android:layout_marginTop="15dp"
-        android:background="#DEFBFF"
-        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTrai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelinePhai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="1" />
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="#DEFBFF"
+    android:padding="5dp">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#DEFBFF"
-        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/txtNgayKham">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/txtNgayKhamItemLichSu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ngày khám" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtTenPhongKham"
+                android:id="@+id/txtTenPhongKhamItemLichSu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Phòng khám A"
                 android:textColor="#304FFE"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/background_dark" />
-
             <TextView
-                android:id="@+id/txtDiaChi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:text="Địa chỉ phòng khám Võ Nguyên Giáp" />
-
-            <TextView
-                android:id="@+id/txtBacSi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tên bác sĩ" />
-
-            <TextView
-                android:id="@+id/txtSDT"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0123456789" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#DEFBFF"
-                android:padding="2dp"
-                app:srcCompat="@drawable/heart" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/lbChiTiet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="[Chi tiết]"
-                android:textColor="#D50000"
-                android:textSize="20sp"
-                android:textStyle="bold|italic" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/background_dark" />
-
-            <TextView
-                android:id="@+id/txtCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mã code" />
-
-            <TextView
-                android:id="@+id/txtHinhThuc"
-
+                android:id="@+id/txtChiTietItemLichSu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hình thức khám" />
+                android:gravity="end"
+                android:layout_weight="1"
+                android:text="[Chi tiết]"
+                android:textColor="#D50000"
+                android:textSize="15sp"
+                android:textStyle="bold|italic" />
 
-            <TextView
-                android:id="@+id/txtTongTien"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tổng tiền" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/background_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtDiaChiItemLichSu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:text="Địa chỉ phòng khám Võ Nguyên Giáp" />
+
+                <TextView
+                    android:id="@+id/txtBacSiItemLichSu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tên bác sĩ" />
+
+                <TextView
+                    android:id="@+id/txtEmailItemLichSu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="kha@gmail.com" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/heart" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtHinhThucItemLichSu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hình thức khám" />
+
+                <TextView
+                    android:id="@+id/txtTongTienItemLichSu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng tiền" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

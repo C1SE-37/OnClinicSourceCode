@@ -1,25 +1,38 @@
 package com.example.onclinic.taikhoan;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Base64;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
+import com.example.model.PhongKham;
 import com.example.onclinic.LienHe;
+import com.example.onclinic.QuanLyPhongKham;
 import com.example.onclinic.R;
 import com.example.onclinic.TrangChuBacSi;
 import com.example.onclinic.TrangChuBenhNhan;
 import com.example.sqlhelper.ActivityState;
+import com.example.sqlhelper.CheckData;
 import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,26 +40,33 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DangNhap extends AppCompatActivity {
 
     private EditText edtEmailHoacSdt, edtMatKhau;
     private Button btnDangNhap;
     private TextView txtQuenMk;
-
     private TextView txtDangNhap;
+
+    private CheckBox chkLuuThongTin;
+    String thongTinDangNhap = "LOGIN";
+    String strEmail, strMatKhau;
+
     private ProgressDialog progressDialog;
 
-    ArrayList<NguoiDung> listBenhNhan = new ArrayList<>();
-    ArrayList<NguoiDung> listBacSi = new ArrayList<>();
+    List<NguoiDung> listBenhNhan;
+    ArrayAdapter<NguoiDung> adapterBenhNhan;
+    List<NguoiDung> listBacSi;
+    ArrayAdapter<NguoiDung> adapterBacSi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
+        AnhXa();
         layDanhSachNguoiDungTuFireBase();
         DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_TRANGCHU);
-        AnhXa();
         addEvents();
     }
 
@@ -54,8 +74,15 @@ public class DangNhap extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(xuLyDangNhap()==-1)
-                    Toast.makeText(DangNhap.this, "Email/sdt hoặc mật khẩu đã sai.", Toast.LENGTH_SHORT).show();
+                progressDialog.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                        if(xuLyDangNhap()==-1)
+                            Toast.makeText(DangNhap.this, "Email hoặc mật khẩu đã sai.", Toast.LENGTH_SHORT).show();
+                    }
+                },3000);
             }
         });
         txtDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -84,41 +111,66 @@ public class DangNhap extends AppCompatActivity {
     }
 
     private int xuLyDangNhap() {
-        String strEmail = edtEmailHoacSdt.getText().toString().trim();
-        String strMatKhau = edtMatKhau.getText().toString().trim();
-        for(NguoiDung nguoiDung : listBenhNhan )
-        {
-            if(strEmail.equals(nguoiDung.getEmail_sdt()) && strMatKhau.equals(nguoiDung.getMatKhau()))
-            {
+        strEmail = edtEmailHoacSdt.getText().toString().trim();
+        strMatKhau = edtMatKhau.getText().toString().trim();
+        for (NguoiDung nguoiDung : listBenhNhan) {
+            if (strEmail.equals(nguoiDung.getEmail_sdt()) && strMatKhau.equals(nguoiDung.getMatKhau())) {
                 DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
                 DataLocalManager.setNguoiDung(nguoiDung);//lưu người dùng vào dữ liệu local
                 DataLocalManager.setRole(0);
-                //DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_TRANGCHU);
+
                 Intent intent = new Intent(DangNhap.this, TrangChuBenhNhan.class);
                 startActivity(intent);
+                finishAffinity();
                 return 0;
             }
         }
-        for(NguoiDung nguoiDung : listBacSi)
-        {
-            if(strEmail.equals(nguoiDung.getEmail_sdt()) && strMatKhau.equals(nguoiDung.getMatKhau()))
-            {
+        for (NguoiDung nguoiDung : listBacSi) {
+            if (strEmail.equals(nguoiDung.getEmail_sdt()) && strMatKhau.equals(nguoiDung.getMatKhau())) {
                 DataLocalManager.setIDNguoiDung(nguoiDung.getUserID().toString());//lưu id vào dữ liệu local
                 DataLocalManager.setNguoiDung(nguoiDung);//lưu người dùng vào dữ liệu local
                 DataLocalManager.setRole(1);
-                //DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_TRANGCHU);
+
+                DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot data : snapshot.getChildren()) {
+                            PhongKham phong = data.getValue(PhongKham.class);
+                            if (nguoiDung.getUserID().equals(phong.getIdBacSi())) {
+                                DataLocalManager.setPhongKham(phong);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 Intent intent = new Intent(DangNhap.this, TrangChuBacSi.class);
                 startActivity(intent);
+                finishAffinity();
                 return 1;
             }
         }
         return -1;
     }
 
+    private boolean checkInput() {
+        //kiểm tra dữ liệu nhập vào
+        if (CheckData.isEmpty(edtEmailHoacSdt) && CheckData.isEmpty(edtMatKhau))
+            return true;
+        return false;
+    }
+
+    //class loadNguoiDung extends Asy
+
     private void layDanhSachNguoiDungTuFireBase()
     {
-        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();//đang ở note roof
-        DatabaseReference refBenhNhan = myRef.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN);//đến note bệnh nhân
+        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference(NoteFireBase.NGUOIDUNG);//đang ở note roof
+        DatabaseReference refBenhNhan = myRef.child(NoteFireBase.BENHNHAN);//đến note bệnh nhân
         refBenhNhan.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -128,6 +180,8 @@ public class DangNhap extends AppCompatActivity {
                     NguoiDung nguoiDung = data.getValue(NguoiDung.class);
                     listBenhNhan.add(nguoiDung);//them benh nhan tu fb vao danh sach
                 }
+                adapterBenhNhan = new ArrayAdapter<>(DangNhap.this, android.R.layout.simple_list_item_1,listBenhNhan);
+                adapterBenhNhan.notifyDataSetChanged();
             }
 
             @Override
@@ -136,7 +190,7 @@ public class DangNhap extends AppCompatActivity {
             }
         });
 
-        DatabaseReference refBacSi = myRef.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI);
+        DatabaseReference refBacSi = myRef.child(NoteFireBase.BACSI);
         refBacSi.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -146,6 +200,8 @@ public class DangNhap extends AppCompatActivity {
                     NguoiDung nguoiDung = data.getValue(NguoiDung.class);
                     listBacSi.add(nguoiDung);//them bac si tu fb vao danh sach
                 }
+                adapterBacSi = new ArrayAdapter<>(DangNhap.this, android.R.layout.simple_list_item_1,listBacSi);
+                adapterBacSi.notifyDataSetChanged();
             }
 
             @Override
@@ -155,15 +211,41 @@ public class DangNhap extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences preferences = getSharedPreferences(thongTinDangNhap, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("UserName",edtEmailHoacSdt.getText().toString());
+        editor.putString("PassWord",edtMatKhau.getText().toString());
+        editor.putBoolean("Save",chkLuuThongTin.isChecked());
+        editor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences(thongTinDangNhap, MODE_PRIVATE);
+        String userName = preferences.getString("UserName","");
+        String passWord = preferences.getString("PassWord","");
+        boolean save = preferences.getBoolean("Save",false);
+        if(save)
+        {
+            chkLuuThongTin.setChecked(true);
+            edtEmailHoacSdt.setText(userName);
+            edtMatKhau.setText(passWord);
+        }
+    }
+
     private void AnhXa() {
         edtEmailHoacSdt = findViewById(R.id.edtEmailHoacSdt);
         edtMatKhau = findViewById(R.id.edtMatKhau);
         btnDangNhap = findViewById(R.id.btnDangNhap);
         txtQuenMk = findViewById(R.id.txtQuenMK);
-
         txtDangNhap = findViewById(R.id.txtDangNhap);
-        progressDialog = new ProgressDialog(this);
-        listBenhNhan = new ArrayList<NguoiDung>();
-        listBacSi = new ArrayList<NguoiDung>();
+        chkLuuThongTin = findViewById(R.id.chkLuuThongTin);
+        progressDialog = new ProgressDialog(DangNhap.this);
+        listBenhNhan = new ArrayList<>();
+        listBacSi = new ArrayList<>();
     }
 }

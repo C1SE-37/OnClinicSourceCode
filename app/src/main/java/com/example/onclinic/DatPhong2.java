@@ -265,6 +265,7 @@ public class DatPhong2 extends AppCompatActivity {
             lichKham.setHinhThucKham(hinhThuc);
             //gán id bệnh nhân vào lịch
             lichKham.setIdBenhNhan(idNguoiDung);
+            lichKham.setTrangThai(LichKham.DatLich);
             myRef.child(phongKham.getIdPhongKham()).child(NoteFireBase.LICHKHAM).child(idLichKham).setValue(lichKham);
             Toast.makeText(DatPhong2.this, "Đặt lịch thành công", Toast.LENGTH_SHORT).show();
             troVeManHinhTrangChu();
@@ -274,7 +275,7 @@ public class DatPhong2 extends AppCompatActivity {
     private void troVeManHinhTrangChu() {
         Intent intent = new Intent(DatPhong2.this,TrangChuBenhNhan.class);
         startActivity(intent);
-        finish();
+        finishAffinity();
     }
 
     private boolean checkInput()
@@ -285,15 +286,11 @@ public class DatPhong2 extends AppCompatActivity {
             rdoOnline.setTextColor(Color.RED);
             return false;
         }
-        if(spnNgayKham.getSelectedItem() == null) {
-            Toast.makeText(DatPhong2.this,"Không có ngày khám để đặt",Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(gvGioKham.getSelectedItem() == null)
+        /*if(gvGioKham.getSelectedItem() == null)
         {
             Toast.makeText(DatPhong2.this,"Chưa chọn giờ khám",Toast.LENGTH_LONG).show();
             return false;
-        }
+        }*/
         return true;
     }
 

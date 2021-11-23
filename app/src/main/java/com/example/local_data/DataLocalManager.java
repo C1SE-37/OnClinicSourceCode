@@ -2,6 +2,7 @@ package com.example.local_data;
 
 import android.content.Context;
 
+import com.example.model.DonThuoc;
 import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.google.gson.Gson;
@@ -15,6 +16,7 @@ public class DataLocalManager {
     private static final String ID_LICH_KHAM = "ID_LICH_KHAM";
     private static final String ACTIVITY_NUMBER = "ACTIVITY_NUMBER";
     private static final String ROLE_NUMBER = "ROLE_NUMBER";
+    private static final String OBJECT_DON_THUOC = "OBJECT_DON_THUOC";
     private static DataLocalManager instance;
     private MySharedPreferences mySharedPreferences;
 
@@ -96,6 +98,19 @@ public class DataLocalManager {
     public static Integer getRole()
     {
         return DataLocalManager.getInstance().mySharedPreferences.getIntegerValue(ROLE_NUMBER);
+    }
+    public static void setDonThuoc(DonThuoc donThuoc)
+    {
+        Gson gson = new Gson();//gson để chuyển object sang json
+        String strDonThuoc = gson.toJson(donThuoc);
+        DataLocalManager.getInstance().mySharedPreferences.putStringValue(OBJECT_DON_THUOC,strDonThuoc);
+    }
+    public static DonThuoc getDonThuoc()
+    {
+        String jsonDonThuoc = DataLocalManager.getInstance().mySharedPreferences.getStringValue(OBJECT_DON_THUOC);
+        Gson gson = new Gson();
+        DonThuoc donThuoc = gson.fromJson(jsonDonThuoc,DonThuoc.class);
+        return donThuoc;
     }
 }
 

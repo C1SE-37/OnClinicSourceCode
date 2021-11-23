@@ -33,10 +33,10 @@ public class PhongKhamAdapter extends RecyclerView.Adapter<PhongKhamAdapter.Phon
 
     private List<PhongKham> phongKhamList;
     Context context;
-    public interfacePhongKhamAdapter onClickListener;
+    public IPhongKhamAdapter onClickListener;
     private int lastSelected = -1;
 
-    public PhongKhamAdapter(List<PhongKham> phongKhamList, Context context, interfacePhongKhamAdapter onClickListener) {
+    public PhongKhamAdapter(List<PhongKham> phongKhamList, Context context, IPhongKhamAdapter onClickListener) {
         this.phongKhamList = phongKhamList;
         this.context = context;
         this.onClickListener = onClickListener;
@@ -94,7 +94,7 @@ public class PhongKhamAdapter extends RecyclerView.Adapter<PhongKhamAdapter.Phon
         return 0;
     }
 
-    public interface interfacePhongKhamAdapter
+    public interface IPhongKhamAdapter
     {
         void clickPhongKham(PhongKham phongKham);
     }
