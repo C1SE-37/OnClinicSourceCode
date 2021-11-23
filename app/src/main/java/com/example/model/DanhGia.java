@@ -7,17 +7,13 @@ public class DanhGia implements Serializable {
     private String nhanXet;
     private Float rating;
     private String idNguoiDungDG;
-    private String tenNguoiDungDG;
-    private String avatarNguoiDungDG;
 
     public DanhGia() {
     }
 
-    public DanhGia(Float rating, String nhanXet, String tenNguoiDungDG, String avatarNguoiDungDG, String idNguoiDungDG){
+    public DanhGia(Float rating, String nhanXet, String idNguoiDungDG){
         this.nhanXet = nhanXet;
         this.rating = rating;
-        this.tenNguoiDungDG = tenNguoiDungDG;
-        this.avatarNguoiDungDG = avatarNguoiDungDG;
         this.idNguoiDungDG = idNguoiDungDG;
     }
 
@@ -48,18 +44,4 @@ public class DanhGia implements Serializable {
     public void setIdNguoiDungDG(String idNguoiDungDG) {
         this.idNguoiDungDG = idNguoiDungDG;
     }
-
-    public String getTenNguoiDungDG() {
-        return tenNguoiDungDG;
-    }
-
-    public void setTenNguoiDungDGString (String tenNguoiDungDG) { this.tenNguoiDungDG = tenNguoiDungDG; }
-
-    public String getAvatarNguoiDungDG() {
-        return avatarNguoiDungDG;
-    }
-
-    public void setAvatarNguoiDungDG(String avatarNguoiDungDG) { this.avatarNguoiDungDG = avatarNguoiDungDG; }
-
-
 }

@@ -34,8 +34,11 @@ public class ThongTinPhongKhamViewBenhNhan extends AppCompatActivity {
     Button bnt_PhanHoiPK;
 
     String idBacSi;
+    String idPhongKham;
 
     DanhGia danhGia;
+
+    int role;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,26 +48,31 @@ public class ThongTinPhongKhamViewBenhNhan extends AppCompatActivity {
         if(bundle == null) return;
         phongKham = (PhongKham) bundle.getSerializable("OBJECT_PHONG_KHAM2");
         idBacSi = phongKham.getIdBacSi();
+        idPhongKham = phongKham.getIdPhongKham();
+        role = DataLocalManager.getRole();
         AnhXa();
         Event();
     }
 
     private void Event(){
-        bnt_PhanHoiPK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                XuLyButton(danhGia);
-            }
-        });
-    }
-
-    private void XuLyButton(DanhGia danhGia)
-    {
-        Intent intent = new Intent(ThongTinPhongKhamViewBenhNhan.this, ViewDanhGia.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("OBJECT_DANH_GIA",danhGia);
-        intent.putExtras(bundle);
-        startActivity(intent);
+       bnt_PhanHoiPK.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if (role == 0)
+               {
+                   Intent intent = new Intent(ThongTinPhongKhamViewBenhNhan.this, ViewDanhGia.class);
+                   Bundle bundle = new Bundle();
+                   bundle.putSerializable("OBJECT_DANH_GIA",idPhongKham);
+                   intent.putExtras(bundle);
+                   startActivity(intent);
+               }
+               else if (role == 1)
+               {
+                   Intent intent1 = new Intent(ThongTinPhongKhamViewBenhNhan.this, ViewDanhGiaBS.class);
+                   startActivity(intent1);
+               }
+           }
+       });
     }
 
     private void AnhXa()

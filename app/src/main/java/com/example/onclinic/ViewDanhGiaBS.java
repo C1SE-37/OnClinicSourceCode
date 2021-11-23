@@ -1,0 +1,98 @@
+package com.example.onclinic;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.adapter.DanhGiaAdapter;
+import com.example.local_data.DataLocalManager;
+import com.example.model.DanhGia;
+import com.example.model.LichKham;
+import com.example.model.PhongKham;
+import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ViewDanhGiaBS extends AppCompatActivity {
+
+    DanhGiaAdapter nDanhGiaAdapter;
+    List<DanhGia> nListDanhGia;
+
+    String idPhongKham;
+    TextView tenPK;
+    PhongKham phongKham;
+    RecyclerView rcvDanhGia;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_phan_hoi_bs);
+        phongKham = DataLocalManager.getPhongKham();
+        idPhongKham = phongKham.getIdPhongKham();
+        getListDanhGiaFromRealtimeDatabase();
+        anhXa();
+    }
+
+
+    private void getListDanhGiaFromRealtimeDatabase(){
+        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
+        DatabaseReference refDanhGiaPK = myRef.child(idPhongKham).child(NoteFireBase.DANHGIA);
+        refDanhGiaPK.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                nListDanhGia.clear();
+                for(DataSnapshot data : snapshot.getChildren())
+                {
+                    DanhGia danhGia = data.getValue(DanhGia.class);
+                    nListDanhGia.add(danhGia);
+                }
+                nDanhGiaAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ViewDanhGiaBS.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    private void anhXa(){
+        DatabaseReference myRefPK = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM).child(idPhongKham).child("tenPhongKham");
+        tenPK = findViewById(R.id.txt_DanhGiaViewBS_TenPK);
+        myRefPK.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String tenPK_ = snapshot.getValue(String.class);
+                tenPK.setText("#Đánh giá của phòng khám " + tenPK_);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ViewDanhGiaBS.this, "Lỗi", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        rcvDanhGia = findViewById(R.id.rcv_DanhGiaViewBS);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rcvDanhGia.setLayoutManager(linearLayoutManager);
+
+        nListDanhGia = new ArrayList<>();
+        nDanhGiaAdapter = new DanhGiaAdapter(nListDanhGia, ViewDanhGiaBS.this);
+
+        rcvDanhGia.setAdapter(nDanhGiaAdapter);
+    }
+}

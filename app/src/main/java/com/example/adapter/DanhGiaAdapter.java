@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -27,8 +28,11 @@ import com.example.onclinic.TrangCaNhanView;
 import com.example.onclinic.VietDanhGia;
 import com.example.onclinic.R;
 import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -36,10 +40,12 @@ public class DanhGiaAdapter extends RecyclerView.Adapter<DanhGiaAdapter.DanhGiaV
 
     private List<DanhGia> danhGiaList;
     DanhGia danhGia;
+    Context context1;
 
-    public DanhGiaAdapter(List<DanhGia> danhGiaList ) {
+    public DanhGiaAdapter(List<DanhGia> danhGiaList, Context context1 ) {
 
         this.danhGiaList = danhGiaList;
+        this.context1 = context1;
     }
 
     @NonNull
@@ -56,14 +62,41 @@ public class DanhGiaAdapter extends RecyclerView.Adapter<DanhGiaAdapter.DanhGiaV
         {
             return;
         }
+
         holder.ratingbar.setRating(danhGia.getRating());
         holder.txtNhanXet.setText(danhGia.getNhanXet());
-        holder.txtTenBN.setText(danhGia.getTenNguoiDungDG());
-        if(danhGia.getAvatarNguoiDungDG()!=null) {
-            byte[] decodedString = Base64.decode(danhGia.getAvatarNguoiDungDG(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            holder.avatarBN.setImageBitmap(decodedByte);
-        }
+
+        String userID = danhGia.getIdNguoiDungDG();
+        DatabaseReference myRefBNten = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(userID).child("tenNguoiDung");
+        myRefBNten.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String tenBN = snapshot.getValue(String.class);
+                holder.txtTenBN.setText(tenBN);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context1, "Lỗi", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        DatabaseReference myRefBNavatar = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(userID).child("hinhAnh");
+        myRefBNavatar.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String avatarBN_ = snapshot.getValue(String.class);
+                if(avatarBN_!=null) {
+                    byte[] decodedString = Base64.decode(avatarBN_, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    holder.avatarBN.setImageBitmap(decodedByte);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context1, "Lỗi", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
