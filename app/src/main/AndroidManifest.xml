@@ -16,6 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".ChiTietLichSuBacSi"
+            android:exported="true" />
+        <activity
+            android:name=".LichSuKhamBacSi"
+            android:exported="true" />
+        <activity
+            android:name=".VideoCall"
+            android:exported="true" />
+        <activity
             android:name=".DonThuocBacSi"
             android:exported="true" />
         <activity
@@ -43,10 +52,10 @@
             android:name=".TaoPhongKham"
             android:exported="true" />
         <activity
-            android:name=".ChiTietLichSu"
+            android:name=".ChiTietLichSuBenhNhan"
             android:exported="true" />
         <activity
-            android:name=".LichSuKham"
+            android:name=".LichSuKhamBenhNhan"
             android:exported="true" />
         <activity
             android:name=".DatPhong"
@@ -88,7 +97,7 @@
             android:exported="true"
             android:label="Trang chủ" />
         <activity
-            android:name=".DanhGia"
+            android:name=".VietDanhGia"
             android:exported="true" />
         <activity
             android:name=".ThongTinPhongKham"
@@ -101,6 +110,12 @@
             android:exported="true" />
         <activity
             android:name=".SuatKhamDaTao"
+            android:exported="true" />
+        <activity
+            android:name=".ViewDanhGia"
+            android:exported="true" />
+        <activity
+            android:name=".ViewDanhGiaBS"
             android:exported="true" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

@@ -31,9 +31,9 @@ public class LichKhamBenhNhan extends AppCompatActivity {
 
     private RecyclerView rcvLichKham;
     private LichKhamBenhNhanAdapter lichKhamBenhNhanAdapter;
-    private List<LichKham> listLichKham = new ArrayList<>();
-    private List<PhongKham> listPhongKham = new ArrayList<>();//toàn bộ phòng khám trên firebase
-    private List<PhongKham> listPhongKhamCoLichKham = new ArrayList<>();//tìm được phòng khám có lịch khám bệnh nhân này thì thêm vào
+    private List<LichKham> listLichKham;
+    private List<PhongKham> listPhongKham;//toàn bộ phòng khám trên firebase
+    private List<PhongKham> listPhongKhamCoLichKham;//tìm được phòng khám có lịch khám bệnh nhân này thì thêm vào
     String idNguoiDung;
 
     @Override
@@ -56,13 +56,14 @@ public class LichKhamBenhNhan extends AppCompatActivity {
                     PhongKham phongKham = data.getValue(PhongKham.class);
                     listPhongKham.add(phongKham);
                 }
-                for(PhongKham phong: listPhongKham)
+                for(PhongKham phong : listPhongKham)
                 {
                     String key = phong.getIdPhongKham();
                     DatabaseReference refLichKham = myRef.child(key).child(NoteFireBase.LICHKHAM);
                     refLichKham.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            listLichKham.clear();
                             for(DataSnapshot data: snapshot.getChildren())
                             {
                                 LichKham lich = data.getValue(LichKham.class);
@@ -73,7 +74,7 @@ public class LichKhamBenhNhan extends AppCompatActivity {
                                     Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
                                 }
                             }
-                            lichKhamBenhNhanAdapter.notifyDataSetChanged();
+                            //lichKhamBenhNhanAdapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -112,8 +113,8 @@ public class LichKhamBenhNhan extends AppCompatActivity {
         rcvLichKham = findViewById(R.id.rcvLichKhamBN);
         LinearLayoutManager layoutManager = new LinearLayoutManager(LichKhamBenhNhan.this);
         rcvLichKham.setLayoutManager(layoutManager);
-
         listLichKham = new ArrayList<>();
+
         lichKhamBenhNhanAdapter = new LichKhamBenhNhanAdapter(listLichKham, LichKhamBenhNhan.this, new LichKhamBenhNhanAdapter.ILichKhamBenhNhanAdapter() {
             @Override
             public void clickThamGia(LichKham lichKham, PhongKham phongKham) {
@@ -128,5 +129,8 @@ public class LichKhamBenhNhan extends AppCompatActivity {
         });
 
         rcvLichKham.setAdapter(lichKhamBenhNhanAdapter);
+
+        listPhongKham = new ArrayList<>();
+        listPhongKhamCoLichKham = new ArrayList<>();
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFE6E6"
-    tools:context=".DanhGia">
+    tools:context=".VietDanhGia">
 
     <LinearLayout
         android:id="@+id/LinearLayoutToolBar"

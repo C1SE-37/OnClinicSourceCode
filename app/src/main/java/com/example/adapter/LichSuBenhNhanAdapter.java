@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.model.DonThuoc;
+import com.example.model.LichKham;
 import com.example.model.LichSu;
 import com.example.model.NguoiDung;
-import com.example.onclinic.ChiTietLichSu;
-import com.example.onclinic.NhapDonThuoc;
+import com.example.onclinic.ChiTietLichSuBenhNhan;
 import com.example.onclinic.R;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
@@ -25,20 +27,26 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class LichSuAdapter extends RecyclerView.Adapter<LichSuAdapter.LichKhamViewHolder>{
+public class LichSuBenhNhanAdapter extends RecyclerView.Adapter<LichSuBenhNhanAdapter.LichKhamViewHolder>{
 
     private List<LichSu> lichSuList;
     Context context;
+    private ILichSuBenhNhanAdapter onClickListener;
 
-    public LichSuAdapter(List<LichSu> lichSuList, Context context) {
+    public interface ILichSuBenhNhanAdapter{
+        void clickChiTiet(LichSu lichSu);
+    }
+
+    public LichSuBenhNhanAdapter(List<LichSu> lichSuList, Context context, ILichSuBenhNhanAdapter onClickListener) {
         this.lichSuList = lichSuList;
         this.context = context;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
     public LichKhamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lich_su,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lich_su_benh_nhan,parent,false);
         return new LichKhamViewHolder(view);
     }
 
@@ -48,9 +56,8 @@ public class LichSuAdapter extends RecyclerView.Adapter<LichSuAdapter.LichKhamVi
         if(lichSu == null) return;
         holder.txtNgayKham.setText("Ngày khám: "+lichSu.getLichKham().getNgayKham());
         holder.txtTenPhongKham.setText("Phòng khám "+lichSu.getPhongKham().getTenPhongKham());
-        holder.txtDiaChi.setText("Địa chỉ: "+lichSu.getPhongKham().getDiaChi());
-        holder.txtHinhThucKham.setText("Hình thức: "+lichSu.getLichKham().getHinhThucKham());
-        holder.txtTongTien.setText("Tổng tiền: ");
+        holder.txtDiaChi.setText(lichSu.getPhongKham().getDiaChi());
+        holder.txtHinhThucKham.setText(lichSu.getLichKham().getHinhThucKham());
         String idBacSi = lichSu.getPhongKham().getIdBacSi();
         DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference()
                 .child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI).child(idBacSi);
@@ -58,8 +65,8 @@ public class LichSuAdapter extends RecyclerView.Adapter<LichSuAdapter.LichKhamVi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 NguoiDung nguoiDung = snapshot.getValue(NguoiDung.class);
-                holder.txtTenBacSi.setText("Bác sĩ: "+nguoiDung.getTenNguoiDung());
-                holder.txtEmailBacSi.setText("Email: "+nguoiDung.getEmail_sdt());
+                holder.txtTenBacSi.setText(nguoiDung.getTenNguoiDung());
+                holder.txtEmailBacSi.setText(nguoiDung.getEmail_sdt());
             }
 
             @Override
@@ -70,13 +77,20 @@ public class LichSuAdapter extends RecyclerView.Adapter<LichSuAdapter.LichKhamVi
         holder.txtChiTiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ChiTietLichSu.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("CHI_TIET_LICH_SU",lichSu);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
+                onClickListener.clickChiTiet(lichSu);
             }
         });
+        List<DonThuoc> donThuocList = lichSu.getDonThuocList();
+        int tien = 0;
+        if(donThuocList == null)
+            holder.txtTongTien.setText(String.valueOf(tien)+" VNĐ");
+        else{
+            for(DonThuoc donThuoc: donThuocList)
+            {
+                tien += donThuoc.getDonGia()*donThuoc.getSoLuong();
+            }
+            holder.txtTongTien.setText(String.valueOf(tien)+" VNĐ");
+        }
     }
 
     @Override
@@ -98,16 +112,14 @@ public class LichSuAdapter extends RecyclerView.Adapter<LichSuAdapter.LichKhamVi
 
         public LichKhamViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            txtNgayKham = itemView.findViewById(R.id.txtNgayKhamItemLichSu);
-            txtTenPhongKham = itemView.findViewById(R.id.txtTenPhongKhamItemLichSu);
-            txtDiaChi = itemView.findViewById(R.id.txtDiaChiItemLichSu);
-            txtTenBacSi = itemView.findViewById(R.id.txtBacSiItemLichSu);
-            txtEmailBacSi = itemView.findViewById(R.id.txtEmailItemLichSu);
-            txtHinhThucKham = itemView.findViewById(R.id.txtHinhThucItemLichSu);
-            txtTongTien = itemView.findViewById(R.id.txtTongTienItemLichSu);
-
-            txtChiTiet = itemView.findViewById(R.id.txtChiTietItemLichSu);
+            txtNgayKham = itemView.findViewById(R.id.txtNgayKhamItemLichSuBN);
+            txtTenPhongKham = itemView.findViewById(R.id.txtTenPhongKhamItemLichSuBN);
+            txtDiaChi = itemView.findViewById(R.id.txtDiaChiItemLichSuBN);
+            txtTenBacSi = itemView.findViewById(R.id.txtBacSiItemLichSuBN);
+            txtEmailBacSi = itemView.findViewById(R.id.txtEmailItemLichSuBN);
+            txtHinhThucKham = itemView.findViewById(R.id.txtHinhThucItemLichSuBN);
+            txtTongTien = itemView.findViewById(R.id.txtTongTienItemLichSuBN);
+            txtChiTiet = itemView.findViewById(R.id.txtChiTietItemLichSuBN);
         }
     }
 }

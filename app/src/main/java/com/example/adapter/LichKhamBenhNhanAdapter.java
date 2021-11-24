@@ -59,7 +59,7 @@ public class LichKhamBenhNhanAdapter extends RecyclerView.Adapter<LichKhamBenhNh
         listPhongKham = onClickListener.layDanhSachPhongKham();
         PhongKham phongKham = listPhongKham.get(position);
         LichKham lichKham = lichKhamList.get(position);
-        if(lichKham == null || lichKham.getTrangThai() == LichKham.KhamXong) return;
+        if(lichKham == null || lichKham.getTrangThai() >= LichKham.KhamXong) return;
         holder.txtThoiGian.setText("Thời gian: "+lichKham.getGioKham()+" ngày "+lichKham.getNgayKham());
         holder.txtHinhThuc.setText("Hình thức: "+lichKham.getHinhThucKham());
         holder.txtTenPhongKham.setText("Phòng khám: "+phongKham.getTenPhongKham());

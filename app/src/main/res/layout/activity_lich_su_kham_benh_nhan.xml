@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFE6E6"
-    tools:context=".LichSuKham">
+    tools:context=".LichSuKhamBenhNhan">
 
     <LinearLayout
         android:id="@+id/LinearLayoutToolBar"
@@ -46,7 +46,7 @@
         app:layout_constraintGuide_percent="0.95" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvLichSu"
+        android:id="@+id/rcvLichSuBN"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

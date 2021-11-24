@@ -73,7 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ngày sinh: "
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            />
 
         <TextView
             android:id="@+id/txt_Mail"
@@ -93,11 +94,12 @@
             android:id="@+id/txt_DoiMK"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="Thay đổi mật khẩu"
             android:textColor="#A04D4D"
             android:textSize="17sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:padding="3dp"
+            />
 
         <TextView
             android:id="@+id/txt_Doi_ttcn"
@@ -106,7 +108,9 @@
             android:text="Thay đổi thông tin cá nhân"
             android:textColor="#A04D4D"
             android:textSize="17sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:padding="3dp"
+            />
     </LinearLayout>
 
     <ImageView
@@ -124,7 +128,7 @@
         android:id="@+id/lbThongTinThanhToan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="20dp"
         android:text="Thông tin thanh toán"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -141,7 +145,6 @@
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_DangXuat"
         app:layout_constraintEnd_toEndOf="@id/guideline97"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/lbThongTinThanhToan">
 

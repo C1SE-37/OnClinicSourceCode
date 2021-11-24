@@ -44,7 +44,9 @@
         android:layout_height="wrap_content"
         android:text="mail"
         android:textSize="20sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
 
     <TextView
@@ -55,32 +57,16 @@
         android:layout_marginLeft="20dp"
         />
 
-    <LinearLayout
+
+    <EditText
+        android:id="@+id/edt_update_dia_chi_PK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:text="địa chỉ"
+        android:textSize="20sp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <EditText
-            android:id="@+id/edt_update_dia_chi_quanPK"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="huyện"
-            android:textSize="20sp"
-            android:layout_weight="1"
-            android:gravity="center"/>
-
-        <EditText
-            android:id="@+id/edt_update_dia_chi_tpPK"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="thành phố"
-            android:textSize="20sp"
-            android:layout_weight="1"
-            android:gravity="center"/>
-
-    </LinearLayout>
+        android:layout_marginRight="10dp"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -97,10 +83,10 @@
         android:layout_height="wrap_content"
         android:text="mô tả"
         android:textSize="20sp"
-        android:enabled="false"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
+        android:inputType="textMultiLine"
         />
 
     <!--    <EditText-->

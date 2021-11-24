@@ -1,6 +1,8 @@
 package com.example.model;
 
-public class DonThuoc {
+import java.io.Serializable;
+
+public class DonThuoc implements Serializable {
     int idDonThuoc;
     String tenThuoc, donViTinh, lieuDung;
     int soLuong;

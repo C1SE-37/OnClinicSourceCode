@@ -10,18 +10,18 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
+        android:id="@+id/guideline20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline27"
+        android:id="@+id/guideline22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.27" />
+        app:layout_constraintGuide_percent="0.22" />
 
     <ImageView
         android:id="@+id/imgAnhDaiDienItemLKBS"
@@ -30,7 +30,7 @@
         android:src="@drawable/image_profile"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout8"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/guideline25"
+        app:layout_constraintEnd_toEndOf="@id/guideline20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline27"
+        app:layout_constraintStart_toStartOf="@id/guideline22"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1"
                         android:textAllCaps="false"
-                        android:backgroundTint="#5100B8D4"
+                        android:backgroundTint="#51B6E5ED"
                         android:text="Bắt đầu" />
 
                 </LinearLayout>

@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.adapter.LichSuAdapter;
+import com.example.adapter.LichSuBacSiAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
 import com.example.model.LichSu;
@@ -22,16 +20,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-public class LichSuKham extends AppCompatActivity {
+public class LichSuKhamBacSi extends AppCompatActivity {
 
     RecyclerView rcvLichSu;
-    LichSuAdapter lichSuAdapter;
+    LichSuBacSiAdapter lichSuAdapter;
     List<LichSu> listLichSu;
 
     String idNguoiDung;
@@ -39,11 +35,10 @@ public class LichSuKham extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lich_su_kham);
+        setContentView(R.layout.activity_lich_su_kham_bac_si);
         idNguoiDung = DataLocalManager.getIDNguoiDung();
         layDanhSachLichSuKham();
         addControls();
-        addEvents();
     }
 
     private void layDanhSachLichSuKham() {
@@ -51,10 +46,11 @@ public class LichSuKham extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listLichSu.clear();
                 for(DataSnapshot data: snapshot.getChildren())
                 {
                     LichSu lichSu = data.getValue(LichSu.class);
-                    if(idNguoiDung.equals(lichSu.getLichKham().getIdBenhNhan()) || idNguoiDung.equals(lichSu.getPhongKham().getIdBacSi()))
+                    if(idNguoiDung.equals(lichSu.getPhongKham().getIdBacSi()) && lichSu.getLichKham().getTrangThai()>= LichKham.NhapDonThuoc)
                     {
                         listLichSu.add(lichSu);
                         Collections.sort(listLichSu,LichSu.LichSuDateDescendingComparator);
@@ -65,12 +61,18 @@ public class LichSuKham extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(LichSuKham.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
+                Toast.makeText(LichSuKhamBacSi.this,"Lỗi đọc dữ liệu",Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void addEvents() {
+
+    private void xuLyChiTiet(LichSu lichSu) {
+        Intent intent = new Intent(LichSuKhamBacSi.this, ChiTietLichSuBacSi.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("CHI_TIET_LICH_SU_BAC_SI",lichSu);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override
@@ -80,14 +82,19 @@ public class LichSuKham extends AppCompatActivity {
             lichSuAdapter.release();
     }
 
+
     private void addControls() {
-        rcvLichSu = findViewById(R.id.rcvLichSu);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(LichSuKham.this);
+        rcvLichSu = findViewById(R.id.rcvLichSuBS);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(LichSuKhamBacSi.this);
         rcvLichSu.setLayoutManager(layoutManager);
 
         listLichSu = new ArrayList<>();
-        lichSuAdapter = new LichSuAdapter(listLichSu,LichSuKham.this);
-
+        lichSuAdapter = new LichSuBacSiAdapter(listLichSu, LichSuKhamBacSi.this, new LichSuBacSiAdapter.ILichSuBacSiAdapter() {
+            @Override
+            public void clickChiTiet(LichSu lichSu) {
+                xuLyChiTiet(lichSu);
+            }
+        });
         rcvLichSu.setAdapter(lichSuAdapter);
     }
 }

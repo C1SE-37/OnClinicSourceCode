@@ -1,5 +1,6 @@
 package com.example.onclinic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -83,13 +84,28 @@ public class LichKhamBacSi extends AppCompatActivity {
             lichKhamBacSiAdapter.release();
     }
 
+
+    private void xuLyBatDau(LichKham lichKham, NguoiDung nguoiDung) {
+        Intent intent = new Intent(LichKhamBacSi.this,KhamOnlineDemo.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("LICH_KHAM",lichKham);
+        bundle.putSerializable("BENH_NHAN",nguoiDung);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
     private void addControls() {
         rcvLichKham = findViewById(R.id.rcvLichKhamBS);
         LinearLayoutManager layoutManager = new LinearLayoutManager(LichKhamBacSi.this);
         rcvLichKham.setLayoutManager(layoutManager);
 
         listLichKham = new ArrayList<>();
-        lichKhamBacSiAdapter = new LichKhamBacSiAdapter(listLichKham, LichKhamBacSi.this);
+        lichKhamBacSiAdapter = new LichKhamBacSiAdapter(listLichKham, LichKhamBacSi.this, new LichKhamBacSiAdapter.ILichKhamBacSiAdapter() {
+            @Override
+            public void clickBatDau(LichKham lichKham, NguoiDung nguoiDung) {
+                xuLyBatDau(lichKham, nguoiDung);
+            }
+        });
 
         rcvLichKham.setAdapter(lichKhamBacSiAdapter);
     }

@@ -1,28 +1,16 @@
 package com.example.onclinic;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.local_data.DataLocalManager;
 import com.example.sqlhelper.ActivityState;
-import com.google.android.material.navigation.NavigationView;
 
 public class TrangChuBenhNhan extends MyBaseActivity{
 
@@ -50,7 +38,7 @@ public class TrangChuBenhNhan extends MyBaseActivity{
         ibtnLichSuKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TrangChuBenhNhan.this, LichSuKham.class);
+                Intent intent = new Intent(TrangChuBenhNhan.this, LichSuKhamBenhNhan.class);
                 startActivity(intent);
             }
         });
@@ -78,6 +66,13 @@ public class TrangChuBenhNhan extends MyBaseActivity{
                 startActivity(intent);
             }
         });
+        ibtnLichSuKham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TrangChuBenhNhan.this,LichSuKhamBenhNhan.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -102,5 +97,6 @@ public class TrangChuBenhNhan extends MyBaseActivity{
         ibtnLichSuKham = findViewById(R.id.ibtnLichSuKhamBN);
         ibtnKhamOnline = findViewById(R.id.ibtnKhamOnlineBN);
         ibtnLienHe = findViewById(R.id.ibtnLienHeBN);
+        ibtnLichSuKham = findViewById(R.id.ibtnLichSuKhamBN);
     }
 }

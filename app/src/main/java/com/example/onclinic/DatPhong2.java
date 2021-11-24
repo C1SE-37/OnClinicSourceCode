@@ -125,8 +125,7 @@ public class DatPhong2 extends AppCompatActivity {
         linearThongTinPhongKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DatPhong2.this, ThongTinPhongKhamViewBenhNhan.class);
-                startActivity(intent);
+                xyLyLayoutThongTinPhongKham(phongKham);
             }
         });
 
@@ -292,6 +291,15 @@ public class DatPhong2 extends AppCompatActivity {
             return false;
         }*/
         return true;
+    }
+
+    private void xyLyLayoutThongTinPhongKham (PhongKham phongKham) {
+        //DataLocalManager.setPhongKham(phongKham);
+        Intent intent = new Intent(DatPhong2.this, ThongTinPhongKhamViewBenhNhan.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("OBJECT_PHONG_KHAM2",phongKham);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void addControls() {

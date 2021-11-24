@@ -2,7 +2,6 @@ package com.example.onclinic;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.local_data.DataLocalManager;
-import com.example.model.LichSu;
+import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,7 +62,7 @@ public class TrangChuBacSi extends MyBaseActivity {
         btnLichSuKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TrangChuBacSi.this,LichSuKham.class);
+                Intent intent = new Intent(TrangChuBacSi.this, LichSuKhamBacSi.class);
                 startActivity(intent);
             }
         });

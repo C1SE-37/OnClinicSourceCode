@@ -32,4 +32,12 @@ public class Benh implements Serializable {
     public void setBenh(String benh) {
         this.benh = benh;
     }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
 }

@@ -132,13 +132,13 @@ public class DangNhap extends AppCompatActivity {
                 DataLocalManager.setRole(1);
 
                 DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
-                myRef.addValueEventListener(new ValueEventListener() {
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot data : snapshot.getChildren()) {
                             PhongKham phong = data.getValue(PhongKham.class);
                             if (nguoiDung.getUserID().equals(phong.getIdBacSi())) {
-                                DataLocalManager.setPhongKham(phong);
+                                DataLocalManager.setIDPhongKham(phong.getIdPhongKham());
                             }
                         }
                     }

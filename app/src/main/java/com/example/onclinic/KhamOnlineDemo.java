@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
 import com.example.model.LichSu;
+import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DatabaseReference;
@@ -22,14 +24,24 @@ public class KhamOnlineDemo extends AppCompatActivity {
     Button btnKetThuc;
     LichKham lichKham;
     PhongKham phongKham;
+    NguoiDung benhNhan;
+    int role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kham_online_demo);
+        role = DataLocalManager.getRole();
         Bundle bundle = getIntent().getExtras();
         if(bundle == null) return;
-        lichKham = (LichKham) bundle.getSerializable("LICH_KHAM");
-        phongKham = (PhongKham) bundle.getSerializable("PHONG_KHAM");
+        if(role == 0)
+        {
+            lichKham = (LichKham) bundle.getSerializable("LICH_KHAM");
+            phongKham = (PhongKham) bundle.getSerializable("PHONG_KHAM");
+        }
+        else{
+            lichKham = (LichKham) bundle.getSerializable("LICH_KHAM");
+            benhNhan = (NguoiDung) bundle.getSerializable("BENH_NHAN");
+        }
         addControls();
         addEvents();
     }
@@ -70,11 +82,18 @@ public class KhamOnlineDemo extends AppCompatActivity {
 
     private void addControls() {
         btnKetThuc = findViewById(R.id.btnKetThuc);
-        txtPhongKham = findViewById(R.id.txtDemoPhongKham);
-        txtPhongKham.setText("Phòng khám "+phongKham.getTenPhongKham());
+        if(role==0)
+        {
+            txtPhongKham = findViewById(R.id.txtDemoPhongKham);
+            txtPhongKham.setText("Phòng khám "+phongKham.getTenPhongKham());
+        }
+        else{
+            txtPhongKham = findViewById(R.id.txtDemoPhongKham);
+            txtPhongKham.setText("Bệnh nhân "+benhNhan.getTenNguoiDung());
+        }
         txtThoiGian = findViewById(R.id.txtDemoThoiGian);
-        txtThoiGian.setText(lichKham.getNgayKham()+"vào lúc "+lichKham.getGioKham());
+        txtThoiGian.setText("Thời gian: "+lichKham.getNgayKham()+"vào lúc "+lichKham.getGioKham());
         txtHinhThuc = findViewById(R.id.txtDemoHinhThuc);
-        txtHinhThuc.setText(lichKham.getHinhThucKham());
+        txtHinhThuc.setText("Hình thức: "+lichKham.getHinhThucKham());
     }
 }

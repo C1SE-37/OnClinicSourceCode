@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,10 +32,17 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
 
     private List<LichKham> lichKhamList;
     Context context;
+    private ILichKhamBacSiAdapter onClickListener;
+    private NguoiDung benhNhan;
 
-    public LichKhamBacSiAdapter(List<LichKham> lichKhamList, Context context) {
+    public interface ILichKhamBacSiAdapter{
+        void clickBatDau(LichKham lichKham, NguoiDung nguoiDung);
+    }
+
+    public LichKhamBacSiAdapter(List<LichKham> lichKhamList, Context context, ILichKhamBacSiAdapter onClickListener) {
         this.lichKhamList = lichKhamList;
         this.context = context;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -52,6 +60,7 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
         holder.txtHinhThuc.setText(lichKham.getHinhThucKham());
         if(lichKham.getIdBenhNhan() == null) {
             lichKham.setTrangThai(LichKham.ChuaDatLich);
+            holder.btnBatDau.setVisibility(View.INVISIBLE);
             holder.txtTrangThai.setText("Chưa được đặt lịch");
             holder.layoutLichKham.setBackgroundColor(Color.WHITE);
         }
@@ -63,6 +72,7 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     NguoiDung nguoiDung = snapshot.getValue(NguoiDung.class);
+                    benhNhan = nguoiDung;
                     holder.txtTenBN.setText(nguoiDung.getTenNguoiDung());
                     if(nguoiDung.getHinhAnh()!=null) {
                         byte[] decodedString = Base64.decode(nguoiDung.getHinhAnh(), Base64.DEFAULT);
@@ -77,13 +87,14 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
                 }
             });
             lichKham.setTrangThai(LichKham.DatLich);
+            holder.btnBatDau.setVisibility(View.VISIBLE);
             holder.txtTrangThai.setText("Đã được đặt lịch");
-            holder.layoutLichKham.setBackgroundColor(Color.CYAN);
+            holder.layoutLichKham.setBackgroundResource(R.drawable.item_lich_kham_da_dat_lich);
         }
-        holder.layoutLichKham.setOnClickListener(new View.OnClickListener() {
+        holder.btnBatDau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onClickListener.clickBatDau(lichKham, benhNhan);
             }
         });
     }
@@ -104,6 +115,7 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
         ImageView imgAnhDaiDien;
         TextView txtTenBN,txtThoiGian,txtHinhThuc,txtTrangThai;
         ConstraintLayout layoutLichKham;
+        Button btnBatDau;
 
         public LichKhamBacSiViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -113,6 +125,7 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
             txtHinhThuc = itemView.findViewById(R.id.txtHinhThucItemLKBS);
             txtTrangThai = itemView.findViewById(R.id.txtTrangThaiItemLKBS);
             layoutLichKham = itemView.findViewById(R.id.layout_lichkhambs);
+            btnBatDau = itemView.findViewById(R.id.btnBatDau);
         }
     }
 }

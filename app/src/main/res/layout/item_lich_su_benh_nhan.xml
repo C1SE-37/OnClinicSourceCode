@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/txtNgayKhamItemLichSu"
+            android:id="@+id/txtNgayKhamItemLichSuBN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ngày khám" />
@@ -29,7 +29,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtTenPhongKhamItemLichSu"
+                android:id="@+id/txtTenPhongKhamItemLichSuBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtChiTietItemLichSu"
+                android:id="@+id/txtChiTietItemLichSuBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -62,64 +62,74 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtDiaChiItemLichSu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:text="Địa chỉ phòng khám Võ Nguyên Giáp" />
+                    android:text="Địa chỉ" />
 
                 <TextView
-                    android:id="@+id/txtBacSiItemLichSu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bác sĩ" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hình thức" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng tiền" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtDiaChiItemLichSuBN"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Võ Nguyên Giáp" />
+
+                <TextView
+                    android:id="@+id/txtBacSiItemLichSuBN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tên bác sĩ" />
 
                 <TextView
-                    android:id="@+id/txtEmailItemLichSu"
+                    android:id="@+id/txtEmailItemLichSuBN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="kha@gmail.com" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
-                    app:srcCompat="@drawable/heart" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
                 <TextView
-                    android:id="@+id/txtHinhThucItemLichSu"
+                    android:id="@+id/txtHinhThucItemLichSuBN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hình thức khám" />
+                    android:text="Online" />
 
                 <TextView
-                    android:id="@+id/txtTongTienItemLichSu"
+                    android:id="@+id/txtTongTienItemLichSuBN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tổng tiền" />
+                    android:text="500000 VNĐ" />
 
             </LinearLayout>
 
