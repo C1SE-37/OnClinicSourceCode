@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.DanhGia;
+import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
@@ -34,9 +35,6 @@ public class ThongTinPhongKhamViewBenhNhan extends AppCompatActivity {
     Button bnt_PhanHoiPK;
 
     String idBacSi;
-    String idPhongKham;
-
-    DanhGia danhGia;
 
     int role;
 
@@ -48,7 +46,6 @@ public class ThongTinPhongKhamViewBenhNhan extends AppCompatActivity {
         if(bundle == null) return;
         phongKham = (PhongKham) bundle.getSerializable("OBJECT_PHONG_KHAM2");
         idBacSi = phongKham.getIdBacSi();
-        idPhongKham = phongKham.getIdPhongKham();
         role = DataLocalManager.getRole();
         AnhXa();
         Event();
@@ -60,7 +57,7 @@ public class ThongTinPhongKhamViewBenhNhan extends AppCompatActivity {
            public void onClick(View view) {
                Intent intent = new Intent(ThongTinPhongKhamViewBenhNhan.this, ViewDanhGia.class);
                Bundle bundle = new Bundle();
-               bundle.putSerializable("OBJECT_DANH_GIA",idPhongKham);
+               bundle.putSerializable("OBJECT_PHONG_KHAM3",phongKham);
                intent.putExtras(bundle);
                startActivity(intent);
            }
@@ -69,8 +66,22 @@ public class ThongTinPhongKhamViewBenhNhan extends AppCompatActivity {
 
     private void AnhXa()
     {
-        DatabaseReference myRefTenBS = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI).child(idBacSi).child("tenNguoiDung");
-        DatabaseReference myRefMailBS = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI).child(idBacSi).child("email_sdt");
+        txt_TenBSPK =findViewById(R.id.txtTenBSView);
+        txt_EmailPK = findViewById(R.id.txtEmailView);
+        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI).child(idBacSi);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                NguoiDung nguoiDung = snapshot.getValue(NguoiDung.class);
+                txt_TenBSPK.setText("Bác sĩ: " + nguoiDung.getTenNguoiDung());
+                txt_EmailPK.setText("Thư điện tử: " + nguoiDung.getEmail_sdt());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ThongTinPhongKhamViewBenhNhan.this, "Lỗi", Toast.LENGTH_SHORT).show();
+            }
+        });
         avatarPK = findViewById(R.id.PhongkhamAvatarView);
         if(phongKham.getHinhAnh()!=null) {
             byte[] decodedString = Base64.decode(phongKham.getHinhAnh(), Base64.DEFAULT);
@@ -80,34 +91,6 @@ public class ThongTinPhongKhamViewBenhNhan extends AppCompatActivity {
 
         txt_TenPK = findViewById(R.id.txtTenPhongKhamView);
         txt_TenPK.setText(phongKham.getTenPhongKham());
-
-        txt_TenBSPK =findViewById(R.id.txtTenBSView);
-        myRefTenBS.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String tenBS = snapshot.getValue(String.class);
-                txt_TenBSPK.setText("Bác sĩ: " + tenBS);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ThongTinPhongKhamViewBenhNhan.this, "Lỗi", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        txt_EmailPK = findViewById(R.id.txtEmailView);
-        myRefMailBS.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String mailBS = snapshot.getValue(String.class);
-                txt_EmailPK.setText("Thư điện tử: " + mailBS);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ThongTinPhongKhamViewBenhNhan.this, "Lỗi", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         txt_ChuyenKhoaPK = findViewById(R.id.txtChuyenKhoaView);
         txt_ChuyenKhoaPK.setText("Chuyên khoa: " + phongKham.getChuyenKhoa());

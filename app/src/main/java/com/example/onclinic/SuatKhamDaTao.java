@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.adapter.SuatKhamAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
+import com.example.sqlhelper.NgayGio;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,8 +20,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class SuatKhamDaTao extends AppCompatActivity {
@@ -36,8 +40,8 @@ public class SuatKhamDaTao extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suat_kham_da_tao);
         idPhongKham = DataLocalManager.getIDPhongKham();
-        layDanhSachLichKhamTuFireBase();
         addControls();
+        layDanhSachLichKhamTuFireBase();
     }
 
     private void layDanhSachLichKhamTuFireBase()
@@ -52,6 +56,22 @@ public class SuatKhamDaTao extends AppCompatActivity {
                 {
                     LichKham lichKham = data.getValue(LichKham.class);
                     listLichKham.add(lichKham);
+                }
+                for(DataSnapshot data : snapshot.getChildren())
+                {
+                    LichKham lichKham = data.getValue(LichKham.class);
+                    try {
+                        Date ngayFirebase = NgayGio.ConvertStringToDate(lichKham.getNgayKham());
+                        Date ngayHienTai = NgayGio.GetDateCurrent();
+                        //so sánh ngày trong lịch và hiện tại để thêm vào lịch khám và phải ở trạng thái chưa khám
+                        if(ngayFirebase.getTime() >= ngayHienTai.getTime() && lichKham.getTrangThai() <= LichKham.DatLich)
+                        {
+                            listLichKham.add(lichKham);
+                            Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
                 suatKhamAdapter.notifyDataSetChanged();
             }

@@ -32,17 +32,17 @@ import java.util.List;
 public class LichKhamBenhNhanAdapter extends RecyclerView.Adapter<LichKhamBenhNhanAdapter.LichKhamBenhNhanViewHolder> {
 
     private List<LichKham> lichKhamList;
+    private List<PhongKham> listPhongKham;
     Context context;
     private ILichKhamBenhNhanAdapter onClickListener;
-    private List<PhongKham> listPhongKham;
 
     public interface ILichKhamBenhNhanAdapter{
         void clickThamGia(LichKham lichKham, PhongKham phongKham);
-        List<PhongKham> layDanhSachPhongKham();
     }
 
-    public LichKhamBenhNhanAdapter(List<LichKham> lichKhamList, Context context, ILichKhamBenhNhanAdapter onClickListener) {
+    public LichKhamBenhNhanAdapter(List<LichKham> lichKhamList, List<PhongKham> phongKhamList, Context context, ILichKhamBenhNhanAdapter onClickListener) {
         this.lichKhamList = lichKhamList;
+        this.listPhongKham = phongKhamList;
         this.context = context;
         this.onClickListener = onClickListener;
     }
@@ -56,7 +56,7 @@ public class LichKhamBenhNhanAdapter extends RecyclerView.Adapter<LichKhamBenhNh
 
     @Override
     public void onBindViewHolder(@NonNull LichKhamBenhNhanViewHolder holder, int position) {
-        listPhongKham = onClickListener.layDanhSachPhongKham();
+        //listPhongKham = onClickListener.layDanhSachPhongKham();
         PhongKham phongKham = listPhongKham.get(position);
         LichKham lichKham = lichKhamList.get(position);
         if(lichKham == null || lichKham.getTrangThai() >= LichKham.KhamXong) return;

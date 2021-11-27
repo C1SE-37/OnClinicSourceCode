@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.local_data.DataLocalManager;
+
 public class LienHe extends MyBaseActivity {
 
     TextView txtDoiTac,txtLoiPhatSinh, txtPhatHienViPham, txtViTri, txtEmail, txtFb, txtLoi;
@@ -95,7 +97,7 @@ public class LienHe extends MyBaseActivity {
         btnGui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LienHe.this, "gửi thông tin thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LienHe.this, "Gửi thông tin thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -130,7 +132,7 @@ public class LienHe extends MyBaseActivity {
         btnHuy = dialog.findViewById(R.id.btnHuy);
         txtLoi = dialog.findViewById(R.id.txtLoi);
 
-        txtLoi.setText("Phát hiên vi phạm");
+        txtLoi.setText("Phát hiện vi phạm");
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,7 +143,7 @@ public class LienHe extends MyBaseActivity {
         btnGui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LienHe.this, "gửi thông tin thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LienHe.this, "Gửi thông tin thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -156,5 +158,8 @@ public class LienHe extends MyBaseActivity {
         txtEmail = findViewById(R.id.txtEmail);
         txtFb = findViewById(R.id.txtFb);
         txtDoiTac = findViewById(R.id.txtDKLamDoiTac);
+        if(DataLocalManager.getRole() == 1)
+            txtDoiTac.setVisibility(View.GONE);
+        else txtDoiTac.setVisibility(View.VISIBLE);
     }
 }

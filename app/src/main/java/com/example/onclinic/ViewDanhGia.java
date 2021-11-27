@@ -33,7 +33,7 @@ public class ViewDanhGia extends AppCompatActivity {
     RecyclerView rcvDanhGia;
     DanhGiaAdapter mDanhGiaAdapter;
     List<DanhGia> mListDanhGia;
-    String idPhongKham;
+    PhongKham phongKham;
     TextView tenPK;
 
     @Override
@@ -42,7 +42,7 @@ public class ViewDanhGia extends AppCompatActivity {
         setContentView(R.layout.activity_view_phan_hoi);
         Bundle bundle = getIntent().getExtras();
         if(bundle == null) return;
-        idPhongKham = (String) bundle.getSerializable("OBJECT_DANH_GIA");
+        phongKham = (PhongKham) bundle.getSerializable("OBJECT_PHONG_KHAM3");
         anhXa();
         addEvent();
         getListDanhGiaFromRealtimeDatabase();
@@ -52,14 +52,14 @@ public class ViewDanhGia extends AppCompatActivity {
         VietDanhGia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                XuLyVietDanhGia(idPhongKham);
+                XuLyVietDanhGia(phongKham);
             }
         });
     }
 
     private void getListDanhGiaFromRealtimeDatabase(){
         DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
-        DatabaseReference refDanhGia = myRef.child(idPhongKham).child(NoteFireBase.DANHGIA);
+        DatabaseReference refDanhGia = myRef.child(phongKham.getIdPhongKham()).child(NoteFireBase.DANHGIA);
         refDanhGia.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -78,30 +78,18 @@ public class ViewDanhGia extends AppCompatActivity {
         });
     }
 
-    private void XuLyVietDanhGia(String idPhongKham)
+    private void XuLyVietDanhGia(PhongKham phongKham)
     {
         Intent intent = new Intent(ViewDanhGia.this, VietDanhGia.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("OBJECT_DANH_GIA1",idPhongKham);
+        bundle.putSerializable("OBJECT_PHONG_KHAM4",phongKham);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
     private void anhXa(){
-        DatabaseReference myRefPK = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM).child(idPhongKham).child("tenPhongKham");
         tenPK = findViewById(R.id.txt_DanhGiaView_TenPK);
-        myRefPK.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String tenPK_ = snapshot.getValue(String.class);
-                tenPK.setText("#Đánh giá của phòng khám " + tenPK_);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewDanhGia.this, "Lỗi", Toast.LENGTH_SHORT).show();
-            }
-        });
+        tenPK.setText("#Đánh giá của phòng khám " + phongKham.getTenPhongKham());
 
         VietDanhGia = findViewById(R.id.btn_VietDanhGia);
         rcvDanhGia = findViewById(R.id.rcv_DanhGia);

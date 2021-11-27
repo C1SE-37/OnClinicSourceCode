@@ -1,5 +1,7 @@
 package com.example.onclinic;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,19 +16,24 @@ import android.widget.Toast;
 import com.example.local_data.DataLocalManager;
 import com.example.model.DanhGia;
 import com.example.model.NguoiDung;
+import com.example.model.PhongKham;
 import com.example.sqlhelper.NoteFireBase;
 import com.firebase.client.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VietDanhGia extends AppCompatActivity {
     EditText edtBinhLuan;
     Button bntSubmitDanhGia;
     RatingBar rating_bar;
     NguoiDung nguoiDung;
-    String idPhongKham;
+    PhongKham phongKham;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,7 @@ public class VietDanhGia extends AppCompatActivity {
         setContentView(R.layout.activity_danh_gia);
         Bundle bundle = getIntent().getExtras();
         if(bundle == null) return;
-        idPhongKham = (String) bundle.getSerializable("OBJECT_DANH_GIA1");
+        phongKham = (PhongKham) bundle.getSerializable("OBJECT_PHONG_KHAM4");
         AnhXa();
         nguoiDung = DataLocalManager.getNguoiDung();
         bntSubmitDanhGia.setOnClickListener(new View.OnClickListener() {
@@ -47,27 +54,40 @@ public class VietDanhGia extends AppCompatActivity {
 
     private void xulyTaoDanhGia(){
         DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
-        String keyDanhGia = myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.DANHGIA).push().getKey();//lưu key để chỉnh sửa lịch khám về sau
         Float rating = rating_bar.getRating();
         String nhanxet = edtBinhLuan.getText().toString().trim();
         String idNguoiDung = nguoiDung.getUserID();
-        DanhGia danhGia = new DanhGia(rating, nhanxet, idNguoiDung);
-        danhGia.setIdDanhGia(keyDanhGia);
-        myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.DANHGIA).child(keyDanhGia).setValue(danhGia);
-        Toast.makeText(VietDanhGia.this, "Cảm ơn bạn đã phản hồi", Toast.LENGTH_SHORT).show();
+        DanhGia danhGia = new DanhGia(idNguoiDung,rating, nhanxet);
+        myRef.child(NoteFireBase.PHONGKHAM).child(phongKham.getIdPhongKham()).child(NoteFireBase.DANHGIA).child(idNguoiDung).setValue(danhGia, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(VietDanhGia.this, "Cảm ơn bạn đã phản hồi", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            }
+        });
+        List<DanhGia> danhGiaList = new ArrayList<>();
+        DatabaseReference refTBDanhGia = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference()
+                .child(NoteFireBase.PHONGKHAM).child(phongKham.getIdPhongKham()).child(NoteFireBase.DANHGIA);
+        refTBDanhGia.addValueEventListener(new ValueEventListener() {
+            float tongDanhGia = 0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                danhGiaList.clear();
+                for(DataSnapshot data: snapshot.getChildren())
+                {
+                    DanhGia danhGia = data.getValue(DanhGia.class);
+                    tongDanhGia +=  danhGia.getRating();
+                    danhGiaList.add(danhGia);
+                }
+                phongKham.setTbDanhGia(tongDanhGia/danhGiaList.size());
+            }
 
-        onBackPressed();
-        //XulyQuayLaiViewDanhGia(idPhongKham);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
-
-    /*private void XulyQuayLaiViewDanhGia(String idPhongKham)
-    {
-        Intent intent = new Intent(VietDanhGia.this, ViewDanhGia.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("OBJECT_DANH_GIA", idPhongKham);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }*/
 
     private void AnhXa(){
         rating_bar = findViewById(R.id.rating_bar);

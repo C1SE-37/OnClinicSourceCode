@@ -32,7 +32,6 @@ public class ViewDanhGiaBS extends AppCompatActivity {
     DanhGiaAdapter nDanhGiaAdapter;
     List<DanhGia> nListDanhGia;
 
-    String idPhongKham;
     TextView tenPK;
     PhongKham phongKham;
     RecyclerView rcvDanhGia;
@@ -42,7 +41,6 @@ public class ViewDanhGiaBS extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_phan_hoi_bs);
         phongKham = DataLocalManager.getPhongKham();
-        idPhongKham = phongKham.getIdPhongKham();
         getListDanhGiaFromRealtimeDatabase();
         anhXa();
     }
@@ -50,7 +48,7 @@ public class ViewDanhGiaBS extends AppCompatActivity {
 
     private void getListDanhGiaFromRealtimeDatabase(){
         DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
-        DatabaseReference refDanhGiaPK = myRef.child(idPhongKham).child(NoteFireBase.DANHGIA);
+        DatabaseReference refDanhGiaPK = myRef.child(phongKham.getIdPhongKham()).child(NoteFireBase.DANHGIA);
         refDanhGiaPK.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -71,20 +69,8 @@ public class ViewDanhGiaBS extends AppCompatActivity {
 
 
     private void anhXa(){
-        DatabaseReference myRefPK = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM).child(idPhongKham).child("tenPhongKham");
         tenPK = findViewById(R.id.txt_DanhGiaViewBS_TenPK);
-        myRefPK.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String tenPK_ = snapshot.getValue(String.class);
-                tenPK.setText("#Đánh giá của phòng khám " + tenPK_);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewDanhGiaBS.this, "Lỗi", Toast.LENGTH_SHORT).show();
-            }
-        });
+        tenPK.setText("#Đánh giá của phòng khám " + phongKham.getTenPhongKham());
 
         rcvDanhGia = findViewById(R.id.rcv_DanhGiaViewBS);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

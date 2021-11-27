@@ -66,6 +66,13 @@ public class TrangChuBacSi extends MyBaseActivity {
                 startActivity(intent);
             }
         });
+        btnLienHe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TrangChuBacSi.this, LienHe.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

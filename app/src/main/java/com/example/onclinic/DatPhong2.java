@@ -294,7 +294,6 @@ public class DatPhong2 extends AppCompatActivity {
     }
 
     private void xyLyLayoutThongTinPhongKham (PhongKham phongKham) {
-        //DataLocalManager.setPhongKham(phongKham);
         Intent intent = new Intent(DatPhong2.this, ThongTinPhongKhamViewBenhNhan.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("OBJECT_PHONG_KHAM2",phongKham);
@@ -313,7 +312,7 @@ public class DatPhong2 extends AppCompatActivity {
         txtPhongKham.setText("Phòng khám "+phongKham.getTenPhongKham());
         txtChuyenKhoa = findViewById(R.id.txtChuyenKhoa2);
         txtChuyenKhoa.setText("Chuyên khoa "+phongKham.getChuyenKhoa());
-        ratingBar = findViewById(R.id.rating_bar2);
+        ratingBar = findViewById(R.id.ratingBar2);
         linearThongTinPhongKham = findViewById(R.id.LayoutPhongKham);
 
         rdoOnline = findViewById(R.id.rdoOnline);

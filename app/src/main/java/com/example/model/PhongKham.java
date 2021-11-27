@@ -3,6 +3,8 @@ package com.example.model;
 import com.example.sqlhelper.NoteFireBase;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -15,18 +17,30 @@ public class PhongKham implements Serializable {
     private String hinhAnh;
     private String hinhThucKham;
     private String idBacSi;
+    private Float tbDanhGia;
 
     public PhongKham() {
     }
 
-    public PhongKham(String tenPhongKham, String chuyenKhoa, String diaChi, String moTa, String hinhAnh, String hinhThucKham) {
+    public PhongKham(String tenPhongKham, String chuyenKhoa, String diaChi, String moTa, String hinhAnh, String hinhThucKham, Float tbDanhGia) {
         this.tenPhongKham = tenPhongKham;
         this.chuyenKhoa = chuyenKhoa;
         this.diaChi = diaChi;
         this.moTa = moTa;
         this.hinhAnh = hinhAnh;
         this.hinhThucKham = hinhThucKham;
+        this.tbDanhGia = tbDanhGia;
     }
+
+    //sắp xếp phòng khám theo sao giảm dần
+    public static Comparator<PhongKham> PhongKhamDescendingStarComparator = new Comparator<PhongKham>() {
+        @Override
+        public int compare(PhongKham p1, PhongKham p2) {
+            //Float f1 = p1.getTbDanhGia().floatValue();
+            //Float f2 = p2.getTbDanhGia().floatValue();
+            return (int) (p1.getTbDanhGia() - p2.getTbDanhGia());
+        }
+    };
 
     public String getIdPhongKham() {
         return idPhongKham;
@@ -90,5 +104,13 @@ public class PhongKham implements Serializable {
 
     public void setHinhThucKham(String hinhThucKham) {
         this.hinhThucKham = hinhThucKham;
+    }
+
+    public Float getTbDanhGia() {
+        return tbDanhGia;
+    }
+
+    public void setTbDanhGia(Float tbDanhGia) {
+        this.tbDanhGia = tbDanhGia;
     }
 }

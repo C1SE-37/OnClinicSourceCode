@@ -58,40 +58,25 @@ public class DanhGiaAdapter extends RecyclerView.Adapter<DanhGiaAdapter.DanhGiaV
     @Override
     public void onBindViewHolder(@NonNull DanhGiaViewHolder holder, int position) {
         DanhGia danhGia = danhGiaList.get(position);
-        if (danhGia == null)
-        {
-            return;
-        }
+        if (danhGia == null) return;
 
         holder.ratingbar.setRating(danhGia.getRating());
         holder.txtNhanXet.setText(danhGia.getNhanXet());
 
         String userID = danhGia.getIdNguoiDungDG();
-        DatabaseReference myRefBNten = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(userID).child("tenNguoiDung");
-        myRefBNten.addValueEventListener(new ValueEventListener() {
+        DatabaseReference myRefBN = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(userID);
+        myRefBN.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String tenBN = snapshot.getValue(String.class);
-                holder.txtTenBN.setText(tenBN);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(context1, "Lỗi", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        DatabaseReference myRefBNavatar = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(userID).child("hinhAnh");
-        myRefBNavatar.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String avatarBN_ = snapshot.getValue(String.class);
-                if(avatarBN_!=null) {
-                    byte[] decodedString = Base64.decode(avatarBN_, Base64.DEFAULT);
+                NguoiDung nguoiDung = snapshot.getValue(NguoiDung.class);
+                holder.txtTenBN.setText(nguoiDung.getTenNguoiDung());
+                if(nguoiDung.getHinhAnh()!=null) {
+                    byte[] decodedString = Base64.decode(nguoiDung.getHinhAnh(), Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     holder.avatarBN.setImageBitmap(decodedByte);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(context1, "Lỗi", Toast.LENGTH_SHORT).show();

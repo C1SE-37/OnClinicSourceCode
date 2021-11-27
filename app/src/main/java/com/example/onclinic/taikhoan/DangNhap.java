@@ -180,8 +180,6 @@ public class DangNhap extends AppCompatActivity {
                     NguoiDung nguoiDung = data.getValue(NguoiDung.class);
                     listBenhNhan.add(nguoiDung);//them benh nhan tu fb vao danh sach
                 }
-                adapterBenhNhan = new ArrayAdapter<>(DangNhap.this, android.R.layout.simple_list_item_1,listBenhNhan);
-                adapterBenhNhan.notifyDataSetChanged();
             }
 
             @Override
@@ -200,8 +198,6 @@ public class DangNhap extends AppCompatActivity {
                     NguoiDung nguoiDung = data.getValue(NguoiDung.class);
                     listBacSi.add(nguoiDung);//them bac si tu fb vao danh sach
                 }
-                adapterBacSi = new ArrayAdapter<>(DangNhap.this, android.R.layout.simple_list_item_1,listBacSi);
-                adapterBacSi.notifyDataSetChanged();
             }
 
             @Override

@@ -21,12 +21,20 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.local_data.DataLocalManager;
+import com.example.model.DanhGia;
 import com.example.model.PhongKham;
 import com.example.onclinic.CapNhatSuatKham;
 import com.example.onclinic.DatPhong;
 import com.example.onclinic.DatPhong2;
 import com.example.onclinic.R;
+import com.example.sqlhelper.NoteFireBase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PhongKhamAdapter extends RecyclerView.Adapter<PhongKhamAdapter.PhongKhamViewHolder>{
@@ -65,7 +73,7 @@ public class PhongKhamAdapter extends RecyclerView.Adapter<PhongKhamAdapter.Phon
         }
         holder.txtPhongKham.setText("Phòng khám "+phongKham.getTenPhongKham());
         holder.txtChuyenKhoa.setText("Chuyên khoa "+phongKham.getChuyenKhoa());
-        //holder.ratingBar.setRating();
+        holder.ratingBar.setRating(phongKham.getTbDanhGia());
         holder.layoutPhongKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

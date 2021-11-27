@@ -147,7 +147,7 @@ public class TaoPhongKham extends AppCompatActivity {
                         edtChuyenKhoa.getText().toString().trim(),
                         edtDiaChi.getText().toString().trim(),
                         edtMoTa.getText().toString().trim(),
-                        imgEncoded, hinhThuc);
+                        imgEncoded, hinhThuc,0f);
                 phongKham.setIdPhongKham(keyID);
                 phongKham.setIdBacSi(idNguoiDung);
                 myRef.child(NoteFireBase.PHONGKHAM).child(keyID).setValue(phongKham, new DatabaseReference.CompletionListener() {

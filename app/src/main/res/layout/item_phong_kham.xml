@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_phongkham"
+    android:padding="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -20,7 +21,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.27" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgItemPhongKham"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -36,7 +37,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="5"
-                    android:stepSize=".5" />
+                    android:stepSize=".1" />
 
             </LinearLayout>
 

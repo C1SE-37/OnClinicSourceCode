@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="@id/guidelineTrai"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayoutToolBar">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgPhongKham"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -89,12 +89,12 @@
                     android:textSize="15sp" />
 
                 <RatingBar
-                    android:id="@+id/rating_bar"
+                    android:id="@+id/ratingBarQLPK"
                     style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="5"
-                    android:stepSize=".5" />
+                    android:stepSize=".1" />
             </LinearLayout>
 
         </LinearLayout>
@@ -201,7 +201,7 @@
                 android:id="@+id/viewGoiYTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nên tạo các suất khám cách nhau tối thiểu 15 phút và tối đa 1 tiếng"
+                android:text="Nên tạo các suất khám cách nhau tối thiểu 15 phút"
                 android:textColor="#A04D4D"
                 android:textSize="12sp" />
 

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.local_data.DataLocalManager;
+import com.example.model.DanhGia;
 import com.example.model.LichKham;
 import com.example.model.PhongKham;
 import com.example.onclinic.taikhoan.DangNhap;
@@ -49,11 +51,12 @@ public class QuanLyPhongKham extends AppCompatActivity {
     ConstraintLayout layoutPhongKham;
     TextView txtTenPhongKham, txtChuyenKhoa, txtNgay, txtGio;
     Button btnTaoSuatKham, btnSuatKhamDaTao, btnLichKhamSapToi;
+    RatingBar ratingBar;
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
-    String idNguoiDung;
+    String idNguoiDung, idPhongKham;
 
     ArrayList<String> dsNgay = new ArrayList<>();
     ArrayList<Date> dsNgayDangDate = new ArrayList<>();
@@ -63,6 +66,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_phong_kham);
         idNguoiDung = DataLocalManager.getIDNguoiDung();
+        idPhongKham = DataLocalManager.getIDPhongKham();
         docDuLieuFireBase();
         addControls();
         addEvents();
@@ -97,7 +101,28 @@ public class QuanLyPhongKham extends AppCompatActivity {
             }
         });
 
-        String idPhongKham = DataLocalManager.getIDPhongKham();
+
+        List<DanhGia> danhGiaList = new ArrayList<>();
+        DatabaseReference refDanhGia = myRef.child(idPhongKham).child(NoteFireBase.DANHGIA);
+        refDanhGia.addValueEventListener(new ValueEventListener() {
+            float tongDanhGia = 0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                danhGiaList.clear();
+                for(DataSnapshot data: snapshot.getChildren())
+                {
+                    DanhGia danhGia = data.getValue(DanhGia.class);
+                    tongDanhGia +=  danhGia.getRating();
+                    danhGiaList.add(danhGia);
+                }
+                ratingBar.setRating(tongDanhGia/danhGiaList.size());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         DatabaseReference ref = myRef.child(idPhongKham).child(NoteFireBase.LICHKHAM);
         //thêm ngày giờ trên firebase vào danh sách để kiểm tra
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -305,6 +330,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
         imgGio = findViewById(R.id.imgClock);
         txtTenPhongKham = findViewById(R.id.txtTenPhongKham);
         txtChuyenKhoa = findViewById(R.id.txtChuyenKhoa);
+        ratingBar = findViewById(R.id.ratingBarQLPK);
         txtNgay = findViewById(R.id.edtChonNgay);
         txtNgay.setText(NgayGio.GetDateCurrentString());
         txtGio = findViewById(R.id.edtChonGio);

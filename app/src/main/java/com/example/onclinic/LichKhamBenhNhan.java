@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.adapter.LichKhamBenhNhanAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
 import com.example.model.PhongKham;
+import com.example.onclinic.taikhoan.DangNhap;
 import com.example.sqlhelper.NoteFireBase;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -41,8 +43,8 @@ public class LichKhamBenhNhan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lich_kham_benh_nhan);
         idNguoiDung = DataLocalManager.getIDNguoiDung();
-        layDanhSachLichKhamTuFireBase();
         addControls();
+        layDanhSachLichKhamTuFireBase();
     }
 
     private void layDanhSachLichKhamTuFireBase() {
@@ -64,17 +66,19 @@ public class LichKhamBenhNhan extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             listLichKham.clear();
+                            listPhongKhamCoLichKham.clear();
                             for(DataSnapshot data: snapshot.getChildren())
                             {
                                 LichKham lich = data.getValue(LichKham.class);
-                                if(idNguoiDung.equals(lich.getIdBenhNhan()) && lich.getTrangThai() <=LichKham.DatLich)
+                                if(idNguoiDung.equals(lich.getIdBenhNhan()) && lich.getTrangThai() == LichKham.DatLich)
                                 {
-                                    listPhongKhamCoLichKham.add(phong);
                                     listLichKham.add(lich);
+                                    listPhongKhamCoLichKham.add(phong);
+                                    //Toast.makeText(LichKhamBenhNhan.this, "Phong kham "+phong.getTenPhongKham(), Toast.LENGTH_SHORT).show();
                                     Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
                                 }
                             }
-                            //lichKhamBenhNhanAdapter.notifyDataSetChanged();
+                            lichKhamBenhNhanAdapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -83,7 +87,7 @@ public class LichKhamBenhNhan extends AppCompatActivity {
                         }
                     });
                 }
-                lichKhamBenhNhanAdapter.notifyDataSetChanged();
+                //lichKhamBenhNhanAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -114,23 +118,16 @@ public class LichKhamBenhNhan extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(LichKhamBenhNhan.this);
         rcvLichKham.setLayoutManager(layoutManager);
         listLichKham = new ArrayList<>();
+        listPhongKham = new ArrayList<>();
+        listPhongKhamCoLichKham = new ArrayList<>();
 
-        lichKhamBenhNhanAdapter = new LichKhamBenhNhanAdapter(listLichKham, LichKhamBenhNhan.this, new LichKhamBenhNhanAdapter.ILichKhamBenhNhanAdapter() {
+        lichKhamBenhNhanAdapter = new LichKhamBenhNhanAdapter(listLichKham, listPhongKhamCoLichKham, LichKhamBenhNhan.this, new LichKhamBenhNhanAdapter.ILichKhamBenhNhanAdapter() {
             @Override
             public void clickThamGia(LichKham lichKham, PhongKham phongKham) {
                 xuLyThamGia(lichKham, phongKham);
             }
-
-            @Override
-            public List<PhongKham> layDanhSachPhongKham() {
-                return listPhongKhamCoLichKham;
-            }
-
         });
 
         rcvLichKham.setAdapter(lichKhamBenhNhanAdapter);
-
-        listPhongKham = new ArrayList<>();
-        listPhongKhamCoLichKham = new ArrayList<>();
     }
 }

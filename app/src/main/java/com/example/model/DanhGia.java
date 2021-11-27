@@ -3,26 +3,25 @@ package com.example.model;
 import java.io.Serializable;
 
 public class DanhGia implements Serializable {
-    private String idDanhGia;
+    private String idNguoiDungDG;
     private String nhanXet;
     private Float rating;
-    private String idNguoiDungDG;
 
     public DanhGia() {
     }
 
-    public DanhGia(Float rating, String nhanXet, String idNguoiDungDG){
+    public DanhGia(String idNguoiDungDG, Float rating, String nhanXet){
+        this.idNguoiDungDG = idNguoiDungDG;
         this.nhanXet = nhanXet;
         this.rating = rating;
+    }
+
+    public String getIdNguoiDungDG() {
+        return idNguoiDungDG;
+    }
+
+    public void setIdNguoiDungDG(String idNguoiDungDG) {
         this.idNguoiDungDG = idNguoiDungDG;
-    }
-
-    public String getIdDanhGia() {
-        return idDanhGia;
-    }
-
-    public void setIdDanhGia(String idDanhGia) {
-        this.idDanhGia = idDanhGia;
     }
 
     public String getNhanXet() {
@@ -35,13 +34,5 @@ public class DanhGia implements Serializable {
 
     public void setRating(Float rating) {
         this.rating = rating;
-    }
-
-    public String getIdNguoiDungDG() {
-        return idNguoiDungDG;
-    }
-
-    public void setIdNguoiDungDG(String idNguoiDungDG) {
-        this.idNguoiDungDG = idNguoiDungDG;
     }
 }

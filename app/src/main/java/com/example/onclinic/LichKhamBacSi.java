@@ -40,8 +40,8 @@ public class LichKhamBacSi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lich_kham_bac_si);
         idPhongKham = DataLocalManager.getIDPhongKham();
-        layDanhSachLichKhamTuFireBase();
         addControls();
+        layDanhSachLichKhamTuFireBase();
     }
 
     private void layDanhSachLichKhamTuFireBase() {
@@ -56,7 +56,6 @@ public class LichKhamBacSi extends AppCompatActivity {
                     LichKham lichKham = data.getValue(LichKham.class);
                     try {
                         Date ngayFirebase = NgayGio.ConvertStringToDate(lichKham.getNgayKham());
-                        //String today = sdf.format(Calendar.getInstance().getTime());
                         Date ngayHienTai = NgayGio.GetDateCurrent();
                         //so sánh ngày trong lịch và hiện tại để thêm vào lịch khám và phải ở trạng thái chưa khám
                         if(ngayFirebase.getTime() >= ngayHienTai.getTime() && lichKham.getTrangThai() <= LichKham.DatLich)
@@ -83,7 +82,6 @@ public class LichKhamBacSi extends AppCompatActivity {
         if(lichKhamBacSiAdapter != null)
             lichKhamBacSiAdapter.release();
     }
-
 
     private void xuLyBatDau(LichKham lichKham, NguoiDung nguoiDung) {
         Intent intent = new Intent(LichKhamBacSi.this,KhamOnlineDemo.class);
