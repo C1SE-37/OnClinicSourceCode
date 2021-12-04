@@ -1,15 +1,26 @@
 package com.example.onclinic;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
@@ -18,7 +29,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -27,11 +37,12 @@ import android.widget.Toast;
 
 import com.example.adapter.GioKhamAdapter;
 import com.example.local_data.DataLocalManager;
+import com.example.local_data.MyApplication;
+import com.example.model.DanhGia;
 import com.example.model.LichKham;
 import com.example.model.PhongKham;
-import com.example.sqlhelper.CheckData;
-import com.example.sqlhelper.NgayGio;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NgayGio;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,10 +52,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 public class DatPhong2 extends AppCompatActivity {
     ImageView imgPhongKham;
@@ -67,6 +76,22 @@ public class DatPhong2 extends AppCompatActivity {
     LichKham lichKham;
 
     String idNguoiDung,idLichKham;
+
+    private static final int NOTIFICATION_ID = 1;
+    private static final String MY_ACTION = "MY_ACTION";
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(MY_ACTION.equals(intent.getAction())){
+                Bundle bundle = intent.getExtras();
+                if(bundle == null) return;
+                String tieuDe =  bundle.getString("TIEU_DE_THONG_BAO");
+                String noiDung = bundle.getString("NOI_DUNG_THONG_BAO");
+                guiThongBao(tieuDe, noiDung);
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +99,12 @@ public class DatPhong2 extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle == null) return;
         phongKham = (PhongKham) bundle.getSerializable("OBJECT_PHONG_KHAM");
+
         idNguoiDung = DataLocalManager.getIDNguoiDung();
         
         addControls();
         docDuLieuFirebaseVaoSpinner();
+
         addEvents();
     }
 
@@ -119,6 +146,29 @@ public class DatPhong2 extends AppCompatActivity {
         {
             Toast.makeText(DatPhong2.this, "Lỗi đọc dữ liệu", Toast.LENGTH_LONG).show();
         }
+
+        DatabaseReference refTBDanhGia = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference()
+                .child(NoteFireBase.PHONGKHAM).child(phongKham.getIdPhongKham()).child(NoteFireBase.DANHGIA);
+        refTBDanhGia.addValueEventListener(new ValueEventListener() {
+            float tongDanhGia = 0;
+            int listSize = 0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren())
+                {
+                    DanhGia danhGia = data.getValue(DanhGia.class);
+                    tongDanhGia +=  danhGia.getRating();
+                    listSize++;
+                }
+                if(listSize!=0) ratingBar.setRating(tongDanhGia/listSize);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void addEvents() {
@@ -181,6 +231,8 @@ public class DatPhong2 extends AppCompatActivity {
                             }
                             adapterGioKham = new GioKhamAdapter(DatPhong2.this, R.layout.item_gio_kham, dsGioKham);
                             gvGioKham.setAdapter(adapterGioKham);
+                            if(dsGioKham.size() != 0)
+                                btnDatPhong.setEnabled(true);
                         }
 
                         @Override
@@ -221,6 +273,7 @@ public class DatPhong2 extends AppCompatActivity {
                                 Toast.makeText(DatPhong2.this, " Ngày: "+lk.getNgayKham()+" vào lúc: "+gioHT, Toast.LENGTH_SHORT).show();
                             }
                         }
+
                     }
 
                     @Override
@@ -237,6 +290,7 @@ public class DatPhong2 extends AppCompatActivity {
                 xuLyDatPhong();
             }
         });
+
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,9 +319,14 @@ public class DatPhong2 extends AppCompatActivity {
             //gán id bệnh nhân vào lịch
             lichKham.setIdBenhNhan(idNguoiDung);
             lichKham.setTrangThai(LichKham.DatLich);
-            myRef.child(phongKham.getIdPhongKham()).child(NoteFireBase.LICHKHAM).child(idLichKham).setValue(lichKham);
-            Toast.makeText(DatPhong2.this, "Đặt lịch thành công", Toast.LENGTH_SHORT).show();
-            troVeManHinhTrangChu();
+            myRef.child(phongKham.getIdPhongKham()).child(NoteFireBase.LICHKHAM).child(idLichKham).setValue(lichKham, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    Toast.makeText(DatPhong2.this,"Đặt lịch thành công",Toast.LENGTH_SHORT).show();
+                    guiBroadcast("Bạn có lịch khám mới ","Nhắc nhở bạn có lịch khám vào lúc "+lichKham.getGioKham()+ " ngày "+lichKham.getNgayKham());
+                    troVeManHinhTrangChu();
+                }
+            });
         }
     }
 
@@ -275,6 +334,55 @@ public class DatPhong2 extends AppCompatActivity {
         Intent intent = new Intent(DatPhong2.this,TrangChuBenhNhan.class);
         startActivity(intent);
         finishAffinity();
+    }
+
+    private void guiThongBao(String tieuDe, String noiDung)
+    {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_app);
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        Intent resultIntent = new Intent(this, LichKhamBenhNhan.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(NOTIFICATION_ID, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new NotificationCompat.Builder(this, MyApplication.CHANNEL_ID)
+                .setContentTitle(tieuDe)
+                .setContentText(noiDung)
+                .setLargeIcon(bitmap)
+                .setSound(uri)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(noiDung))
+                .setContentIntent(resultPendingIntent)
+                .setSmallIcon(R.drawable.small_icon_notify)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        if(notificationManager != null) {
+            notificationManager.notify(NOTIFICATION_ID, notification);
+        }
+    }
+
+    private void guiBroadcast(String tieuDe, String noiDung) {
+        Intent intent = new Intent(MY_ACTION);
+        Bundle bundle = new Bundle();
+        bundle.putString("TIEU_DE_THONG_BAO",tieuDe);
+        bundle.putString("NOI_DUNG_THONG_BAO",noiDung);
+        intent.putExtras(bundle);
+        sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter intentFilter = new IntentFilter(MY_ACTION);
+        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
     }
 
     private boolean checkInput()
@@ -332,6 +440,7 @@ public class DatPhong2 extends AppCompatActivity {
         gvGioKham = findViewById(R.id.gvGioKham2);
         dsGioKham = new ArrayList<>();
         btnDatPhong = findViewById(R.id.btnDatPhong);
+        btnDatPhong.setEnabled(false);
         btnHuy = findViewById(R.id.btnHuyDP2);
     }
 }

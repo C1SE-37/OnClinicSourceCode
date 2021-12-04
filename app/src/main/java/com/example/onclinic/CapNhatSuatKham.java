@@ -15,22 +15,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class CapNhatSuatKham extends AppCompatActivity {
     TextView txtNgay,txtGio,txtHinhThuc,txtTrangThai;

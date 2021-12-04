@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.adapter.SuatKhamAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
-import com.example.sqlhelper.NgayGio;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NgayGio;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +32,7 @@ public class SuatKhamDaTao extends AppCompatActivity {
     private RecyclerView rcvLichKham;
     private SuatKhamAdapter suatKhamAdapter;
     private List<LichKham> listLichKham;
+    private List<LichKham> listLichKhamCanXoa = new ArrayList<>();
 
     String idPhongKham;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -55,25 +56,25 @@ public class SuatKhamDaTao extends AppCompatActivity {
                 for(DataSnapshot data : snapshot.getChildren())
                 {
                     LichKham lichKham = data.getValue(LichKham.class);
-                    listLichKham.add(lichKham);
-                }
-                for(DataSnapshot data : snapshot.getChildren())
-                {
-                    LichKham lichKham = data.getValue(LichKham.class);
                     try {
                         Date ngayFirebase = NgayGio.ConvertStringToDate(lichKham.getNgayKham());
                         Date ngayHienTai = NgayGio.GetDateCurrent();
                         //so sánh ngày trong lịch và hiện tại để thêm vào lịch khám và phải ở trạng thái chưa khám
-                        if(ngayFirebase.getTime() >= ngayHienTai.getTime() && lichKham.getTrangThai() <= LichKham.DatLich)
+                        if(ngayFirebase.getTime() >= ngayHienTai.getTime())
                         {
                             listLichKham.add(lichKham);
                             Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
+                        }
+                        else if(lichKham.getTrangThai() == LichKham.ChuaDatLich)
+                        {
+                            refSuatKham.child(lichKham.getIdLichKham()).removeValue();
                         }
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 }
                 suatKhamAdapter.notifyDataSetChanged();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

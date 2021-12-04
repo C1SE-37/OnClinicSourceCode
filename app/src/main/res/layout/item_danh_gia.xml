@@ -43,7 +43,7 @@
         android:paddingLeft="15dp"
         android:paddingTop="7dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgItemDanhGia_avatarBN"
         android:layout_width="45dp"
         android:layout_height="45dp"

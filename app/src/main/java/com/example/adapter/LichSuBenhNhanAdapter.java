@@ -1,24 +1,19 @@
 package com.example.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.model.DonThuoc;
-import com.example.model.LichKham;
 import com.example.model.LichSu;
 import com.example.model.NguoiDung;
-import com.example.onclinic.ChiTietLichSuBenhNhan;
 import com.example.onclinic.R;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

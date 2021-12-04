@@ -8,9 +8,10 @@
     <string name="nav_dangxuat">Đăng xuất</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="create_lich_kham">Chưa được đặt lịch</string>
-    <string name="book_lich_kham">Đã được đặt lịch</string>
-    <string name="save_lich_su_lich_kham">Hoàn thành</string>
+    <string name="channel_name">Channel 1</string>
+    <string name="channel_description">This is Channel 1</string>
+    <string name="channel_name_2">Channel 2</string>
+    <string name="channel_description_2">This is Channel 2</string>
     <string-array name="arrThanhPho">
         <item>An Giang</item>
         <item>Bà rịa – Vũng tàu</item>

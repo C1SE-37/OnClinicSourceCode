@@ -1,6 +1,8 @@
 package com.example.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DanhGia implements Serializable {
     private String idNguoiDungDG;

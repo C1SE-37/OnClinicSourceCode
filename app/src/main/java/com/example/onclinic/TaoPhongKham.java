@@ -1,17 +1,10 @@
 package com.example.onclinic;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,8 +25,8 @@ import android.widget.Toast;
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
-import com.example.sqlhelper.CheckData;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.CheckData;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -147,7 +140,7 @@ public class TaoPhongKham extends AppCompatActivity {
                         edtChuyenKhoa.getText().toString().trim(),
                         edtDiaChi.getText().toString().trim(),
                         edtMoTa.getText().toString().trim(),
-                        imgEncoded, hinhThuc,0f);
+                        imgEncoded, hinhThuc);
                 phongKham.setIdPhongKham(keyID);
                 phongKham.setIdBacSi(idNguoiDung);
                 myRef.child(NoteFireBase.PHONGKHAM).child(keyID).setValue(phongKham, new DatabaseReference.CompletionListener() {

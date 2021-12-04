@@ -1,4 +1,4 @@
-package com.example.sqlhelper;
+package com.example.helper;
 
 import android.widget.EditText;
 

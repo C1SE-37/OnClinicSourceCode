@@ -1,6 +1,5 @@
 package com.example.onclinic;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import android.content.DialogInterface;
@@ -9,19 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.example.local_data.DataLocalManager;
-import com.example.model.PhongKham;
-import com.example.sqlhelper.NoteFireBase;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class TrangChuBacSi extends MyBaseActivity {
 
-    ImageButton btnQuanly,btnLichKham,btnDoNhipTim,btnLienHe,btnLichSuKham,btnDonThuoc;
+    LinearLayout btnQuanly,btnLichKham,btnDoNhipTim,btnLienHe,btnLichSuKham,btnDonThuoc;
 
     String idNguoiDung;
 
@@ -93,10 +86,10 @@ public class TrangChuBacSi extends MyBaseActivity {
 
 
     private void addControls() {
-        btnQuanly = findViewById(R.id.ibtnQuanLyPhongKham);
-        btnLichKham = findViewById(R.id.ibtnLichKham);
-        btnDonThuoc = findViewById(R.id.ibtnDonThuoc);
-        btnLienHe = findViewById(R.id.ibtnLienHe);
-        btnLichSuKham = findViewById(R.id.ibtnLichSuKham);
+        btnQuanly = findViewById(R.id.btnQuanLyPhongKhamBS);
+        btnLichKham = findViewById(R.id.btnLichKhamBS);
+        btnDonThuoc = findViewById(R.id.btnDonThuocBS);
+        btnLienHe = findViewById(R.id.btnLienHeBS);
+        btnLichSuKham = findViewById(R.id.btnLichSuKhamBS);
     }
 }

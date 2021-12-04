@@ -1,4 +1,4 @@
-package com.example.sqlhelper;
+package com.example.helper;
 
 public class NoteFireBase {
     public static final String firebaseSource = "https://onclinic-180ee-default-rtdb.asia-southeast1.firebasedatabase.app/";

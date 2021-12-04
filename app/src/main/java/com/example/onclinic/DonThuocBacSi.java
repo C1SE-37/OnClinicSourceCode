@@ -9,23 +9,17 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.adapter.DonThuocBacSiAdapter;
-import com.example.adapter.LichKhamBacSiAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
-import com.example.model.LichSu;
-import com.example.model.NguoiDung;
-import com.example.sqlhelper.NgayGio;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class DonThuocBacSi extends AppCompatActivity {

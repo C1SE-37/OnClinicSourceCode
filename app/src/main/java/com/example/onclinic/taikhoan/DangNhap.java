@@ -1,18 +1,13 @@
 package com.example.onclinic.taikhoan;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,15 +19,12 @@ import android.widget.Toast;
 import com.example.local_data.DataLocalManager;
 import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
-import com.example.onclinic.LienHe;
-import com.example.onclinic.QuanLyPhongKham;
 import com.example.onclinic.R;
 import com.example.onclinic.TrangChuBacSi;
 import com.example.onclinic.TrangChuBenhNhan;
-import com.example.sqlhelper.ActivityState;
-import com.example.sqlhelper.CheckData;
-import com.example.sqlhelper.NoteFireBase;
-import com.google.firebase.database.ChildEventListener;
+import com.example.helper.ActivityState;
+import com.example.helper.CheckData;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,7 +57,17 @@ public class DangNhap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
         AnhXa();
-        layDanhSachNguoiDungTuFireBase();
+        layDanhSachNguoiDungTuFireBase(new IDangNhap() {
+            @Override
+            public void layDanhSachBenhNhan(List<NguoiDung> listBN) {
+                listBenhNhan = listBN;
+            }
+
+            @Override
+            public void layDanhSachBacSi(List<NguoiDung> listBS) {
+               listBacSi = listBS;
+            }
+        });
         DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_TRANGCHU);
         addEvents();
     }
@@ -79,8 +81,8 @@ public class DangNhap extends AppCompatActivity {
                     @Override
                     public void run() {
                         progressDialog.dismiss();
-                        if(xuLyDangNhap()==-1)
-                            Toast.makeText(DangNhap.this, "Email hoặc mật khẩu đã sai.", Toast.LENGTH_SHORT).show();
+                        xuLyDangNhap();
+                        if(xuLyDangNhap()==-1) Toast.makeText(DangNhap.this, "Email hoặc mật khẩu đã sai.", Toast.LENGTH_SHORT).show();
                     }
                 },3000);
             }
@@ -139,6 +141,7 @@ public class DangNhap extends AppCompatActivity {
                             PhongKham phong = data.getValue(PhongKham.class);
                             if (nguoiDung.getUserID().equals(phong.getIdBacSi())) {
                                 DataLocalManager.setIDPhongKham(phong.getIdPhongKham());
+                                DataLocalManager.setPhongKham(phong);
                             }
                         }
                     }
@@ -165,9 +168,7 @@ public class DangNhap extends AppCompatActivity {
         return false;
     }
 
-    //class loadNguoiDung extends Asy
-
-    private void layDanhSachNguoiDungTuFireBase()
+    private void layDanhSachNguoiDungTuFireBase(IDangNhap iDangNhap)
     {
         DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference(NoteFireBase.NGUOIDUNG);//đang ở note roof
         DatabaseReference refBenhNhan = myRef.child(NoteFireBase.BENHNHAN);//đến note bệnh nhân
@@ -180,6 +181,7 @@ public class DangNhap extends AppCompatActivity {
                     NguoiDung nguoiDung = data.getValue(NguoiDung.class);
                     listBenhNhan.add(nguoiDung);//them benh nhan tu fb vao danh sach
                 }
+                iDangNhap.layDanhSachBenhNhan(listBenhNhan);
             }
 
             @Override
@@ -198,6 +200,7 @@ public class DangNhap extends AppCompatActivity {
                     NguoiDung nguoiDung = data.getValue(NguoiDung.class);
                     listBacSi.add(nguoiDung);//them bac si tu fb vao danh sach
                 }
+                iDangNhap.layDanhSachBacSi(listBacSi);
             }
 
             @Override
@@ -205,6 +208,11 @@ public class DangNhap extends AppCompatActivity {
                 Toast.makeText(DangNhap.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private interface IDangNhap{
+        void layDanhSachBenhNhan(List<NguoiDung> listBenhNhan);
+        void layDanhSachBacSi(List<NguoiDung> listBacSi);
     }
 
     @Override

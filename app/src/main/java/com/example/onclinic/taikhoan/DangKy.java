@@ -25,8 +25,8 @@ import android.widget.Toast;
 
 import com.example.model.NguoiDung;
 import com.example.onclinic.R;
-import com.example.sqlhelper.CheckData;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.CheckData;
+import com.example.helper.NoteFireBase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

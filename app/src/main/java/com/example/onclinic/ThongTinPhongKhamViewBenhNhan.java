@@ -16,10 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.local_data.DataLocalManager;
-import com.example.model.DanhGia;
 import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,7 +54,7 @@ public class ThongTinPhongKhamViewBenhNhan extends AppCompatActivity {
        bnt_PhanHoiPK.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intent = new Intent(ThongTinPhongKhamViewBenhNhan.this, ViewDanhGia.class);
+               Intent intent = new Intent(ThongTinPhongKhamViewBenhNhan.this, ViewDanhGiaBN.class);
                Bundle bundle = new Bundle();
                bundle.putSerializable("OBJECT_PHONG_KHAM3",phongKham);
                intent.putExtras(bundle);

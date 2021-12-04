@@ -12,20 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.local_data.DataLocalManager;
 import com.example.model.LichKham;
 import com.example.model.PhongKham;
 import com.example.onclinic.R;
-import com.example.sqlhelper.NoteFireBase;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -56,7 +47,6 @@ public class LichKhamBenhNhanAdapter extends RecyclerView.Adapter<LichKhamBenhNh
 
     @Override
     public void onBindViewHolder(@NonNull LichKhamBenhNhanViewHolder holder, int position) {
-        //listPhongKham = onClickListener.layDanhSachPhongKham();
         PhongKham phongKham = listPhongKham.get(position);
         LichKham lichKham = lichKhamList.get(position);
         if(lichKham == null || lichKham.getTrangThai() >= LichKham.KhamXong) return;

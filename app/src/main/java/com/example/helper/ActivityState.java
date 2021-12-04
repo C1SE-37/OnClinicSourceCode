@@ -1,4 +1,4 @@
-package com.example.sqlhelper;
+package com.example.helper;
 
 public class ActivityState {
     public static final int ACTIVITY_TRANGCHU = 0;

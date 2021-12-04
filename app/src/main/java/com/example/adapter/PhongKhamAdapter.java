@@ -1,40 +1,31 @@
 package com.example.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.local_data.DataLocalManager;
 import com.example.model.DanhGia;
 import com.example.model.PhongKham;
-import com.example.onclinic.CapNhatSuatKham;
-import com.example.onclinic.DatPhong;
-import com.example.onclinic.DatPhong2;
 import com.example.onclinic.R;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PhongKhamAdapter extends RecyclerView.Adapter<PhongKhamAdapter.PhongKhamViewHolder>{
@@ -73,7 +64,30 @@ public class PhongKhamAdapter extends RecyclerView.Adapter<PhongKhamAdapter.Phon
         }
         holder.txtPhongKham.setText("Phòng khám "+phongKham.getTenPhongKham());
         holder.txtChuyenKhoa.setText("Chuyên khoa "+phongKham.getChuyenKhoa());
-        holder.ratingBar.setRating(phongKham.getTbDanhGia());
+
+        DatabaseReference refTBDanhGia = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference()
+                .child(NoteFireBase.PHONGKHAM).child(phongKham.getIdPhongKham()).child(NoteFireBase.DANHGIA);
+        refTBDanhGia.addValueEventListener(new ValueEventListener() {
+            float tongDanhGia = 0;
+            int listSize = 0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren())
+                {
+                    DanhGia danhGia = data.getValue(DanhGia.class);
+                    tongDanhGia +=  danhGia.getRating();
+                    listSize++;
+                }
+                if(listSize!=0) holder.ratingBar.setRating(tongDanhGia / listSize);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         holder.layoutPhongKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +106,6 @@ public class PhongKhamAdapter extends RecyclerView.Adapter<PhongKhamAdapter.Phon
             holder.txtChuyenKhoa.setTextColor(Color.BLACK);
             holder.txtPhongKham.setTextColor(Color.BLACK);
         }
-
     }
 
     @Override

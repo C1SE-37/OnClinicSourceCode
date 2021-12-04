@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,9 +27,8 @@ import com.example.local_data.DataLocalManager;
 import com.example.model.DanhGia;
 import com.example.model.LichKham;
 import com.example.model.PhongKham;
-import com.example.onclinic.taikhoan.DangNhap;
-import com.example.sqlhelper.NgayGio;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NgayGio;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,9 +39,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 public class QuanLyPhongKham extends AppCompatActivity {
 
@@ -67,8 +63,8 @@ public class QuanLyPhongKham extends AppCompatActivity {
         setContentView(R.layout.activity_quan_ly_phong_kham);
         idNguoiDung = DataLocalManager.getIDNguoiDung();
         idPhongKham = DataLocalManager.getIDPhongKham();
-        docDuLieuFireBase();
         addControls();
+        docDuLieuFireBase();
         addEvents();
     }
 
@@ -101,21 +97,19 @@ public class QuanLyPhongKham extends AppCompatActivity {
             }
         });
 
-
-        List<DanhGia> danhGiaList = new ArrayList<>();
-        DatabaseReference refDanhGia = myRef.child(idPhongKham).child(NoteFireBase.DANHGIA);
-        refDanhGia.addValueEventListener(new ValueEventListener() {
+        DatabaseReference refTBDanhGia = myRef.child(idPhongKham).child(NoteFireBase.DANHGIA);
+        refTBDanhGia.addValueEventListener(new ValueEventListener() {
             float tongDanhGia = 0;
+            int listSize = 0;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                danhGiaList.clear();
                 for(DataSnapshot data: snapshot.getChildren())
                 {
                     DanhGia danhGia = data.getValue(DanhGia.class);
                     tongDanhGia +=  danhGia.getRating();
-                    danhGiaList.add(danhGia);
+                    listSize++;
                 }
-                ratingBar.setRating(tongDanhGia/danhGiaList.size());
+                if(listSize!=0) ratingBar.setRating(tongDanhGia/listSize);
             }
 
             @Override
@@ -123,6 +117,7 @@ public class QuanLyPhongKham extends AppCompatActivity {
 
             }
         });
+
         DatabaseReference ref = myRef.child(idPhongKham).child(NoteFireBase.LICHKHAM);
         //thêm ngày giờ trên firebase vào danh sách để kiểm tra
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -219,8 +214,12 @@ public class QuanLyPhongKham extends AppCompatActivity {
                 LichKham lichKham = new LichKham(ngay, gio);
                 lichKham.setIdLichKham(keyLichKham);
                 lichKham.setTrangThai(LichKham.ChuaDatLich);
-                myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(keyLichKham).setValue(lichKham);
-                Toast.makeText(QuanLyPhongKham.this, "Tạo 1 lịch khám thành công", Toast.LENGTH_SHORT).show();
+                myRef.child(NoteFireBase.PHONGKHAM).child(idPhongKham).child(NoteFireBase.LICHKHAM).child(keyLichKham).setValue(lichKham, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        Toast.makeText(QuanLyPhongKham.this, "Tạo 1 lịch khám thành công", Toast.LENGTH_SHORT).show();
+                    }
+                });
             } catch (Exception ex) {
                 Toast.makeText(QuanLyPhongKham.this, "Lỗi tạo lịch khám", Toast.LENGTH_LONG).show();
             }

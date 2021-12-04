@@ -23,7 +23,6 @@ public class GioKhamAdapter extends ArrayAdapter<Date> {
     Activity activity;
     int resource;
     List<Date> objects;
-    private int lastSelected = -1;
     private static SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
     public GioKhamAdapter(@NonNull Activity activity, int resource, @NonNull ArrayList<Date> objects) {

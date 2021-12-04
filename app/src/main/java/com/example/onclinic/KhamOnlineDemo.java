@@ -14,7 +14,7 @@ import com.example.model.LichKham;
 import com.example.model.LichSu;
 import com.example.model.NguoiDung;
 import com.example.model.PhongKham;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

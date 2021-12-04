@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F7FB"
     tools:context=".TrangChuBenhNhan">
 
     <LinearLayout
@@ -24,136 +25,333 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#A1C4FD"
-                app:titleTextColor="#FFF"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:title="Trang chủ"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:titleTextColor="#FFF" />
         </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/ibtnDatPhong"
-        android:layout_height="0dp"
-        android:layout_width="0dp"
-        android:background="@drawable/roundedbutton"
-        android:layout_margin="20dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintTop_toBottomOf="@id/LinearLayoutToolBar"
-        app:srcCompat="@drawable/dat_phong"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/txtbooking"
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Đặt phòng"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnDatPhong"
-        tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/ibtnDoNhipTimBN"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="20dp"
-        app:layout_constraintDimensionRatio="1:1"
-        android:background="@drawable/roundedbutton"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/txtbooking"
-        app:srcCompat="@drawable/do_nhip_tim"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Đo Nhịp Tim"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnDoNhipTimBN"
-        tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/ibtnLienHeBN"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/roundedbutton"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@drawable/img_contact"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Liên Hệ Chúng Tôi"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/guidelineGiua1"
-        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnLienHeBN"
-        tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/ibtnKhamOnlineBN"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/roundedbutton"
-        app:srcCompat="@drawable/kham_onl"
-        app:layout_constraintDimensionRatio="1:1"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintTop_toBottomOf="@id/LinearLayoutToolBar"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayoutToolBar">
 
-    <TextView
-        android:id="@+id/tv_khamonline"
+        <LinearLayout
+            android:id="@+id/btnDatPhongBN"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_background_trangchu"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:background="@drawable/blue_background_trangchu">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/dat_phong" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/blue2_background_trangchu">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đặt phòng"
+                    android:textColor="#78ABFB"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnKhamOnlineBN"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_background_trangchu"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:background="@drawable/blue_background_trangchu">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/kham_onl" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/blue2_background_trangchu">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Khám online"
+                    android:textColor="#78ABFB"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Khám Online"
-        android:gravity="center"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnKhamOnlineBN"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayout1">
 
-    <ImageButton
-        android:id="@+id/ibtnLichSuKhamBN"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/roundedbutton"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_khamonline"
-        app:srcCompat="@drawable/lich_su_kham"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <LinearLayout
+            android:id="@+id/btnDoNhipTimBN"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_background_trangchu"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView4"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:background="@drawable/blue_background_trangchu">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/do_nhip_tim" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/blue2_background_trangchu">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đo nhịp tim"
+                    android:textColor="#78ABFB"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnLichSuKhamBN"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_background_trangchu"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:background="@drawable/blue_background_trangchu">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/lich_su_kham" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/blue2_background_trangchu">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lịch sử khám"
+                    android:textColor="#78ABFB"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Lịch Sử Khám"
-        android:textStyle="bold"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@id/guidelinePhai"
-        app:layout_constraintStart_toStartOf="@id/guidelineGiua2"
-        app:layout_constraintTop_toBottomOf="@+id/ibtnLichSuKhamBN"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="@id/guidelineTrai"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayout2">
+
+        <LinearLayout
+            android:id="@+id/btnLienHeBN"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_background_trangchu"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:background="@drawable/blue_background_trangchu">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_contact" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/blue2_background_trangchu">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Liên hệ"
+                    android:gravity="center"
+                    android:textColor="#78ABFB"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_background_trangchu"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:background="@drawable/blue_background_trangchu">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/lich_su_kham" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/blue2_background_trangchu">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Danh sách phòng khám"
+                    android:textColor="#78ABFB"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTrai"
@@ -168,19 +366,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineGiua1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.42" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineGiua2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.58" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

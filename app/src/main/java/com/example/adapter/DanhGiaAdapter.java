@@ -1,12 +1,9 @@
 package com.example.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.util.Base64;
-import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +18,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.model.DanhGia;
-import com.example.model.LichKham;
 import com.example.model.NguoiDung;
-import com.example.onclinic.CapNhatSuatKham;
-import com.example.onclinic.TrangCaNhanView;
-import com.example.onclinic.VietDanhGia;
 import com.example.onclinic.R;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,13 +32,11 @@ import java.util.List;
 public class DanhGiaAdapter extends RecyclerView.Adapter<DanhGiaAdapter.DanhGiaViewHolder> {
 
     private List<DanhGia> danhGiaList;
-    DanhGia danhGia;
-    Context context1;
+    Context context;
 
-    public DanhGiaAdapter(List<DanhGia> danhGiaList, Context context1 ) {
-
+    public DanhGiaAdapter(List<DanhGia> danhGiaList, Context context) {
         this.danhGiaList = danhGiaList;
-        this.context1 = context1;
+        this.context = context;
     }
 
     @NonNull
@@ -79,7 +70,7 @@ public class DanhGiaAdapter extends RecyclerView.Adapter<DanhGiaAdapter.DanhGiaV
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(context1, "Lỗi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Lỗi", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -87,9 +78,7 @@ public class DanhGiaAdapter extends RecyclerView.Adapter<DanhGiaAdapter.DanhGiaV
     @Override
     public int getItemCount() {
         if (danhGiaList != null)
-        {
             return danhGiaList.size();
-        }
         return 0;
     }
 

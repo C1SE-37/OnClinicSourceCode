@@ -5,19 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adapter.DanhGiaAdapter;
 import com.example.local_data.DataLocalManager;
 import com.example.model.DanhGia;
-import com.example.model.LichKham;
 import com.example.model.PhongKham;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +35,7 @@ public class ViewDanhGiaBS extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_phan_hoi_bs);
+        setContentView(R.layout.activity_view_danh_gia_bs);
         phongKham = DataLocalManager.getPhongKham();
         getListDanhGiaFromRealtimeDatabase();
         anhXa();

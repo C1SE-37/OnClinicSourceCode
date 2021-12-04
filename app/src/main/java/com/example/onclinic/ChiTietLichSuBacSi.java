@@ -13,7 +13,7 @@ import com.example.adapter.DonThuocAdapter;
 import com.example.model.DonThuoc;
 import com.example.model.LichSu;
 import com.example.model.NguoiDung;
-import com.example.sqlhelper.NoteFireBase;
+import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
