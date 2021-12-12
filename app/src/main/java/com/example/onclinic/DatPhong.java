@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.adapter.PhongKhamAdapter;
 import com.example.local_data.DataLocalManager;
+import com.example.model.DanhGia;
 import com.example.model.PhongKham;
 import com.example.helper.NoteFireBase;
 import com.google.firebase.database.DataSnapshot;
@@ -37,11 +38,6 @@ public class DatPhong extends AppCompatActivity {
         setContentView(R.layout.activity_dat_phong);
         addControls();
         layDanhSachPhongKhamTuFireBase();
-        addEvents();
-    }
-
-    private void addEvents() {
-
     }
 
     private void xyLyDongY(PhongKham phongKham) {
@@ -101,4 +97,5 @@ public class DatPhong extends AppCompatActivity {
 
         btnDongY = findViewById(R.id.btnDongY);
     }
+
 }

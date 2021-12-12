@@ -16,8 +16,6 @@ public class TrangChuBacSi extends MyBaseActivity {
 
     LinearLayout btnQuanly,btnLichKham,btnDoNhipTim,btnLienHe,btnLichSuKham,btnDonThuoc;
 
-    String idNguoiDung;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +23,6 @@ public class TrangChuBacSi extends MyBaseActivity {
         View view = inflater.inflate(R.layout.activity_trang_chu_bac_si,null,false);
         mDrawerLayout.addView(view,0);
         //setContentView(R.layout.activity_trang_chu_bac_si);
-        idNguoiDung = DataLocalManager.getIDNguoiDung();
         addControls();
         addEvents();
     }
@@ -78,10 +75,16 @@ public class TrangChuBacSi extends MyBaseActivity {
                         Intent intent = new Intent(TrangChuBacSi.this,LoiChao.class);
                         startActivity(intent);
                         finishAffinity();
+                        killActivity();
                     }
                 })
                 .setNegativeButton("Hủy", null)
                 .show();
+    }
+
+    private void killActivity() {
+        this.finish();
+        return;
     }
 
 

@@ -98,7 +98,12 @@ public class MyBaseActivity extends AppCompatActivity {
                 }
                 else if(id == R.id.nav_thongbao)
                 {
-
+                    if(currentActivity!=ActivityState.ACTIVITY_THONGBAO)
+                    {
+                        DataLocalManager.setActivityNumber(ActivityState.ACTIVITY_THONGBAO);
+                        Intent intent = new Intent(getApplicationContext(),ThongBaoActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 else if(id == R.id.nav_thongtincanhan)
                 {
@@ -188,8 +193,9 @@ public class MyBaseActivity extends AppCompatActivity {
                             .setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplicationContext(),LoiChao.class);
+                                    startActivity(intent);
                                     finishAffinity();
-                                    System.exit(0);
                                 }
                             })
                             .setNegativeButton("Hủy", null)

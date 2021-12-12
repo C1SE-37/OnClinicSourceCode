@@ -228,7 +228,7 @@ public class NhapDonThuoc extends AppCompatActivity {
         edtLieuDung = findViewById(R.id.edtLieuDung);
         edtDonGia = findViewById(R.id.edtDonGia);
         btnXoa = findViewById(R.id.btnXoaDonThuoc);
-        btnXoa.setVisibility(View.INVISIBLE);
+        btnXoa.setVisibility(View.GONE);
         btnThemThuoc = findViewById(R.id.btnThemThuoc);
         btnGuiDonThuoc = findViewById(R.id.btnGuiDonThuoc);
 

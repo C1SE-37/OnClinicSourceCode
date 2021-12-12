@@ -57,6 +57,7 @@ public class LoiChao extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentDN = new Intent(LoiChao.this, DangNhap.class );
                 startActivity(intentDN);
+                finish();
             }
         });
 

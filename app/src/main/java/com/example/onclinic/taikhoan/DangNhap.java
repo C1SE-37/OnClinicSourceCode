@@ -48,9 +48,7 @@ public class DangNhap extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     List<NguoiDung> listBenhNhan;
-    ArrayAdapter<NguoiDung> adapterBenhNhan;
     List<NguoiDung> listBacSi;
-    ArrayAdapter<NguoiDung> adapterBacSi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

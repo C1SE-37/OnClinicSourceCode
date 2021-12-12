@@ -11,11 +11,13 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.example.helper.NgayGio;
 import com.example.local_data.DataLocalManager;
 import com.example.model.DanhGia;
 import com.example.model.PhongKham;
 import com.example.helper.CheckData;
 import com.example.helper.NoteFireBase;
+import com.example.model.ThongBao;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,52 +50,22 @@ public class VietDanhGia extends AppCompatActivity {
         });
     }
 
-    private void layDanhSachDanhGiaTuFireBase(IVietDanhGia iVietDanhGia) {
-        DatabaseReference refTBDanhGia = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference()
-                .child(NoteFireBase.PHONGKHAM).child(phongKham.getIdPhongKham()).child(NoteFireBase.DANHGIA);
-        refTBDanhGia.addValueEventListener(new ValueEventListener() {
-            float tongDanhGia = 0;
-            int listSize = 0;
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot data: snapshot.getChildren())
-                {
-                    DanhGia danhGia = data.getValue(DanhGia.class);
-                    if(DG!=null)
-                    {
-                        if(!DG.getIdNguoiDungDG().equals(danhGia.getIdNguoiDungDG()))
-                        {
-                            tongDanhGia +=  danhGia.getRating();
-                            listSize++;
-                        }
-                    }
-                    else{
-                        tongDanhGia +=  danhGia.getRating();
-                        listSize++;
-                    }
-                }
-                iVietDanhGia.layTongDanhGiaVaKichThuocDanhSach(tongDanhGia, listSize);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private interface IVietDanhGia{
-        void layTongDanhGiaVaKichThuocDanhSach(float danhGia, int kichThuoc);
-    }
-
     private void xulyHoanThanhDanhGia(){
         if(checkInput()) {
             DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
             Float rating = rating_bar.getRating();
             String nhanxet = edtBinhLuan.getText().toString().trim();
-            //phongKham.setTbDanhGia((Float) (rating + tongDanhGia) / (kichThuocDanhSach + 1));
-            //myRef.child(NoteFireBase.PHONGKHAM).child(phongKham.getIdPhongKham()).setValue(phongKham);
             DanhGia danhGia = new DanhGia(idDguoiDung, rating, nhanxet);
+
+            DatabaseReference refThongBaoBS = myRef.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI).child(phongKham.getIdBacSi()).child(NoteFireBase.THONGBAO);
+            String idThongBao = refThongBaoBS.push().getKey();
+            String ngayThongBao = NgayGio.GetDateCurrentString();
+            String gioThongBao = NgayGio.GetTimeCurrentString();
+            ThongBao thongBao = new ThongBao(idThongBao,"Phòng khám có 1 đánh giá mới",
+                    "Nhận xét về phòng khám: "+nhanxet,
+                    ngayThongBao,gioThongBao, ThongBao.ThongBaoDanhGia);
+            refThongBaoBS.child(idThongBao).setValue(thongBao);
+
             myRef.child(NoteFireBase.PHONGKHAM).child(phongKham.getIdPhongKham()).child(NoteFireBase.DANHGIA)
                     .child(idDguoiDung).setValue(danhGia, new DatabaseReference.CompletionListener() {
                 @Override

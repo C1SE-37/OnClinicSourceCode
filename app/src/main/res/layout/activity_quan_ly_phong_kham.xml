@@ -153,6 +153,7 @@
 
             <EditText
                 android:id="@+id/edtChonNgay"
+                android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -216,12 +217,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Giờ khám "
+                    android:text="Giờ khám  "
                     android:textColor="#000"
                     android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/edtChonGio"
+                    android:focusable="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"

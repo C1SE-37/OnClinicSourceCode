@@ -37,6 +37,7 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
 
     public interface ILichKhamBacSiAdapter{
         void clickBatDau(LichKham lichKham, NguoiDung nguoiDung);
+        void clickHoanThanh(LichKham lichKham);
     }
 
     public LichKhamBacSiAdapter(List<LichKham> lichKhamList, Context context, ILichKhamBacSiAdapter onClickListener) {
@@ -60,7 +61,7 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
         holder.txtHinhThuc.setText(lichKham.getHinhThucKham());
         if(lichKham.getIdBenhNhan() == null) {
             lichKham.setTrangThai(LichKham.ChuaDatLich);
-            holder.btnBatDau.setVisibility(View.INVISIBLE);
+            holder.btnBatDau.setVisibility(View.GONE);
             holder.txtTrangThai.setText("Chưa được đặt lịch");
             holder.layoutLichKham.setBackgroundColor(Color.WHITE);
         }
@@ -87,7 +88,12 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
                 }
             });
             lichKham.setTrangThai(LichKham.DatLich);
-            holder.btnBatDau.setVisibility(View.VISIBLE);
+            if(lichKham.getHinhThucKham().equals(LichKham.TrucTiep)) {
+                holder.btnBatDau.setVisibility(View.GONE);
+            }
+            else {
+                holder.btnBatDau.setVisibility(View.VISIBLE);
+            }
             holder.txtTrangThai.setText("Đã được đặt lịch");
             holder.layoutLichKham.setBackgroundResource(R.drawable.item_lich_kham_da_dat_lich);
         }
@@ -95,6 +101,26 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
             @Override
             public void onClick(View v) {
                 onClickListener.clickBatDau(lichKham, benhNhan);
+                holder.btnBatDau.setVisibility(View.GONE);
+                holder.btnChuaHoanThanh.setVisibility(View.VISIBLE);
+                holder.btnHoanThanh.setVisibility(View.VISIBLE);
+            }
+        });
+        holder.btnChuaHoanThanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.btnBatDau.setVisibility(View.VISIBLE);
+                holder.btnChuaHoanThanh.setVisibility(View.GONE);
+                holder.btnHoanThanh.setVisibility(View.GONE);
+            }
+        });
+        holder.btnHoanThanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.clickHoanThanh(lichKham);
+                holder.btnBatDau.setVisibility(View.VISIBLE);
+                holder.btnChuaHoanThanh.setVisibility(View.GONE);
+                holder.btnHoanThanh.setVisibility(View.GONE);
             }
         });
     }
@@ -115,7 +141,7 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
         ImageView imgAnhDaiDien;
         TextView txtTenBN,txtThoiGian,txtHinhThuc,txtTrangThai;
         ConstraintLayout layoutLichKham;
-        Button btnBatDau;
+        Button btnBatDau, btnChuaHoanThanh, btnHoanThanh;
 
         public LichKhamBacSiViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -126,6 +152,8 @@ public class LichKhamBacSiAdapter extends RecyclerView.Adapter<LichKhamBacSiAdap
             txtTrangThai = itemView.findViewById(R.id.txtTrangThaiItemLKBS);
             layoutLichKham = itemView.findViewById(R.id.layout_lichkhambs);
             btnBatDau = itemView.findViewById(R.id.btnBatDau);
+            btnChuaHoanThanh = itemView.findViewById(R.id.btnChuaHoanThanh);
+            btnHoanThanh = itemView.findViewById(R.id.btnHoanThanh);
         }
     }
 }

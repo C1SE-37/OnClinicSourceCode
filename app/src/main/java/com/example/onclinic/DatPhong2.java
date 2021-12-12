@@ -43,6 +43,7 @@ import com.example.model.LichKham;
 import com.example.model.PhongKham;
 import com.example.helper.NgayGio;
 import com.example.helper.NoteFireBase;
+import com.example.model.ThongBao;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -309,17 +310,32 @@ public class DatPhong2 extends AppCompatActivity {
     }
 
     private void xuLyDatPhong() {
+        guiBroadcast("Bạn có lịch khám mới ","Nhắc nhở bạn có lịch khám vào lúc "+lichKham.getGioKham()+ " ngày "+lichKham.getNgayKham());
+
         if(checkInput()) {
-            DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference().child(NoteFireBase.PHONGKHAM);
+            DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
             //gán hình thức vào lịch
             String hinhThuc = "";
-            if (rdoOffline.isChecked()) hinhThuc += "Trực tiếp";
-            else hinhThuc = "Online";
+            if (rdoOffline.isChecked()) hinhThuc = LichKham.TrucTiep;
+            else hinhThuc = LichKham.Online;
             lichKham.setHinhThucKham(hinhThuc);
             //gán id bệnh nhân vào lịch
             lichKham.setIdBenhNhan(idNguoiDung);
             lichKham.setTrangThai(LichKham.DatLich);
-            myRef.child(phongKham.getIdPhongKham()).child(NoteFireBase.LICHKHAM).child(idLichKham).setValue(lichKham, new DatabaseReference.CompletionListener() {
+
+            //lưu thông báo cho bác sĩ và bệnh nhân
+            DatabaseReference refThongBaoBS = myRef.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BACSI).child(phongKham.getIdBacSi()).child(NoteFireBase.THONGBAO);
+            DatabaseReference refThongBaoBN = myRef.child(NoteFireBase.NGUOIDUNG).child(NoteFireBase.BENHNHAN).child(idNguoiDung).child(NoteFireBase.THONGBAO);
+            String idThongBao = refThongBaoBS.push().getKey();
+            String ngayThongBao = NgayGio.GetDateCurrentString();
+            String gioThongBao = NgayGio.GetTimeCurrentString();
+            ThongBao thongBao = new ThongBao(idThongBao,"Bạn có lịch khám mới",
+                    "Nhắc nhở bạn có lịch khám vào lúc "+lichKham.getGioKham()+ " ngày "+lichKham.getNgayKham(),
+                    ngayThongBao,gioThongBao, ThongBao.ThongBaoLichKham);
+            refThongBaoBS.child(idThongBao).setValue(thongBao);
+            refThongBaoBN.child(idThongBao).setValue(thongBao);
+
+            myRef.child(NoteFireBase.PHONGKHAM).child(phongKham.getIdPhongKham()).child(NoteFireBase.LICHKHAM).child(idLichKham).setValue(lichKham, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                     Toast.makeText(DatPhong2.this,"Đặt lịch thành công",Toast.LENGTH_SHORT).show();
@@ -352,6 +368,7 @@ public class DatPhong2 extends AppCompatActivity {
                 .setContentText(noiDung)
                 .setLargeIcon(bitmap)
                 .setSound(uri)
+                .setAutoCancel(true)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(noiDung))
                 .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.small_icon_notify)

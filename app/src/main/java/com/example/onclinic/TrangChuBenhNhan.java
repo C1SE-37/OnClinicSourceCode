@@ -1,5 +1,7 @@
 package com.example.onclinic;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 
@@ -20,30 +22,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.example.helper.NgayGio;
+import com.example.helper.NoteFireBase;
 import com.example.local_data.DataLocalManager;
 import com.example.helper.ActivityState;
 import com.example.local_data.MyApplication;
+import com.example.model.LichKham;
+import com.example.model.LichSu;
+import com.example.model.Room;
+import com.example.model.ThongBao;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class TrangChuBenhNhan extends MyBaseActivity{
 
-    LinearLayout btnDatPhong, btnDoNhipTim, btnLichSuKham, btnKhamOnline, btnLienHe;
+    LinearLayout btnDatPhong, btnDoNhipTim, btnLichSuKham, btnKhamOnline, btnLienHe, btnDSPhongKham;
 
     private static final int NOTIFICATION_ID2 = 2;
-    private static final String MY_ACTION_2 = "MY_ACTION_2";
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(MY_ACTION_2.equals(intent.getAction())){
-                Bundle bundle = intent.getExtras();
-                if(bundle == null) return;
-                String tieuDe =  bundle.getString("TIEU_DE_THONG_BAO_2");
-                String noiDung = bundle.getString("NOI_DUNG_THONG_BAO_2");
-                guiThongBao(tieuDe, noiDung);
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +60,46 @@ public class TrangChuBenhNhan extends MyBaseActivity{
         mDrawerLayout.addView(view,0);
         //setContentView(R.layout.activity_trang_chu_benh_nhan);
         AnhXa();
+        layThongBao();
         XyLy();
+    }
+
+    private void layThongBao() {
+        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
+        myRef.child("Room").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Room room = snapshot.getValue(Room.class);
+                if(idNguoiDung.equals(room.getLichKham().getIdBenhNhan()))
+                {
+                    guiThongBao(room.getThongBao().getTieuDe(),room.getThongBao().getNoiDung());
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Room room = snapshot.getValue(Room.class);
+                if(idNguoiDung.equals(room.getLichKham().getIdBenhNhan()))
+                {
+                    guiThongBao(room.getThongBao().getTieuDe(),room.getThongBao().getNoiDung());
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void XyLy() {
@@ -89,6 +135,14 @@ public class TrangChuBenhNhan extends MyBaseActivity{
                 startActivity(intent);
             }
         });
+
+        btnDSPhongKham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TrangChuBenhNhan.this,DanhSachPhongKham.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void guiThongBao(String tieuDe, String noiDung)
@@ -108,6 +162,7 @@ public class TrangChuBenhNhan extends MyBaseActivity{
                 .setLargeIcon(bitmap)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setSound(sound)
+                .setAutoCancel(true)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(noiDung))
                 .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.small_icon_notify)
@@ -120,19 +175,6 @@ public class TrangChuBenhNhan extends MyBaseActivity{
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        IntentFilter intentFilter = new IntentFilter(MY_ACTION_2);
-        registerReceiver(broadcastReceiver, intentFilter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
-    }
-
-    @Override
     public void onBackPressed() {
         AlertDialog alertDialog = new AlertDialog.Builder(TrangChuBenhNhan.this)
                 .setTitle("Thông báo").setMessage("Bạn muốn đăng xuất?")
@@ -142,10 +184,16 @@ public class TrangChuBenhNhan extends MyBaseActivity{
                         Intent intent = new Intent(TrangChuBenhNhan.this,LoiChao.class);
                         startActivity(intent);
                         finishAffinity();
+                        killActivity();
                     }
                 })
                 .setNegativeButton("Hủy", null)
                 .show();
+    }
+
+    private void killActivity() {
+        finish();
+        return;
     }
 
     private void AnhXa() {
@@ -154,5 +202,6 @@ public class TrangChuBenhNhan extends MyBaseActivity{
         btnLichSuKham = findViewById(R.id.btnLichSuKhamBN);
         btnKhamOnline = findViewById(R.id.btnKhamOnlineBN);
         btnLienHe = findViewById(R.id.btnLienHeBN);
+        btnDSPhongKham = findViewById(R.id.btnDanhSachPhongKhamBN);
     }
 }

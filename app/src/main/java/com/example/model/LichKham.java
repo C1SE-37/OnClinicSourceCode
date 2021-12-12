@@ -23,6 +23,9 @@ public class LichKham implements Serializable {
     public final static int DatLich = 1;
     public final static int KhamXong = 2;
     public final static int NhapDonThuoc = 3;
+    public final static String Online = "Online";
+    public final static String TrucTiep = "Trực tiếp";
+
     private static SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
     private static SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 

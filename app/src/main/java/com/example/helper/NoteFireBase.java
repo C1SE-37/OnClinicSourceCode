@@ -9,4 +9,5 @@ public class NoteFireBase {
     public static final String LICHKHAM = "LICHKHAM";
     public static final String DANHGIA = "DANHGIA";
     public static final String LICHSU = "LICHSU";
+    public static final String THONGBAO = "THONGBAO";
 }

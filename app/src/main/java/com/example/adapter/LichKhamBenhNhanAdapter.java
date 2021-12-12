@@ -60,6 +60,13 @@ public class LichKhamBenhNhanAdapter extends RecyclerView.Adapter<LichKhamBenhNh
             holder.imgPhongKham.setImageBitmap(decodedByte);
         }
 
+        if(lichKham.getHinhThucKham().equals(LichKham.TrucTiep)) {
+            holder.btnThamGia.setVisibility(View.GONE);
+        }
+        else {
+            holder.btnThamGia.setVisibility(View.VISIBLE);
+        }
+
         holder.btnThamGia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

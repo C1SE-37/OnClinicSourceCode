@@ -3,10 +3,13 @@ package com.example.local_data;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 
 import com.example.onclinic.R;
 
@@ -24,9 +27,11 @@ public class MyApplication extends Application {
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
+        //Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);//hieu ung rung
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Uri sound = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.sound_notification_custom);
+            //vibrator.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
             AudioAttributes attributes = new AudioAttributes.Builder().
                     setUsage(AudioAttributes.USAGE_NOTIFICATION).build();
 
@@ -37,6 +42,7 @@ public class MyApplication extends Application {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             channel.setSound(uri, attributes);
+            channel.setVibrationPattern(new long[]{500,100,100,100});
 
             //channel 2
             CharSequence name_2 = getString(R.string.channel_name_2);
@@ -45,6 +51,7 @@ public class MyApplication extends Application {
             NotificationChannel channel_2 = new NotificationChannel(CHANNEL_ID_2, name_2, importance_2);
             channel_2.setDescription(description_2);
             channel_2.setSound(sound, attributes);
+            channel_2.setVibrationPattern(new long[]{1000,2000,1000,2000,1000,2000});
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
@@ -53,5 +60,6 @@ public class MyApplication extends Application {
                 notificationManager.createNotificationChannel(channel_2);
             }
         }
+        //else vibrator.vibrate(1000);
     }
 }

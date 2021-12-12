@@ -38,7 +38,7 @@
         android:id="@+id/linearLayout8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline22"
@@ -46,9 +46,8 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -160,6 +159,31 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btnChuaHoanThanh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:backgroundTint="#51B6E5ED"
+                android:text="Chưa khám" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btnHoanThanh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:backgroundTint="#51B6E5ED"
+                android:text="Đã khám" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -304,6 +304,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnDanhSachPhongKhamBN"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="32dp"
@@ -327,7 +328,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lich_su_kham" />
+                    app:srcCompat="@drawable/phongkham" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

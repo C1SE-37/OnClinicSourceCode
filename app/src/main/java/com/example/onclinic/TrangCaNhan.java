@@ -157,7 +157,7 @@ public class TrangCaNhan extends AppCompatActivity {
                                         dialog.dismiss();
                                         FirebaseAuth.getInstance().signOut();
                                         startActivity(new Intent(TrangCaNhan.this, LoiChao.class));
-                                        finish();
+                                        finishAffinity();
                                     }
                                 });
                             }
@@ -171,7 +171,7 @@ public class TrangCaNhan extends AppCompatActivity {
                                         dialog.dismiss();
                                         FirebaseAuth.getInstance().signOut();
                                         startActivity(new Intent(TrangCaNhan.this, LoiChao.class));
-                                        finish();
+                                        finishAffinity();
                                     }
                                 });
                             }

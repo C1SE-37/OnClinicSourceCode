@@ -30,6 +30,8 @@ import com.example.local_data.MyApplication;
 import com.example.model.LichKham;
 import com.example.model.PhongKham;
 import com.example.helper.NoteFireBase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,23 +52,6 @@ import java.util.Date;
 import java.util.List;
 
 public class LichKhamBenhNhan extends AppCompatActivity {
-
-    private static final int NOTIFICATION_ID2 = 2;
-    private static final String MY_ACTION_2 = "MY_ACTION_2";
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(MY_ACTION_2.equals(intent.getAction())){
-                Toast.makeText(LichKhamBenhNhan.this,"Intent "+intent.getAction(),Toast.LENGTH_LONG).show();
-                Bundle bundle = intent.getExtras();
-                if(bundle == null) return;
-                String tieuDe =  bundle.getString("TIEU_DE_THONG_BAO_2");
-                String noiDung = bundle.getString("NOI_DUNG_THONG_BAO_2");
-                guiThongBao(tieuDe, noiDung);
-            }
-        }
-    };
 
     private RecyclerView rcvLichKham;
     private LichKhamBenhNhanAdapter lichKhamBenhNhanAdapter;
@@ -97,11 +82,17 @@ public class LichKhamBenhNhan extends AppCompatActivity {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             LichKham lich = snapshot.getValue(LichKham.class);
-                            if(idNguoiDung.equals(lich.getIdBenhNhan()) && lich.getTrangThai() == LichKham.DatLich)
-                            {
-                                listLichKham.add(lich);
-                                listPhongKhamCoLichKham.add(phong);
-                                Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
+                            try {
+                                Date ngayFirebase = NgayGio.ConvertStringToDate(lich.getNgayKham());
+                                Date ngayHienTai = NgayGio.GetDateCurrent();
+                                if(idNguoiDung.equals(lich.getIdBenhNhan()) && lich.getTrangThai() == LichKham.DatLich && ngayFirebase.getTime()>=ngayHienTai.getTime())
+                                {
+                                    listLichKham.add(lich);
+                                    listPhongKhamCoLichKham.add(phong);
+                                    Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
+                                }
+                                } catch (ParseException e) {
+                                e.printStackTrace();
                             }
                             lichKhamBenhNhanAdapter.notifyDataSetChanged();
                         }
@@ -112,9 +103,15 @@ public class LichKhamBenhNhan extends AppCompatActivity {
                             if(lich == null || listLichKham == null || listLichKham.isEmpty()) return;
                             for(int i = 0;i<listLichKham.size();i++)
                             {
-                                if((lich.getIdLichKham()).equals(listLichKham.get(i).getIdLichKham())) {
-                                    listLichKham.set(i, lich);
-                                    Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
+                                try {
+                                    Date ngayFirebase = NgayGio.ConvertStringToDate(lich.getNgayKham());
+                                    Date ngayHienTai = NgayGio.GetDateCurrent();
+                                    if((lich.getIdLichKham()).equals(listLichKham.get(i).getIdLichKham()) && ngayFirebase.getTime()>=ngayHienTai.getTime()) {
+                                        listLichKham.set(i, lich);
+                                        Collections.sort(listLichKham, LichKham.LichKhamDateAsendingComparator);//sắp xếp ngày tăng dần
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
                                 }
                             }
                             lichKhamBenhNhanAdapter.notifyDataSetChanged();
@@ -143,7 +140,6 @@ public class LichKhamBenhNhan extends AppCompatActivity {
     private void docDanhSachPhongKhamTuFirebase(ILichKhamBenhNhan iLichKhamBenhNhan)
     {
         DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference(NoteFireBase.PHONGKHAM);
-
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -182,55 +178,22 @@ public class LichKhamBenhNhan extends AppCompatActivity {
         void layDanhSachPhongKham(List<PhongKham> list);
     }
 
-    private void guiThongBao(String tieuDe, String noiDung)
-    {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_app);
-        Uri sound = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.sound_notification_custom);
-
-        Intent resultIntent = new Intent(this, LichKhamBenhNhan.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addNextIntentWithParentStack(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(NOTIFICATION_ID2, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Notification notification = new NotificationCompat.Builder(this, MyApplication.CHANNEL_ID_2)
-                .setContentTitle(tieuDe)
-                .setContentText(noiDung)
-                .setLargeIcon(bitmap)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setSound(sound)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(noiDung))
-                .setContentIntent(resultPendingIntent)
-                .setSmallIcon(R.drawable.small_icon_notify)
-                .build();
-
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        if(notificationManager != null) {
-            notificationManager.notify(NOTIFICATION_ID2, notification);
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        IntentFilter intentFilter = new IntentFilter(MY_ACTION_2);
-        registerReceiver(broadcastReceiver, intentFilter);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
         if(lichKhamBenhNhanAdapter != null)
             lichKhamBenhNhanAdapter.release();
     }
 
     private void xuLyThamGia(LichKham lichKham, PhongKham phongKham) {
-        /*JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+        JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
                 .setRoom(lichKham.getIdLichKham().toString())
                 .setUserInfo(new JitsiMeetUserInfo())
                 .setWelcomePageEnabled(false).build();
-        JitsiMeetActivity.launch(LichKhamBenhNhan.this,options);*/
+        JitsiMeetActivity.launch(LichKhamBenhNhan.this,options);
+
+        DatabaseReference myRef = FirebaseDatabase.getInstance(NoteFireBase.firebaseSource).getReference();
+        myRef.child("Room").child(lichKham.getIdLichKham()).removeValue();
     }
 
     private void addControls() {
