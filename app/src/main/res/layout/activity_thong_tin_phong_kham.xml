@@ -165,17 +165,6 @@
             android:padding="3dp"
             />
 
-        <TextView
-            android:id="@+id/txtDoiTTPK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thay đổi thông tin phòng khám"
-            android:textColor="#A04D4D"
-            android:textSize="17sp"
-            android:textStyle="italic"
-            android:padding="6dp"
-            />
-
     </LinearLayout>
 
     <Button
