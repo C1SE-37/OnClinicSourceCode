@@ -1,1 +1,5 @@
-What need to set this system is 
+- What need to install to run this system is: Android Studio
+- This system only supports Android 
+- Internet connection required to collect data
+- This system has 2 roles of user, doctor and patient.
+- The default role when signing up is patient, patient can change their role into doctor if they want.
